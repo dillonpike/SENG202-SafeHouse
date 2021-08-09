@@ -10,5 +10,3 @@ generate_artifacts:
   artifacts:
     paths:
     - target/SafeHouse*.jar
-
-
