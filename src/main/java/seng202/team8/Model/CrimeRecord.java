@@ -18,6 +18,10 @@ public class CrimeRecord {
      */
     private int[] date = new int[3];
     /**
+     * The time that the crime took place.
+     */
+    private String timeOfCrime;
+    /**
      * The block - contains numbers and letters so is a string.
      */
     private String block;
@@ -96,6 +100,13 @@ public class CrimeRecord {
     public int[] getDate() {
         return date;
     }
+
+    /**
+     * Gets the time of the crime
+     * @return The time of the crime, in string form. E.G. '08:40:00 AM'
+     *
+     */
+    public String getTimeOfCrime() {return timeOfCrime; }
 
     /**
      * Gets the block.
@@ -235,6 +246,16 @@ public class CrimeRecord {
         this.date[0] = month;
         this.date[1] = day;
         this.date[2] = year;
+    }
+
+    /**
+     * Sets the time of the crime
+     * @param time The time that the crime took place.
+     *             Should be in a 12-hour format, followed by am or pm
+     *             E.G.: '08:40:00 AM'
+     */
+    public void setTimeOfCrime(String time) {
+        this.timeOfCrime = time;
     }
 
     /**
