@@ -7,6 +7,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * A class that contains methods to filter the crime data list based on the command given
+ */
 public class SearchCrimeData {
 
     private ArrayList<CrimeRecord> crimeRecordData;
