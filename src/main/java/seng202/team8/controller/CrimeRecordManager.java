@@ -1,4 +1,4 @@
-package Controller;
+package seng202.team8.controller;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import Model.CrimeRecord;
+import seng202.team8.model.CrimeRecord;
 
 /**
  * A class that contains the local copy of the crime records

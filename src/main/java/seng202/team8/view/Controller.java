@@ -1,4 +1,4 @@
-package application;
+package seng202.team8.view;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ public class Controller {
 	private double yOffset;
 	
 	public Controller() {
-		stage = Main.primaryStage;
+		stage = StartGUI.primaryStage;
 	}
 	
 	public void start(Stage s) {

@@ -1,4 +1,4 @@
-package Model;
+package seng202.team8.model;
 
 
 /**

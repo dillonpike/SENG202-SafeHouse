@@ -1,7 +1,8 @@
-package ControllerTests;
+package seng202.team8.controller;
+
 import java.io.FileNotFoundException;
 
-import Controller.CrimeRecordManager;
+import seng202.team8.controller.CrimeRecordManager;
 import junit.framework.TestCase;
 
 /**

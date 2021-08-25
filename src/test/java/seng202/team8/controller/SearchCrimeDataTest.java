@@ -1,7 +1,7 @@
-package ControllerTests;
+package seng202.team8.controller;
 
 import junit.framework.TestCase;
-import Controller.SearchCrimeData;
+import seng202.team8.controller.SearchCrimeData;
 
 /**
  * A test class that checks SearchCrimeData class methods, whether their input and output are

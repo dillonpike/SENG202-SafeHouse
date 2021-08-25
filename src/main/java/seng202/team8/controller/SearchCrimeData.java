@@ -1,11 +1,11 @@
-package Controller;
+package seng202.team8.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import Model.CrimeRecord;
+import seng202.team8.model.CrimeRecord;
 
 /**
  * A class that contains methods to filter the crime data list based on the command given

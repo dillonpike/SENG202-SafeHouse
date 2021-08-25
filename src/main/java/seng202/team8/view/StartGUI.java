@@ -1,4 +1,4 @@
-package application;
+package seng202.team8.view;
 	
 import javafx.application.Application;
 import javafx.fxml.*;
@@ -10,7 +10,7 @@ import javafx.scene.layout.BorderPane;
 import java.net.*;
 
 
-public class Main extends Application {
+public class StartGUI extends Application {
 	public static Stage primaryStage;
 	public static Controller control;
 	public static javafx.scene.layout.BorderPane root; 
