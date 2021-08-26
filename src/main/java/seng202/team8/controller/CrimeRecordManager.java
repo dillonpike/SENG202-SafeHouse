@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 import seng202.team8.model.CrimeRecord;
@@ -14,7 +15,15 @@ import seng202.team8.model.CrimeRecord;
  */
 public class CrimeRecordManager {
 
+    /**
+     * The crime records
+     */
     private ArrayList<CrimeRecord> localCopy = new ArrayList<>();
+    /**
+     * A hashset of the crime record case numbers
+     * Mainly for checking membership
+     */
+    private HashSet<String> containedRecords = new HashSet<>();
 
     /**
      * Gets the local copy of our crime records
@@ -29,75 +38,127 @@ public class CrimeRecordManager {
      * @param filename The name/filepath of the file to be imported
      * @throws FileNotFoundException If the filename cannot be found, this is thrown.
      * This should prompt the user to try again, so it will not be handled in this method
+     * @return Returns an ArrayList of all lines that contain errors/could not be imported
      */
-    public void importFile(String filename) throws FileNotFoundException {
+    public ArrayList<Integer> importFile(String filename) throws FileNotFoundException {
         BufferedReader csvReader = new BufferedReader(new FileReader(filename));
         String row;
+        ArrayList<Integer> linesWithErrors = new ArrayList<>();
+        int counter = 1;
         try {
             //Skip the first line since it's just header info
             csvReader.readLine();
             while ((row = csvReader.readLine()) != null) {
-                String[] data = row.split(",");
+                String[] data = row.split(",", -1);
                 //Each data array should be 17 entries long
                 CrimeRecord newCrime = new CrimeRecord();
                 /*
-                I'm going to manually add the entries
-                so that we can do tweaking for missing entries later
+                Try to add the essential stuff to the record
                 */
-                newCrime.setCaseNum(data[0]);
-                addDateAndTime(newCrime, data[1]);
-                newCrime.setBlock(data[2]);
-                newCrime.setIucr(data[3]);
-                newCrime.setPrimary(data[4]);
-                newCrime.setSecondary(data[5]);
-                newCrime.setLocDescription(data[6]);
-                newCrime.setWasArrest(yesOrNo(data[7]));
-                newCrime.setWasDomestic(yesOrNo(data[8]));
-                try {
-                    newCrime.setBeat(Integer.parseInt(data[9]));
-                    newCrime.setWard(Integer.parseInt(data[10]));
-                }
-                catch (NumberFormatException ex) {
-                    //We haven't done error handling yet, so do nothing!
-                }
-                newCrime.setFbiCD(data[11]);
-                try {
-                    newCrime.setXCoord(Integer.parseInt(data[12]));
-                    newCrime.setYCoord(Integer.parseInt(data[13]));
-                    newCrime.setLongitude(Float.parseFloat(data[14]));
-                    newCrime.setLatitude(Float.parseFloat(data[15]));
-                }
-                catch (NumberFormatException ex) {
-                    //We haven't done error handling yet, so do nothing!
-                } catch (ArrayIndexOutOfBoundsException ex) {
-                    //These values don't seem to exist!
-                    /*
-                    Why this happens is that if the location data is missing
-                    we get ',,,,,' which doesn't even get put into data
+                if (!(addEssentials(data, newCrime))) {
+                    /*If we couldn't, skip this iteration
+                    and add this line to the lines with errors
                      */
+                    linesWithErrors.add(counter);
+                    continue;
                 }
+                //Check if the crime is already in there.
+                if (containedRecords.contains(newCrime.getCaseNum())) {
+                    //The crime is already in here, so don't add it
+                    continue;
+                } else {
+                    containedRecords.add(newCrime.getCaseNum());
+                }
+                //Add the non-essential stuff
+                addSkipables(data, newCrime);
+
                 /*
                 And that's all the information for the row!
                 There was one final entry, data[16], the location
                 but, as we derive that from lat and lon
                 We don't need to access it
-
-                As an aside, in future if we want to handle invalid data
-                I think we will need to surround each entry with a try/catch block
-                for the ones we want to handle
                 - Olly
                  */
-
+                counter++;
                 localCopy.add(newCrime);
-
-
-
             }
             csvReader.close();
         }
         catch (IOException ex) {
             ex.printStackTrace();
         }
+        return linesWithErrors;
+    }
+
+    /**
+     * Helper function that adds the 'essentials' to a crime record entry
+     * If any one of these are missing or invalid, the record will not
+     * be imported
+     * @param data The split string array of the line of the entry
+     * @param newCrime The crime being modified
+     * @return Returns true if successful, false if not
+     */
+    private boolean addEssentials(String[] data, CrimeRecord newCrime) {
+        try {
+            newCrime.setCaseNum(data[0]);
+            newCrime.setIucr(data[3]);
+            newCrime.setPrimary(data[4]);
+            newCrime.setLongitude(Float.parseFloat(data[14]));
+            newCrime.setLatitude(Float.parseFloat(data[15]));
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    /**
+     * Adds the values to a crime record that can be missing
+     * and the record will still be added
+     * @param data The split string array of the line of the entry
+     * @param newCrime The crime being modified
+     */
+    private void addSkipables(String[] data, CrimeRecord newCrime) {
+        try {
+            addDateAndTime(newCrime, data[1]);
+        } catch (NumberFormatException ex) {
+            //Do nothing and leave the field(s) empty.
+        }
+        /*
+        These are formatted as/from strings, so
+        if they're some wacky value that's just what they'll be
+        Since we're not checking validity yet
+         */
+        newCrime.setBlock(data[2]);
+        newCrime.setSecondary(data[5]);
+        newCrime.setLocDescription(data[6]);
+        newCrime.setWasArrest(yesOrNo(data[7]));
+        newCrime.setWasDomestic(yesOrNo(data[8]));
+        try {
+            newCrime.setWard(Integer.parseInt(data[10]));
+        }
+        catch (NumberFormatException ex) {
+            //Leave the ward with no value
+        }
+        try {
+            newCrime.setBeat(Integer.parseInt(data[9]));
+        } catch (NumberFormatException ex) {
+            //Leave the beat with no value
+        }
+        newCrime.setFbiCD(data[11]);
+        try {
+            newCrime.setXCoord(Integer.parseInt(data[12]));
+            newCrime.setYCoord(Integer.parseInt(data[13]));
+        }
+        catch (NumberFormatException ex) {
+            //Do nothing and leave the two fields blank.
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            //These values don't seem to exist!
+            /*
+            This hopefully shouldn't happen thanks to the limit settings
+            of the split method.
+             */
+        }
+
     }
 
     /**
@@ -123,7 +184,13 @@ public class CrimeRecordManager {
      * @param character The character it is checking
      * @return true if the character is Y, and false otherwise
      */
-    private boolean yesOrNo(String character) {
-        return Objects.equals(character, "Y");
+    private int yesOrNo(String character) {
+        if (Objects.equals(character, "Y")) {
+            return 1;
+        } else if (Objects.equals(character, "N")) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 }

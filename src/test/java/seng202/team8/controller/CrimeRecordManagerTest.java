@@ -20,7 +20,7 @@ public class CrimeRecordManagerTest extends TestCase {
     public void testImporting() {
         CrimeRecordManager manager = new CrimeRecordManager();
         try {
-            manager.importFile("src/test/java/seng202/team8/ControllerTests/5kRecords.csv");
+            manager.importFile("src/test/java/seng202/team8/controller/5kRecords.csv");
 
             //The number is somewhat arbitrary, this is just making sure stuff is in it
             assertTrue(manager.getLocalCopy().size() > 10);

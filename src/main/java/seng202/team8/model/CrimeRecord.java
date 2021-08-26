@@ -46,12 +46,18 @@ public class CrimeRecord {
     private String locDescription;
     /**
      * if an arrest was made.
+     * 0 for false
+     * 1 for true
+     * -1 for no value
      */
-    private boolean wasArrest;
+    private int wasArrest;
     /**
      * if the crime was domestic.
+     * 0 for false
+     * 1 for true
+     * -1 for no value
      */
-    private boolean wasDomestic;
+    private int wasDomestic;
     /**
      * The police district.
      */
@@ -84,6 +90,63 @@ public class CrimeRecord {
      * Location of crime in [Latitude, Longitude].
      */
     private float[] location = {latitude, longitude};
+
+    /**
+     * Constructor that initializes an empty crime entry
+     */
+    public CrimeRecord() {
+        super();
+    }
+
+    /**
+     * Constructor to make a new crime record.
+     * @param caseNum The Case Number of the Crime
+     * @param month The month the crime occurred (in int form)
+     * @param date The day of the month the crime occurred (in int form)
+     * @param year The year the crime occurred (in int form)
+     * @param time The time the crime occurred
+     * @param block The block of the crime
+     * @param iucr The IUCR of the crime
+     * @param primary The primary description of the crime
+     * @param secondary The secondary, and more detailed, description of the crime
+     * @param locdesc The description of the location
+     * @param arrest Whether an arrest was made
+     *               0 for false
+     *               1 for true
+     *               -1 for unknown
+     * @param domestic Whether the crime was domestic
+     *                 0 for false
+     *                 1 for true
+     *                 -1 for unknown
+     * @param beat The beat of the crime
+     * @param ward The ward of the crime
+     * @param fbiCD The FBI case number of the crime
+     * @param lat The latitude of the crime
+     * @param lon The longitude of the crime
+     */
+    public CrimeRecord(String caseNum, int month, int date, int year, String time, String block,
+                       String iucr, String primary, String secondary, String locdesc,
+                       int arrest, int domestic, int beat, int ward, String fbiCD,
+                       float lat, float lon) {
+        this.caseNum = caseNum;
+        this.date[0] = month;
+        this.date[1] = date;
+        this.date[2] = year;
+        this.timeOfCrime = time;
+        this.block = block;
+        this.iucr = iucr;
+        this.primary = primary;
+        this.secondary = secondary;
+        this.locDescription = locdesc;
+        this.wasArrest = arrest;
+        this.wasDomestic = domestic;
+        this.beat = beat;
+        this.ward = ward;
+        this.fbiCD = fbiCD;
+        this.latitude = lat;
+        this.longitude = lon;
+
+    }
 
     /**
      * Gets the case number
@@ -152,7 +215,7 @@ public class CrimeRecord {
      * Gets the arrest status
      * @return true if an arrest was made, false if there was not
      */
-    public boolean getWasArrest() {
+    public int getWasArrest() {
         return wasArrest;
     }
 
@@ -160,7 +223,7 @@ public class CrimeRecord {
      * gets the domestic status
      * @return true if the crime was domestic, false otherwise
      */
-    public boolean getWasDomestic() {
+    public int getWasDomestic() {
         return wasDomestic;
     }
 
@@ -301,16 +364,22 @@ public class CrimeRecord {
     /**
      * sets the arrest status
      * @param arrest the arrest staus of the crime
+     *               0 for false
+     *               1 for true
+     *               -1 for no value
      */
-    public void setWasArrest(boolean arrest) {
+    public void setWasArrest(int arrest) {
         this.wasArrest = arrest;
     }
 
     /**
      * sets the domestic status of the crime
      * @param domestic the domestic status of the crime
+     *                 0 for false
+     *                 1 for true
+     *                 -1 for no value
      */
-    public void setWasDomestic(boolean domestic) {
+    public void setWasDomestic(int domestic) {
         this.wasDomestic = domestic;
     }
 

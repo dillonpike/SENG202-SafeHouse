@@ -142,7 +142,7 @@ public class SearchCrimeData {
         ArrayList<CrimeRecord> filterByArrestList = new ArrayList<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
-            if (crimeData.getWasArrest() == arrestMade) {
+            if (crimeData.getWasArrest() == 1) {
                 filterByArrestList.add(crimeData);
             }
         }
@@ -162,7 +162,7 @@ public class SearchCrimeData {
         ArrayList<CrimeRecord> filterByDomesticViolenceList = new ArrayList<>();
 
         for (CrimeRecord crimeData : crimeRecordData)
-            if (crimeData.getWasDomestic() == wasDomesticViolence) {
+            if (crimeData.getWasDomestic() == 1) {
                 filterByDomesticViolenceList.add(crimeData);
             }
         return filterByDomesticViolenceList;
