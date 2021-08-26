@@ -26,7 +26,7 @@ public class Controller {
 		try {
 			stage = s;
 			stage.initStyle(StageStyle.UNDECORATED);
-			root = FXMLLoader.load(getClass().getResource("frame.fxml"));
+			root = FXMLLoader.load(getClass().getClassLoader().getResource("frame.fxml"));
 			scene = new Scene(root,1280,720);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
@@ -40,7 +40,7 @@ public class Controller {
 	
 	
 	public void home(ActionEvent e) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("frame.fxml"));
+		root = FXMLLoader.load(getClass().getClassLoader().getResource("frame.fxml"));
 		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
 		scene = new Scene(root, 1280,720);
 		stage.setScene(scene);
@@ -49,7 +49,7 @@ public class Controller {
 	}
 
 	public void map(ActionEvent e) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("map.fxml"));
+		root = FXMLLoader.load(getClass().getClassLoader().getResource("map.fxml"));
 		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
 		scene = new Scene(root, 1280,720);
 		stage.setScene(scene);
@@ -58,7 +58,7 @@ public class Controller {
 	}
 
 	public void table(ActionEvent e) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("table.fxml"));
+		root = FXMLLoader.load(getClass().getClassLoader().getResource("table.fxml"));
 		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
 		scene = new Scene(root, 1280,720);
 		stage.setScene(scene);
@@ -67,7 +67,7 @@ public class Controller {
 	}
 
 	public void graph(ActionEvent e) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("graph.fxml"));
+		root = FXMLLoader.load(getClass().getClassLoader().getResource("graph.fxml"));
 		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
 		scene = new Scene(root, 1280,720);
 		stage.setScene(scene);
