@@ -28,7 +28,6 @@ public class Controller {
 			stage.initStyle(StageStyle.UNDECORATED);
 			root = FXMLLoader.load(getClass().getClassLoader().getResource("frame.fxml"));
 			scene = new Scene(root,1280,720);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
 			makeDraggable();
 			stage.show();
