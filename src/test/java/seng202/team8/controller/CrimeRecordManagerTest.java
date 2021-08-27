@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import seng202.team8.controller.CrimeRecordManager;
 import junit.framework.TestCase;
+import seng202.team8.model.CrimeRecord;
 
 /**
  * Test if the manager can import things correctly
@@ -30,6 +31,35 @@ public class CrimeRecordManagerTest extends TestCase {
             ex.printStackTrace();
         }
 
+    }
+
+    public void testAdding() {
+        CrimeRecordManager manager = new CrimeRecordManager();
+        //Create the record
+        CrimeRecord loitering = new CrimeRecord("JE266628", 6, 15, 2021,
+                "09:30:00 AM", "080XX S DREXEL AVE" , "0820",
+                "OTHER OFFENSE", "LOITERING", "STREET",
+                0, 0, 631, 8, "06",
+                41.748486365f, (float) -87.602675062);
+        //Add the record
+        manager.addRecord(loitering);
+        //Check to see if it has been added
+        assertEquals(1, manager.getLocalCopy().size());
+
+    }
+
+    public void testDeletion() {
+        CrimeRecordManager manager = new CrimeRecordManager();
+        //Create the record
+        CrimeRecord loitering = new CrimeRecord("JE266628", 6, 15, 2021,
+                "09:30:00 AM", "080XX S DREXEL AVE" , "0820",
+                "OTHER OFFENSE", "LOITERING", "STREET",
+                0, 0, 631, 8, "06",
+                41.748486365f, (float) -87.602675062);
+        manager.addRecord(loitering);
+
+        manager.removeRecord(loitering);
+        assertEquals(0, manager.getLocalCopy().size());
     }
 
 
