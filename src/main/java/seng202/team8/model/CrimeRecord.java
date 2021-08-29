@@ -149,6 +149,57 @@ public class CrimeRecord {
     }
 
     /**
+     * Replaces all the attributes of a given crime with the provided ones.
+     * Mainly used for editing crimes in the Local Copy of CrimeRecordManager
+     *
+     * @param caseNum The Case Number of the Crime
+     * @param month The month the crime occurred (in int form)
+     * @param date The day of the month the crime occurred (in int form)
+     * @param year The year the crime occurred (in int form)
+     * @param time The time the crime occurred
+     * @param block The block of the crime
+     * @param iucr The IUCR of the crime
+     * @param primary The primary description of the crime
+     * @param secondary The secondary, and more detailed, description of the crime
+     * @param locdesc The description of the location
+     * @param arrest Whether an arrest was made
+     *               0 for false
+     *               1 for true
+     *               -1 for unknown
+     * @param domestic Whether the crime was domestic
+     *                 0 for false
+     *                 1 for true
+     *                 -1 for unknown
+     * @param beat The beat of the crime
+     * @param ward The ward of the crime
+     * @param fbiCD The FBI case number of the crime
+     * @param lat The latitude of the crime
+     * @param lon The longitude of the crime
+     */
+    public static void changeRecord(CrimeRecord crime, String caseNum, int month, int date, int year,
+                             String time, String block, String iucr, String primary,
+                             String secondary, String locdesc, int arrest, int domestic,
+                             int beat, int ward, String fbiCD, float lat, float lon) {
+        crime.setCaseNum(caseNum);
+        crime.setDate(month, date,
+                year);
+        crime.setTimeOfCrime(time);
+        crime.setBlock(block);
+        crime.setIucr(iucr);
+        crime.setPrimary(primary);
+        crime.setSecondary(secondary);
+        crime.setLocDescription(locdesc);
+        crime.setWasArrest(arrest);
+        crime.setWasDomestic(domestic);
+        crime.setBeat(beat);
+        crime.setWard(ward);
+        crime.setFbiCD(fbiCD);
+        crime.setLatitude(lat);
+        crime.setLongitude(lon);
+
+    }
+
+    /**
      * Gets the case number
      * @return The case number, in String Form
      */
