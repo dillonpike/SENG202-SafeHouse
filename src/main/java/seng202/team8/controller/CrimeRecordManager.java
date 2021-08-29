@@ -195,6 +195,28 @@ public class CrimeRecordManager {
             return -1;
         }
     }
+
+    /**
+     * Adds a crime to the local copy
+     * Does NOT check for duplicates.
+     * @param crime The crime being added.
+     */
+    public void addRecord(CrimeRecord crime) {
+        localCopy.add(crime);
+    }
+
+    /**
+     * Removes a crime object from the local copy.
+     * Make sure you're using the actual crime object
+     * as we haven't overridden the equals method of CrimeRecord
+     *
+     * Does nothing if the crime is not in the copy
+     * @param crime The crime to be removed.
+     */
+    public void removeRecord(CrimeRecord crime) {
+        localCopy.remove(crime);
+    }
+
     
     public ObservableList<CrimeRecord> getObservable() {
     	ObservableList<CrimeRecord> records = FXCollections.observableArrayList(localCopy);
