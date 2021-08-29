@@ -6,5 +6,6 @@ module safehousefx {
 	requires javafx.swing.18.ea.1;
 	requires junit;
 	
-	opens application to javafx.graphics, javafx.fxml;
+	opens seng202.team8 to javafx.graphics, javafx.fxml;
+	exports seng202.team8.view;
 }

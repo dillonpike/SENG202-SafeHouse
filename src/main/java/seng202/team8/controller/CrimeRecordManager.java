@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seng202.team8.model.CrimeRecord;
 
 /**
@@ -193,4 +195,11 @@ public class CrimeRecordManager {
             return -1;
         }
     }
+    
+    public ObservableList<CrimeRecord> getObservable() {
+    	ObservableList<CrimeRecord> records = FXCollections.observableArrayList(localCopy);
+    	return records;
+    }
+    
+    
 }

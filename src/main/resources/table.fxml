@@ -11,32 +11,32 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.view.Controller">
+<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.view.Controller">
    <center>
-      <Pane prefHeight="620.0" prefWidth="1280.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
+      <Pane id="stuff" prefHeight="620.0" prefWidth="1280.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="57.0" layoutY="60.0" prefHeight="468.0" prefWidth="1183.0">
+            <TableView id="crimesTable" fx:id="TABLE" layoutX="57.0" layoutY="60.0" prefHeight="468.0" prefWidth="1183.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-                  <TableColumn prefWidth="75.0" text="C3" />
-                  <TableColumn prefWidth="75.0" text="C4" />
-                  <TableColumn prefWidth="75.0" text="C5" />
-                  <TableColumn prefWidth="75.0" text="C6" />
-                  <TableColumn prefWidth="75.0" text="C7" />
-                  <TableColumn prefWidth="75.0" text="C8" />
-                  <TableColumn prefWidth="75.0" text="C9" />
-                  <TableColumn prefWidth="75.0" text="C10" />
-                  <TableColumn prefWidth="75.0" text="C11" />
-                  <TableColumn prefWidth="75.0" text="C12" />
-                  <TableColumn prefWidth="75.0" text="C13" />
-                  <TableColumn prefWidth="75.0" text="C14" />
-                  <TableColumn prefWidth="75.0" text="C15" />
+                <TableColumn id="clmNum" prefWidth="75.0" text="C1" />
+                <TableColumn id="clmDate" prefWidth="75.0" text="C2" />
+                  <TableColumn id="clmBlock" prefWidth="75.0" text="C3" />
+                  <TableColumn id="clmIUCR" prefWidth="75.0" text="C4" />
+                  <TableColumn id="clmPrimaryDesc" prefWidth="75.0" text="C5" />
+                  <TableColumn id="clmSecondaryDesc" prefWidth="75.0" text="C6" />
+                  <TableColumn id="clmLocation" prefWidth="75.0" text="C7" />
+                  <TableColumn id="clmArrest" prefWidth="75.0" text="C8" />
+                  <TableColumn id="clmDomestic" prefWidth="75.0" text="C9" />
+                  <TableColumn id="clmBeat" prefWidth="75.0" text="C10" />
+                  <TableColumn id="clmWard" prefWidth="75.0" text="C11" />
+                  <TableColumn id="clmFBI" prefWidth="75.0" text="C12" />
+                  <TableColumn id="clmLat" prefWidth="75.0" text="C13" />
+                  <TableColumn id="clmLon" prefWidth="75.0" text="C14" />
+                  <TableColumn id="clmCoord" prefWidth="75.0" text="C15" />
               </columns>
             </TableView>
             <HBox layoutX="57.0" layoutY="536.0" prefHeight="45.0" prefWidth="1183.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Add">
+                  <Button mnemonicParsing="false" onAction="#openAddRecord" prefHeight="40.0" prefWidth="150.0" text="Add">
                      <font>
                         <Font size="20.0" />
                      </font>
