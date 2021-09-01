@@ -105,8 +105,8 @@ public class CrimeRecordManager {
             newCrime.setCaseNum(data[0]);
             newCrime.setIucr(data[3]);
             newCrime.setPrimary(data[4]);
-            newCrime.setLongitude(Float.parseFloat(data[14]));
-            newCrime.setLatitude(Float.parseFloat(data[15]));
+            newCrime.setLongitude(Double.parseDouble(data[14]));
+            newCrime.setLatitude(Double.parseDouble(data[15]));
             return true;
         } catch (Exception ex) {
             return false;

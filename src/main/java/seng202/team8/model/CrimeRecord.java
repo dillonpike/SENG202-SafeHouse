@@ -81,15 +81,15 @@ public class CrimeRecord {
     /**
      * Latitude location of crime.
      */
-    private float latitude;
+    private double latitude;
     /**
      * Longitude location of crime.
      */
-    private float longitude;
+    private double longitude;
     /**
      * Location of crime in [Latitude, Longitude].
      */
-    private float[] location = {latitude, longitude};
+    private double[] location = {latitude, longitude};
 
     /**
      * Constructor that initializes an empty crime entry
@@ -322,7 +322,7 @@ public class CrimeRecord {
      * gets the latitude
      * @return the latitude, in float form.
      */
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
@@ -330,7 +330,7 @@ public class CrimeRecord {
      * gets the longitude
      * @return the longitude, in float form.
      */
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
@@ -338,7 +338,7 @@ public class CrimeRecord {
      * gets the location
      * @return the location, in the form of an array of [latitude, longitude]
      */
-    public float[] getLocation() {
+    public double[] getLocation() {
         return location;
     }
 
@@ -478,7 +478,7 @@ public class CrimeRecord {
      * sets the latitude
      * @param lat the latitude of the crime
      */
-    public void setLatitude(float lat) {
+    public void setLatitude(double lat) {
         this.latitude = lat;
     }
 
@@ -486,7 +486,7 @@ public class CrimeRecord {
      * sets the longitude
      * @param lon the longitude of the crime
      */
-    public void setLongitude(float lon) {
+    public void setLongitude(double lon) {
         this.longitude = lon;
     }
 
@@ -495,7 +495,7 @@ public class CrimeRecord {
      * @param lat the latitude of the crime
      * @param lon the longitude of the crime
      */
-    public void setLocation(float lat, float lon) {
+    public void setLocation(double lat, double lon) {
         setLatitude(lat);
         setLongitude(lon);
     }
