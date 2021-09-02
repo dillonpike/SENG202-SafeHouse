@@ -198,11 +198,17 @@ public class CrimeRecordManager {
 
     /**
      * Adds a crime to the local copy
-     * Does NOT check for duplicates.
+     * Does nothing if the crime is already in the local copy
      * @param crime The crime being added.
      */
     public void addRecord(CrimeRecord crime) {
-        localCopy.add(crime);
+        if (!(containedRecords.contains(crime.getCaseNum()))) {
+            localCopy.add(crime);
+        }
+    }
+
+    public boolean checkDuplicate(CrimeRecord crime) {
+        return containedRecords.contains(crime.getCaseNum());
     }
 
     /**
