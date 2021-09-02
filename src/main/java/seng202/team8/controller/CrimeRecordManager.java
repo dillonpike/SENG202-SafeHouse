@@ -207,6 +207,11 @@ public class CrimeRecordManager {
         }
     }
 
+    /**
+     * Method for checking if a duplicate case number exists
+     * @param crime The crime that may or may not be in the copy
+     * @return True if the crime/case number is in the copy, false otherwise
+     */
     public boolean checkDuplicate(CrimeRecord crime) {
         return containedRecords.contains(crime.getCaseNum());
     }
@@ -217,10 +222,12 @@ public class CrimeRecordManager {
      * as we haven't overridden the equals method of CrimeRecord
      *
      * Does nothing if the crime is not in the copy
+     * Also removes the crime's case number from the containedRecords
      * @param crime The crime to be removed.
      */
     public void removeRecord(CrimeRecord crime) {
         localCopy.remove(crime);
+        containedRecords.remove(crime.getCaseNum());
     }
 
     
