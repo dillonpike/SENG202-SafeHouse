@@ -1,18 +1,24 @@
 package seng202.team8.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import com.sun.javafx.binding.StringFormatter;
-
+/**
+ * A class that calculates the distance between two crimes and the time difference between
+ * two crime timestamps
+ */
 public class CrimeDataCalculator {
-
 
     public CrimeDataCalculator() {
     }
 
     /**
-     * @param firstLocation
-     * @param secondLocation
-     * @return
+     * The method gets two locations containing its latitude (x-axis) and longitude (y-axis). Using the "Haversine
+     * Formula", the distance between these two locations is calculated.
+     * @param firstLocation, gets the first crime location
+     * @param secondLocation, gets the second crime location
+     * @return crimeDistance, a crime distance between two crime locations
      */
     public float calculateTwoCrimeDistance(double[] firstLocation, double[] secondLocation) {
         if ((firstLocation[0] == secondLocation[0]) && (firstLocation[1] == secondLocation[1])) {
@@ -37,7 +43,32 @@ public class CrimeDataCalculator {
         return crimeDistance;
     }
 
-    public static void main(String args[]) {
+    /**
+     * The method calculates the time difference between two crime timestamps given.
+     * @param startTime, gets the first date of crime as a string in 12-hour format
+     * @param endTime, gets the second date of crime as a string in 12-hour format
+     * @return date_Time_Difference, a string containing year, days, and time, in hours, minutes and seconds
+     * @throws ParseException If fail to parse string that is going to be saved as a specific format.
+     */
+    public String calculateTwoCrimeTimeDifference(String startTime, String endTime) throws ParseException {
+        // Converts the given timestamps input to Date object
+        Date startTimeFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa").parse(startTime);
+        Date endTimeFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa").parse(endTime);
 
+        // Calculate time difference
+        long differenceTime = Math.abs(startTimeFormat.getTime() - endTimeFormat.getTime());
+
+        // Calculate time difference in seconds, minutes, hours, years, and days
+        long differenceSeconds = (differenceTime / 1000) % 60;
+        long differenceMinutes = (differenceTime / (1000 * 60)) % 60;
+        long differenceHours = differenceTime / (1000 * 60 * 60) % 24;
+        long differenceYears = (differenceTime / (1000L * 60 * 60 * 24 * 365));
+        long differenceDays = (differenceTime / (1000 * 60 * 60 * 24)) % 365;
+
+        String date_Time_Difference = "Difference in timestamps-> " + differenceYears + " years, " +
+                differenceDays + " days, " + differenceHours + " hours, " +
+                differenceMinutes + " minutes, " + differenceSeconds + " seconds";
+        return date_Time_Difference;
     }
+
 }
