@@ -127,7 +127,7 @@ public class CrimeRecord {
     public CrimeRecord(String caseNum, int month, int date, int year, String time, String block,
                        String iucr, String primary, String secondary, String locdesc,
                        int arrest, int domestic, int beat, int ward, String fbiCD,
-                       float lat, float lon) {
+                       double lat, double lon) {
         this.caseNum = caseNum;
         this.date[0] = month;
         this.date[1] = date;
@@ -179,7 +179,7 @@ public class CrimeRecord {
     public static void changeRecord(CrimeRecord crime, String caseNum, int month, int date, int year,
                              String time, String block, String iucr, String primary,
                              String secondary, String locdesc, int arrest, int domestic,
-                             int beat, int ward, String fbiCD, float lat, float lon) {
+                             int beat, int ward, String fbiCD, double lat, double lon) {
         crime.setCaseNum(caseNum);
         crime.setDate(month, date,
                 year);
