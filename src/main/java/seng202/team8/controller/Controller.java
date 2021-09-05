@@ -1,4 +1,4 @@
-package seng202.team8.view;
+package seng202.team8.controller;
 
 
 import java.io.IOException;
@@ -14,11 +14,12 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seng202.team8.model.CrimeRecord;
+import seng202.team8.view.StartGUI;
 
 import java.net.*;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable{
+public class Controller {
 	
 	private Stage stage;
 	private Scene scene;
@@ -83,7 +84,7 @@ public class Controller implements Initializable{
 		makeDraggable(root, stage);
 		stage.show();
 	}
-	
+
 	public void openAddRecord(ActionEvent e) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/addRecord.fxml"));
 		addRecordPopup = new Stage();
@@ -122,9 +123,4 @@ public class Controller implements Initializable{
             s.setY(mouseEvent.getScreenY() - yOffset);
         });
     }
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-	}
 }

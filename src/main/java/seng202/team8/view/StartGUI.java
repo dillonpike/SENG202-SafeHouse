@@ -1,13 +1,8 @@
 package seng202.team8.view;
 	
 import javafx.application.Application;
-import javafx.fxml.*;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import java.net.*;
+import seng202.team8.controller.Controller;
 
 
 public class StartGUI extends Application {
