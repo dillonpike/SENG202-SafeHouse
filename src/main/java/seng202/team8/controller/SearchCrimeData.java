@@ -2,8 +2,8 @@ package seng202.team8.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import seng202.team8.model.CrimeRecord;
 
@@ -187,6 +187,42 @@ public class SearchCrimeData {
             }
         return filterByDomesticViolenceList;
     }
+
+    /**
+     * Creates the hashmap of string and integers, where string represents the key and integer
+     * represents the value. Here the method runs a for loop on crimeRecordData list and checks
+     * each time the key appears, the value is incremented by 1. Next, the data is sorted in
+     * decreasing order, and then converts the key values as sets and returns it.
+     * @return rankedKeySet, a set containing ranked data based on the crime primary
+     * description type
+     */
+    public Set rankByCrimeTypeFrequency() {
+        HashMap<String, Integer> rankByCrimeTypeFrequencyMap = new HashMap<>();
+
+        for (CrimeRecord crimeData : crimeRecordData) {
+            if (rankByCrimeTypeFrequencyMap.size() == 0) {
+                rankByCrimeTypeFrequencyMap.put(crimeData.getPrimary(), 1);
+            } else if (!rankByCrimeTypeFrequencyMap.containsKey(crimeData.getPrimary())) {
+                rankByCrimeTypeFrequencyMap.put(crimeData.getPrimary(), 1);
+            } else {
+                int count = rankByCrimeTypeFrequencyMap.get(crimeData.getPrimary());
+                rankByCrimeTypeFrequencyMap.put(crimeData.getPrimary(), count + 1);
+            }
+        }
+
+        HashMap<String, Integer> sortedRankedMap = rankByCrimeTypeFrequencyMap.entrySet().stream()
+                .sorted(Comparator.comparingInt(e -> -e.getValue()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (a, b) -> { throw new AssertionError(); },
+                        LinkedHashMap::new
+                ));
+
+        Set rankedKeySet = sortedRankedMap.keySet();
+        return rankedKeySet;
+    }
+
 
 }
 

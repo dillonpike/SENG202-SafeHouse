@@ -14,8 +14,8 @@ public class CrimeDataCalculator {
     }
 
     /**
-     * The method gets two locations containing its latitude (x-axis) and longitude (y-axis). Using the "Haversine
-     * Formula", the distance between these two locations is calculated.
+     * Gets the two locations containing its latitude (x-axis) and longitude (y-axis). Using the
+     * "Haversine Formula", the distance between these two locations is calculated.
      * @param firstLocation, gets the first crime location
      * @param secondLocation, gets the second crime location
      * @return crimeDistance, a crime distance between two crime locations
@@ -44,7 +44,7 @@ public class CrimeDataCalculator {
     }
 
     /**
-     * The method calculates the time difference between two crime timestamps given.
+     * Calculates the time difference between two crime timestamps given.
      * @param startTime, gets the first date of crime as a string in 12-hour format
      * @param endTime, gets the second date of crime as a string in 12-hour format
      * @return date_Time_Difference, a string containing year, days, and time, in hours, minutes and seconds
