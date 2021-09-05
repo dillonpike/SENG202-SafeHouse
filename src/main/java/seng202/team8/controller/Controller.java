@@ -1,6 +1,7 @@
 package seng202.team8.controller;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
@@ -68,6 +69,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public void home(ActionEvent e) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/frame.fxml"));

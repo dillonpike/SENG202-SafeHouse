@@ -10,6 +10,7 @@ public class StartGUI extends Application {
 	public static Controller control;
 	public static javafx.scene.layout.BorderPane root; 
 	
+	
 	@Override
 	public void start(Stage s) {
 		try {
