@@ -87,7 +87,7 @@ public class TableController extends Controller implements Initializable {
 
         CrimeRecordManager manager = new CrimeRecordManager();
         try {
-            manager.importFile();
+            manager.importFile("src/test/java/seng202/team8/controller/testdata.csv");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
