@@ -67,6 +67,7 @@ public class TableController extends Controller implements Initializable {
     @FXML
     private TableColumn<CrimeRecord, Double> clmLon;
 
+    private CrimeRecordManager manager;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -84,13 +85,21 @@ public class TableController extends Controller implements Initializable {
         clmFBI.setCellValueFactory(new PropertyValueFactory<>("fbiCD"));
         clmLat.setCellValueFactory(new PropertyValueFactory<>("latitude"));
         clmLon.setCellValueFactory(new PropertyValueFactory<>("longitude"));
-
-        CrimeRecordManager manager = new CrimeRecordManager();
-        try {
-            manager.importFile("src/test/java/seng202/team8/controller/testdata.csv");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        recordTable.setItems(manager.getObservable());
+        manager = new CrimeRecordManager();
+		try {
+			manager.importFile("src/test/java/seng202/team8/controller/5kRecords.csv");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        populateTable();
+    }
+    
+    public TableView<CrimeRecord> getTable() {
+    	return recordTable;
+    }
+    
+    public void populateTable() {
+    	recordTable.setItems(manager.getObservable());
     }
 }
