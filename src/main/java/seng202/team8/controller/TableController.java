@@ -1,73 +1,114 @@
 package seng202.team8.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import seng202.team8.model.CrimeRecord;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Contains attributes and methods for the table page in the application's GUI.
+ */
 public class TableController extends Controller implements Initializable {
 
+    /**
+     * Table that displays crime records.
+     */
     @FXML
     private TableView<CrimeRecord> recordTable;
 
+    /**
+     * Column for a crime record's case number.
+     */
     @FXML
     private TableColumn<CrimeRecord, String> clmNum;
 
+    /**
+     * Column for a crime record's date.
+     */
     @FXML
     private TableColumn<CrimeRecord, int[]> clmDate;
 
+    /**
+     * Column for a crime record's block.
+     */
     @FXML
     private TableColumn<CrimeRecord, String> clmBlock;
 
+    /**
+     * Column for a crime record's IUCR (Illinois Uniform Crime Reporting code).
+     */
     @FXML
     private TableColumn<CrimeRecord, String> clmIUCR;
 
+    /**
+     * Column for a crime record's primary description.
+     */
     @FXML
     private TableColumn<CrimeRecord, String> clmPrimaryDesc;
 
+    /**
+     * Column for a crime record's IUCR (Illinois Uniform Crime Reporting code).
+     */
     @FXML
     private TableColumn<CrimeRecord, String> clmSecondaryDesc;
 
+    /**
+     * Column for a crime record's location.
+     */
     @FXML
     private TableColumn<CrimeRecord, String> clmLocation;
 
+    /**
+     * Column for a crime record's arrest status.
+     */
     @FXML
     private TableColumn<CrimeRecord, Integer> clmArrest;
 
+    /**
+     * Column for a crime record's domestic status.
+     */
     @FXML
     private TableColumn<CrimeRecord, Integer> clmDomestic;
 
+    /**
+     * Column for a crime record's beat (police district).
+     */
     @FXML
     private TableColumn<CrimeRecord, Integer> clmBeat;
 
+    /**
+     * Column for a crime record's ward (election precinct).
+     */
     @FXML
     private TableColumn<CrimeRecord, String> clmWard;
 
+    /**
+     * Column for a crime record's ward (election precinct).
+     */
     @FXML
     private TableColumn<CrimeRecord, String> clmFBI;
 
+    /**
+     * Column for a crime record's latitude.
+     */
     @FXML
     private TableColumn<CrimeRecord, Double> clmLat;
 
+    /**
+     * Column for a crime record's longitude.
+     */
     @FXML
     private TableColumn<CrimeRecord, Double> clmLon;
 
-
+    /**
+     * Links recordTable columns to attributes of CrimeRecord.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         clmNum.setCellValueFactory(new PropertyValueFactory<>("caseNum"));
@@ -87,7 +128,7 @@ public class TableController extends Controller implements Initializable {
 
         CrimeRecordManager manager = new CrimeRecordManager();
         try {
-            manager.importFile("src/test/java/seng202/team8/controller/testdata.csv");
+            manager.importFile("src/main/resources/testdata.csv");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

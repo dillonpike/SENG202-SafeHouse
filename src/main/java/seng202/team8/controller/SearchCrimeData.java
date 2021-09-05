@@ -12,6 +12,9 @@ import seng202.team8.model.CrimeRecord;
  */
 public class SearchCrimeData {
 
+    /**
+     * List of crime records.
+     */
     private ArrayList<CrimeRecord> crimeRecordData;
 
     public SearchCrimeData() {}
@@ -26,7 +29,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method returns the crime record data list
+     * Returns the crime record data list
      * @return crimeRecordData, it returns the crime record data list
      */
     public ArrayList<CrimeRecord> getCrimeRecordData() {
@@ -34,7 +37,7 @@ public class SearchCrimeData {
     }
 
     /**
-     * The method sets the given crime data list to the new crime record list
+     * Sets the given crime data list to the new crime record list
      * @param crimeRecordData, the param gets crime record data list
      */
     public void setCrimeRecordData(ArrayList<CrimeRecord> crimeRecordData) {
@@ -43,7 +46,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method filters the crime record data list by checking that each crime date is within the
+     * Filters the crime record data list by checking that each crime date is within the
      * given two date. If the date is within the dates, then it adds to the new list, and at the
      * end it returns the list.
      * @param startDate, gets the start date chosen by the user
@@ -73,7 +76,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method filters the crime record data list by checking that each crime description
+     * Filters the crime record data list by checking that each crime description
      * matches the given crime description. If the description matches, then it adds to the
      * new list and therefore returns the list.
      * @param crimeDescription, gets the crime description of a location
@@ -92,7 +95,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method filters the crime record data list by checking that each crime location
+     * Filters the crime record data list by checking that each crime location
      * matches the given crime location. If the location matches, then it adds the crime
      * location to the new list and returns the list.
      * @param locationName, gets the name of the crime location
@@ -111,7 +114,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method filters the crime record data list by checking that each crime beat number is
+     * Filters the crime record data list by checking that each crime beat number is
      * within the given two beat numbers. If the date is within the numbers, then it adds to the
      * new list, and returns the list.
      * @param startBeatNum, gets the start beat number chosen
@@ -132,7 +135,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method filters the crime record data list by checking whether the arrest has
+     * Filters the crime record data list by checking whether the arrest has
      * been made or not based on the given boolean. If the boolean matches, then the crime
      * data is added to the new list, and returns the list.
      * @param arrestMade, gets the boolean as true for 'Y' (Yes) and false for 'N' (No)
@@ -151,7 +154,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method filters the crime record data list by checking whether there was any
+     * Filters the crime record data list by checking whether there was any
      * domestic violence at the location, and compares with the given boolean. If the
      * boolean matches, then the crime data is added to the new list, and returns the list.
      * @param wasDomesticViolence, gets the boolean as true for 'Y' (Yes) or false for 'N' (No)

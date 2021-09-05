@@ -3,29 +3,49 @@ package seng202.team8.controller;
 
 import java.io.IOException;
 import javafx.event.*;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import seng202.team8.model.CrimeRecord;
 import seng202.team8.view.StartGUI;
 
 import java.net.*;
 import java.util.ResourceBundle;
 
+/**
+ *  Contains controller methods and attributes used across multiple scenes of the GUI.
+ */
 public class Controller {
-	
+
+	/**
+	 * Stage for the main window of the application.
+	 */
 	private Stage stage;
+
+	/**
+	 * Scene graph containing the elements currently being displayed and their layout.
+	 */
 	private Scene scene;
+
+	/**
+	 * Stage of a popup window for adding crime records.
+	 */
 	private Stage addRecordPopup;
+
+	/**
+	 * Root node of scene graph.
+	 */
 	private Parent root;
+
+	/**
+	 * Window's x-coordinate offset from centre.
+	 */
 	private double xOffset;
+
+	/**
+	 * Window's y-coordinate offset from centre.
+	 */
 	private double yOffset;
 	
 	public Controller() {

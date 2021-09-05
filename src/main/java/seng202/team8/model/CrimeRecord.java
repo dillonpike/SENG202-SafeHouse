@@ -6,10 +6,12 @@ package seng202.team8.model;
  * as well as getters and setters
  */
 public class CrimeRecord {
+
     /**
      * The case number. A string, as it has a two-letter prefix.
      */
     private String caseNum;
+
     /**
      * The date, in the form of a three-piece ineteger array. Arranged to american date format.
      * The 0 index is the month
@@ -17,75 +19,91 @@ public class CrimeRecord {
      * The 2 index is the year
      */
     private int[] date = new int[3];
+
     /**
      * The time that the crime took place.
      */
     private String timeOfCrime;
+
     /**
      * The block - contains numbers and letters so is a string.
      */
     private String block;
+
     /**
      * The Illinois Uniform Crime Reporting code. Some entries contain letters, so it is a string.
      */
     private String iucr;
+
     /**
      * The primary description of the crime.
      * This is essentially the 'type' of crime that was committed.
      */
     private String primary;
+
     /**
      * The secondary, and more detailed, report of the crime.
      * This is the crime's 'description'.
      */
     private String secondary;
+
     /**
      * A description of the location.
      * More or less a location 'type'.
      */
     private String locDescription;
+
     /**
-     * if an arrest was made.
+     * If an arrest was made.
      * 0 for false
      * 1 for true
      * -1 for no value
      */
     private int wasArrest;
+
     /**
-     * if the crime was domestic.
+     * If the crime was domestic.
      * 0 for false
      * 1 for true
      * -1 for no value
      */
     private int wasDomestic;
+
     /**
      * The police district.
      */
     private int beat;
+
     /**
      * Election precinct.
      */
     private int ward;
+
     /**
      * The FBI crime code. Sometimes contains letters, so is a string.
      */
     private String fbiCD;
+
     /**
      * X map coordinate.
      */
     private int xCoord;
+
     /**
      * Y map coordinate.
      */
     private int yCoord;
+
     /**
      * Latitude location of crime.
      */
     private double latitude;
+
     /**
      * Longitude location of crime.
      */
     private double longitude;
+
     /**
      * Location of crime in [Latitude, Longitude].
      */
