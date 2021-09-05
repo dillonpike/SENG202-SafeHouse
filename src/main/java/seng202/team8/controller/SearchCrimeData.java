@@ -43,7 +43,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method filters the crime record data list by checking that each crime date is within the
+     * Filters the crime record data list by checking that each crime date is within the
      * given two date. If the date is within the dates, then it adds to the new list, and at the
      * end it returns the list.
      * @param startDate, gets the start date chosen by the user
@@ -73,7 +73,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method filters the crime record data list by checking that each crime description
+     * Filters the crime record data list by checking that each crime description
      * matches the given crime description. If the description matches, then it adds to the
      * new list and therefore returns the list.
      * @param crimeDescription, gets the crime description of a location
@@ -111,7 +111,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method filters the crime record data list by checking that each crime beat number is
+     * Filters the crime record data list by checking that each crime beat number is
      * within the given two beat numbers. If the date is within the numbers, then it adds to the
      * new list, and returns the list.
      * @param startBeatNum, gets the start beat number chosen
@@ -130,9 +130,29 @@ public class SearchCrimeData {
         return filterByCrimeLocationBeat;
     }
 
+    /**
+     * Filters the crime record data list by checking that each crime ward number is
+     * within the given two ward numbers. If the ward is within the numbers, then it adds to the
+     * new list, and returns the list.
+     * @param startWardNum, gets the start ward number chosen
+     * @param endWardNum, gets the end ward number chosen
+     * @return filterByCrimeWard, the new list based on the ward numbers between start
+     * and end ward numbers included
+     */
+    public ArrayList<CrimeRecord> filterByCrimeWard(int startWardNum, int endWardNum) {
+        ArrayList<CrimeRecord> filterByCrimeWard = new ArrayList<>();
+
+        for (CrimeRecord crimeData : crimeRecordData) {
+            if (crimeData.getWard() >= startWardNum && crimeData.getWard() <= endWardNum) {
+                filterByCrimeWard.add(crimeData);
+            }
+        }
+        return filterByCrimeWard;
+    }
+
 
     /**
-     * The method filters the crime record data list by checking whether the arrest has
+     * Filters the crime record data list by checking whether the arrest has
      * been made or not based on the given boolean. If the boolean matches, then the crime
      * data is added to the new list, and returns the list.
      * @param arrestMade, gets the boolean as true for 'Y' (Yes) and false for 'N' (No)
@@ -151,7 +171,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method filters the crime record data list by checking whether there was any
+     * Filters the crime record data list by checking whether there was any
      * domestic violence at the location, and compares with the given boolean. If the
      * boolean matches, then the crime data is added to the new list, and returns the list.
      * @param wasDomesticViolence, gets the boolean as true for 'Y' (Yes) or false for 'N' (No)
