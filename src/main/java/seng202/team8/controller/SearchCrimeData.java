@@ -223,6 +223,41 @@ public class SearchCrimeData {
         return rankedKeySet;
     }
 
+    /**
+     * Creates the hashmap of two integers, where first integer is the key that represents the
+     * Ward area and second integer represents the value. Here the method runs a for loop on
+     * crimeRecordData list and checks each time the ward appears, the value is incremented by
+     * 1. Next, the data is sorted in decreasing order, and then converts the key values as
+     * sets and returns it.
+     * @return rankedKeySet, a set containing ranked data based on the ward areas
+     */
+    public Set rankByMostDangerousAreas() {
+        HashMap<Integer, Integer> rankByMostDangerousAreasMap = new HashMap<>();
+
+        for (CrimeRecord crimeData : crimeRecordData) {
+            if (rankByMostDangerousAreasMap.size() == 0) {
+                rankByMostDangerousAreasMap.put(crimeData.getWard(), 1);
+            } else if (!rankByMostDangerousAreasMap.containsKey(crimeData.getWard())) {
+                rankByMostDangerousAreasMap.put(crimeData.getWard(), 1);
+            } else {
+                int count = rankByMostDangerousAreasMap.get(crimeData.getWard());
+                rankByMostDangerousAreasMap.put(crimeData.getWard(), count + 1);
+            }
+        }
+
+        HashMap<Integer, Integer> sortedRankedMap = rankByMostDangerousAreasMap.entrySet().stream()
+                .sorted(Comparator.comparingInt(e -> -e.getValue()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (a, b) -> { throw new AssertionError(); },
+                        LinkedHashMap::new
+                ));
+
+        Set rankedKeySet = sortedRankedMap.keySet();
+        return rankedKeySet;
+    }
+
 
 }
 
