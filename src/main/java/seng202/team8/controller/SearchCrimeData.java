@@ -73,17 +73,17 @@ public class SearchCrimeData {
 
 
     /**
-     * Filters the crime record data list by checking that each crime IUCR code
-     * matches the given crime IUCR code. If the code matches, then it adds to the
+     * Filters the crime record data list by checking that each crime description
+     * matches the given crime description. If the description matches, then it adds to the
      * new list and therefore returns the list.
-     * @param crimeIucr, gets the crime IUCR code of a location
-     * @return filterByCrimeTypeList, the new list based on the crime IUCR code
+     * @param crimeDescription, gets the crime description of a location
+     * @return filterByCrimeTypeList, the new list based on the crime description type
      */
-    public ArrayList<CrimeRecord> filterByCrimeType(String crimeIucr) {
+    public ArrayList<CrimeRecord> filterByCrimeType(String crimeDescription) {
         ArrayList<CrimeRecord> filterByCrimeTypeList = new ArrayList<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
-            if (crimeData.getIucr().equals(crimeIucr)) {
+            if (crimeData.getPrimary().equals(crimeDescription)) {
                 filterByCrimeTypeList.add(crimeData);
             }
         }
@@ -189,41 +189,6 @@ public class SearchCrimeData {
     }
 
     /**
-     * Creates the hashmap of string and integers, where string is the key representing IUCR
-     * code (contains primary and secondary crime description) and integer represents the value.
-     * Here the method runs a for loop on crimeRecordData list and checks each time the IUCR
-     * code appears, the value is incremented by 1. Next, the data is sorted in decreasing
-     * order, and then converts the key values as sets and returns it.
-     * @return rankedKeySet, a set containing ranked data based on the crime IUCR code
-     */
-    public Set rankByCrimeTypeFrequency() {
-        HashMap<String, Integer> rankByCrimeTypeFrequencyMap = new HashMap<>();
-
-        for (CrimeRecord crimeData : crimeRecordData) {
-            if (rankByCrimeTypeFrequencyMap.size() == 0) {
-                rankByCrimeTypeFrequencyMap.put(crimeData.getIucr(), 1);
-            } else if (!rankByCrimeTypeFrequencyMap.containsKey(crimeData.getIucr())) {
-                rankByCrimeTypeFrequencyMap.put(crimeData.getIucr(), 1);
-            } else {
-                int count = rankByCrimeTypeFrequencyMap.get(crimeData.getIucr());
-                rankByCrimeTypeFrequencyMap.put(crimeData.getIucr(), count + 1);
-            }
-        }
-
-        HashMap<String, Integer> sortedRankedMap = rankByCrimeTypeFrequencyMap.entrySet().stream()
-                .sorted(Comparator.comparingInt(e -> -e.getValue()))
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (a, b) -> { throw new AssertionError(); },
-                        LinkedHashMap::new
-                ));
-
-        Set rankedKeySet = sortedRankedMap.keySet();
-        return rankedKeySet;
-    }
-
-    /**
      * Creates the hashmap of two integers, where first integer is the key that represents the
      * Ward area and second integer represents the value. Here the method runs a for loop on
      * crimeRecordData list and checks each time the ward appears, the value is incremented by
@@ -258,25 +223,86 @@ public class SearchCrimeData {
         return rankedKeySet;
     }
 
-    public static void main(String[] args) {
-        ArrayList<CrimeRecord> crimeData = new ArrayList<CrimeRecord>();
-        crimeData.add(new CrimeRecord("JE163990", 11, 23, 2020, "03:05:00 PM",
-                "073XX S SOUTH SHORE DR", "4386", "THEFT", "$500 AND UNDER",
-                "APARTMENT", 0, 0, 334, 7, "6", 41.748486365, -87.602675062));
-        crimeData.add(new CrimeRecord("JE266959",06, 15, 2021, "01:30:00 PM", "018XX N DAMEN AVE", "0460",
-                "BATTERY", "SIMPLE", "PARK PROPERTY", 0, 0, 1434, 32,"08B",41.914562993,-87.677553434));
-        crimeData.add(new CrimeRecord("JE266568",06, 15, 2021, "01:30:00 AM", "055XX N MC VICKER AVE", "0810", "THEFT", "OVER $500",
-                "STREET",0,0,1622,45,"06", 41.982167364,-87.779228689));
-        crimeData.add(new CrimeRecord("JE267494", 06, 15, 2021, "11:04:00 PM","052XX S ARTESIAN AVE","0110","HOMICIDE",
-                "FIRST DEGREE MURDER","STREET",0,0,923,7,"01A",41.798854705,-87.685390881));
-        crimeData.add(new CrimeRecord("JE267206",06, 15, 2021, "05:20:00 PM","048XX N PULASKI RD","0460","BATTERY",
-                "SIMPLE","PARKING LOT / GARAGE (NON RESIDENTIAL)",0,0,1712,32,"08B",41.969090767,-87.728052386));
+    /**
+     * Creates the hashmap of string and integers, where string is the key representing the
+     * primary description and integer represents the value. Here the method runs a for loop
+     * on crimeRecordData list and checks each time the key appears, the value is incremented
+     * by 1. Next, the data is sorted in decreasing order, and then converts the key values
+     * as sets and returns it.
+     * @return rankedKeySet, a set containing ranked data based on the crime primary
+     * description type
+     */
+    public Set rankByCrimeTypeFrequency() {
+        HashMap<String, Integer> rankByCrimeTypeFrequencyMap = new HashMap<>();
 
-        SearchCrimeData sr = new SearchCrimeData(crimeData);
-        Set data = sr.rankByMostDangerousAreas();
-        System.out.println(data);
+        for (CrimeRecord crimeData : crimeRecordData) {
+            if (rankByCrimeTypeFrequencyMap.size() == 0) {
+                rankByCrimeTypeFrequencyMap.put(crimeData.getPrimary(), 1);
+            } else if (!rankByCrimeTypeFrequencyMap.containsKey(crimeData.getPrimary())) {
+                rankByCrimeTypeFrequencyMap.put(crimeData.getPrimary(), 1);
+            } else {
+                int count = rankByCrimeTypeFrequencyMap.get(crimeData.getPrimary());
+                rankByCrimeTypeFrequencyMap.put(crimeData.getPrimary(), count + 1);
+            }
+        }
 
+        HashMap<String, Integer> sortedRankedMap = rankByCrimeTypeFrequencyMap.entrySet().stream()
+                .sorted(Comparator.comparingInt(e -> -e.getValue()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (a, b) -> { throw new AssertionError(); },
+                        LinkedHashMap::new
+                ));
+
+        Set rankedKeySet = sortedRankedMap.keySet();
+        return rankedKeySet;
     }
+
+    /**
+     * Creates the hashmap of two integers, where first integer is the key that represents the
+     * Ward area and second integer represents the value. Here the method runs a for loop on
+     * crimeRecordData list and checks each time the ward appears, the value is incremented by
+     * 1. Next, the data is sorted in decreasing order, and then converts the keys as
+     * a list. After this, it creates two lists, one is high crime rates list (contains top 10 ward
+     * by frequency) and the other is low crime rates list (contains bottom 10 ward by frequency).
+     * low crime rates
+     * @return highAndLowCrimeRatesList, a list[] containing high crime rates ward list at
+     * index 0, and low crime rates ward list at index 1
+     */
+    public List[] wardByHighAndLowCrimeRates() {
+        HashMap<Integer, Integer> rankByMostDangerousAreasMap = new HashMap<>();
+
+        for (CrimeRecord crimeData : crimeRecordData) {
+            if (rankByMostDangerousAreasMap.size() == 0) {
+                rankByMostDangerousAreasMap.put(crimeData.getWard(), 1);
+            } else if (!rankByMostDangerousAreasMap.containsKey(crimeData.getWard())) {
+                rankByMostDangerousAreasMap.put(crimeData.getWard(), 1);
+            } else {
+                int count = rankByMostDangerousAreasMap.get(crimeData.getWard());
+                rankByMostDangerousAreasMap.put(crimeData.getWard(), count + 1);
+            }
+        }
+
+        HashMap<Integer, Integer> sortedRankedMap = rankByMostDangerousAreasMap.entrySet().stream()
+                .sorted(Comparator.comparingInt(e -> -e.getValue()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (a, b) -> { throw new AssertionError(); },
+                        LinkedHashMap::new
+                ));
+
+        ArrayList<Integer> rankedKeyList = new ArrayList<>(sortedRankedMap.keySet());
+        List highCrimeRatesWardList = rankedKeyList.subList(0, 10);
+        List lowCrimeRatesWardList = rankedKeyList.subList(rankedKeyList.size()-10, rankedKeyList.size());
+        List[] highAndLowCrimeRatesList = new List[] {highCrimeRatesWardList, lowCrimeRatesWardList};
+
+        return highAndLowCrimeRatesList;
+    }
+
+
+
 
 }
 
