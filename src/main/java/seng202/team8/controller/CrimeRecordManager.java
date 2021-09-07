@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Hashtable;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +27,27 @@ public class CrimeRecordManager {
      * Mainly for checking membership
      */
     private HashSet<String> containedRecords = new HashSet<>();
+
+    /**
+     * A hashtable, with the Primary description of a crime as the key,
+     * and the value being the number of crimes in the local copy
+     * with that description
+     */
+    private Hashtable<String, Integer> primaryFreq = new Hashtable<>();
+
+    /**
+     * A hashtable, with the Ward of a crime as the key,
+     * and the value being the number of crimes in the local copy
+     * with that ward
+     */
+    private Hashtable<Integer, Integer> wardFreq = new Hashtable<>();
+
+    /**
+     * A hashtable, with the beat of a crime as the key,
+     * and the value being the number of crimes in the local copy
+     * with that beat
+     */
+    private Hashtable<Integer, Integer> beatFreq = new Hashtable<>();
 
     /**
      * Gets the local copy of our crime records
@@ -73,6 +95,9 @@ public class CrimeRecordManager {
                 }
                 //Add the non-essential stuff
                 addSkipables(data, newCrime);
+
+                //Increment the tables
+                incrementFreqs(newCrime);
 
                 /*
                 And that's all the information for the row!
@@ -197,6 +222,61 @@ public class CrimeRecordManager {
     }
 
     /**
+     * A helper function that increments the frequency hashtables
+     * related to the given crime
+     * Used for adding a crime to the local copy
+     * @param crime The crime which is being added to the copy
+     */
+    private void incrementFreqs(CrimeRecord crime) {
+        //Add the hashtable values
+        if (primaryFreq.containsKey(crime.getPrimary())) {
+            int oldfreq = primaryFreq.get(crime.getPrimary());
+            primaryFreq.put(crime.getPrimary(), (oldfreq + 1));
+        } else {
+            primaryFreq.put(crime.getPrimary(), 1);
+        }
+
+        if (wardFreq.containsKey(crime.getWard())) {
+            int oldfreq = wardFreq.get(crime.getWard());
+            wardFreq.put(crime.getWard(), (oldfreq + 1));
+        } else {
+            wardFreq.put(crime.getWard(), 1);
+        }
+
+        if (beatFreq.containsKey(crime.getBeat())) {
+            int oldfreq = beatFreq.get(crime.getBeat());
+            beatFreq.put(crime.getBeat(), (oldfreq + 1));
+        } else {
+            beatFreq.put(crime.getBeat(), 1);
+        }
+    }
+
+    /**
+     * Decrements the frequency hashtables
+     * related to the given crime
+     * Used for deletion of a crime
+     * Does nothing if the key is not in the table
+     * @param crime The crime which is being removed from the copy
+     */
+    private void decrementFreqs(CrimeRecord crime) {
+        if (primaryFreq.containsKey(crime.getPrimary())) {
+            int oldfreq = primaryFreq.get(crime.getPrimary());
+            primaryFreq.put(crime.getPrimary(), (oldfreq - 1));
+        }
+
+        if (wardFreq.containsKey(crime.getWard())) {
+            int oldfreq = wardFreq.get(crime.getWard());
+            wardFreq.put(crime.getWard(), (oldfreq - 1));
+        }
+
+        if (beatFreq.containsKey(crime.getBeat())) {
+            int oldfreq = beatFreq.get(crime.getBeat());
+            beatFreq.put(crime.getBeat(), (oldfreq - 1));
+        }
+
+    }
+
+    /**
      * Adds a crime to the local copy
      * Does nothing if the crime is already in the local copy
      * @param crime The crime being added.
@@ -204,6 +284,7 @@ public class CrimeRecordManager {
     public void addRecord(CrimeRecord crime) {
         if (!(containedRecords.contains(crime.getCaseNum()))) {
             localCopy.add(crime);
+            incrementFreqs(crime);
         }
     }
 
@@ -223,11 +304,16 @@ public class CrimeRecordManager {
      *
      * Does nothing if the crime is not in the copy
      * Also removes the crime's case number from the containedRecords
+     * and calls a helper function to decrement the frequency tables
      * @param crime The crime to be removed.
      */
     public void removeRecord(CrimeRecord crime) {
         localCopy.remove(crime);
+        if (containedRecords.contains((crime.getCaseNum()))) {
+            decrementFreqs(crime);
+        }
         containedRecords.remove(crime.getCaseNum());
+
     }
 
     
