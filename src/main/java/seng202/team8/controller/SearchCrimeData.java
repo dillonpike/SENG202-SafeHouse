@@ -15,7 +15,7 @@ public class SearchCrimeData {
     /**
      * List of crime records.
      */
-    private ArrayList<CrimeRecord> crimeRecordData;
+    private static ArrayList<CrimeRecord> crimeRecordData;
 
     public SearchCrimeData() {}
 
@@ -24,7 +24,7 @@ public class SearchCrimeData {
      * @param crimeRecordData, the param gets the crime record data list
      */
     public SearchCrimeData(ArrayList<CrimeRecord> crimeRecordData) {
-        this.crimeRecordData = crimeRecordData;
+        SearchCrimeData.crimeRecordData = crimeRecordData;
     }
 
 
@@ -32,7 +32,7 @@ public class SearchCrimeData {
      * Returns the crime record data list
      * @return crimeRecordData, it returns the crime record data list
      */
-    public ArrayList<CrimeRecord> getCrimeRecordData() {
+    public static ArrayList<CrimeRecord> getCrimeRecordData() {
         return crimeRecordData;
     }
 
@@ -41,7 +41,7 @@ public class SearchCrimeData {
      * @param crimeRecordData, the param gets crime record data list
      */
     public void setCrimeRecordData(ArrayList<CrimeRecord> crimeRecordData) {
-        this.crimeRecordData = crimeRecordData;
+        SearchCrimeData.crimeRecordData = crimeRecordData;
     }
 
 
@@ -54,7 +54,7 @@ public class SearchCrimeData {
      * @return filterByDateList, a new list made based on the dates between start and end date included
      * @throws ParseException If fail to parse string that is going to be saved as a specific format.
      */
-    public ArrayList<CrimeRecord> filterByDate(String startDate, String endDate) throws ParseException {
+    public static ArrayList<CrimeRecord> filterByDate(String startDate, String endDate) throws ParseException {
         ArrayList<CrimeRecord> filterByDateList = new ArrayList<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -82,7 +82,7 @@ public class SearchCrimeData {
      * @param crimeDescription, gets the crime description of a location
      * @return filterByCrimeTypeList, the new list based on the crime description type
      */
-    public ArrayList<CrimeRecord> filterByCrimeType(String crimeDescription) {
+    public static ArrayList<CrimeRecord> filterByCrimeType(String crimeDescription) {
         ArrayList<CrimeRecord> filterByCrimeTypeList = new ArrayList<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -101,7 +101,7 @@ public class SearchCrimeData {
      * @param locationName, gets the name of the crime location
      * @return filterByCrimeLocationList, the new list based on the crime location
      */
-    public ArrayList<CrimeRecord> filterByCrimeLocation(String locationName) {
+    public static ArrayList<CrimeRecord> filterByCrimeLocation(String locationName) {
         ArrayList<CrimeRecord> filterByCrimeLocationList = new ArrayList<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -122,7 +122,7 @@ public class SearchCrimeData {
      * @return filterByCrimeLocationBeat, the new list based on the beat numbers between start
      * and end beat numbers included
      */
-    public ArrayList<CrimeRecord> filterByCrimeLocationBeat(int startBeatNum, int endBeatNum) {
+    public static ArrayList<CrimeRecord> filterByCrimeLocationBeat(int startBeatNum, int endBeatNum) {
         ArrayList<CrimeRecord> filterByCrimeLocationBeat = new ArrayList<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -142,7 +142,7 @@ public class SearchCrimeData {
      * @return filterByCrimeWard, the new list based on the ward numbers between start
      * and end ward numbers included
      */
-    public ArrayList<CrimeRecord> filterByCrimeWard(int startWardNum, int endWardNum) {
+    public static ArrayList<CrimeRecord> filterByCrimeWard(int startWardNum, int endWardNum) {
         ArrayList<CrimeRecord> filterByCrimeWard = new ArrayList<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -161,7 +161,7 @@ public class SearchCrimeData {
      * @param arrestMade, gets the boolean as true for 'Y' (Yes) and false for 'N' (No)
      * @return filterByArrestList, a new list based on the arrest has been made or not
      */
-    public ArrayList<CrimeRecord> filterByArrest(boolean arrestMade) {
+    public static ArrayList<CrimeRecord> filterByArrest(boolean arrestMade) {
         ArrayList<CrimeRecord> filterByArrestList = new ArrayList<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -181,7 +181,7 @@ public class SearchCrimeData {
      * @return filterByDomesticViolenceList, a new list based on whether there was domestic
      * violence or not
      */
-    public ArrayList<CrimeRecord> filterByDomesticViolence(boolean wasDomesticViolence) {
+    public static ArrayList<CrimeRecord> filterByDomesticViolence(boolean wasDomesticViolence) {
         ArrayList<CrimeRecord> filterByDomesticViolenceList = new ArrayList<>();
 
         for (CrimeRecord crimeData : crimeRecordData)
@@ -199,7 +199,7 @@ public class SearchCrimeData {
      * sets and returns it.
      * @return rankedKeySet, a set containing ranked data based on the ward areas
      */
-    public Set rankByMostDangerousAreas() {
+    public static Set rankByMostDangerousAreas() {
         HashMap<Integer, Integer> rankByMostDangerousAreasMap = new HashMap<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -235,7 +235,7 @@ public class SearchCrimeData {
      * @return rankedKeySet, a set containing ranked data based on the crime primary
      * description type
      */
-    public Set rankByCrimeTypeFrequency() {
+    public static Set rankByCrimeTypeFrequency() {
         HashMap<String, Integer> rankByCrimeTypeFrequencyMap = new HashMap<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -273,7 +273,7 @@ public class SearchCrimeData {
      * @return highAndLowCrimeRatesList, a list[] containing high crime rates ward list at
      * index 0, and low crime rates ward list at index 1
      */
-    public List[] wardByHighAndLowCrimeRates() {
+    public static List[] wardByHighAndLowCrimeRates() {
         HashMap<Integer, Integer> rankByMostDangerousAreasMap = new HashMap<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -297,14 +297,31 @@ public class SearchCrimeData {
                 ));
 
         ArrayList<Integer> rankedKeyList = new ArrayList<>(sortedRankedMap.keySet());
-        List highCrimeRatesWardList = rankedKeyList.subList(0, 10);
-        List lowCrimeRatesWardList = rankedKeyList.subList(rankedKeyList.size()-10, rankedKeyList.size());
+        List<Integer> highCrimeRatesWardList = rankedKeyList.subList(0, 10);
+        List<Integer> lowCrimeRatesWardList = rankedKeyList.subList(rankedKeyList.size()-10, rankedKeyList.size());
         List[] highAndLowCrimeRatesList = new List[] {highCrimeRatesWardList, lowCrimeRatesWardList};
 
         return highAndLowCrimeRatesList;
     }
 
+    public static void main(String[] args) {
+        ArrayList<CrimeRecord> crimeData = new ArrayList<CrimeRecord>();
+        crimeData.add(new CrimeRecord("JE163990", 11, 23, 2020, "03:05:00 PM",
+                "073XX S SOUTH SHORE DR", "4386", "THEFT", "$500 AND UNDER",
+                "APARTMENT", 0, 0, 334, 7, "6", 41.748486365, -87.602675062));
+        crimeData.add(new CrimeRecord("JE266959",6, 15, 2021, "01:30:00 PM", "018XX N DAMEN AVE", "0460",
+                "BATTERY", "SIMPLE", "PARK PROPERTY", 0, 0, 1434, 32,"08B",41.914562993,-87.677553434));
+        crimeData.add(new CrimeRecord("JE266568",6, 15, 2021, "01:30:00 AM", "055XX N MC VICKER AVE", "0810", "THEFT", "OVER $500",
+                "STREET",0,0,1622,45,"06", 41.982167364,-87.779228689));
+        crimeData.add(new CrimeRecord("JE267494", 6, 15, 2021, "11:04:00 PM","052XX S ARTESIAN AVE","0110","HOMICIDE",
+                "FIRST DEGREE MURDER","STREET",0,0,923,7,"01A",41.798854705,-87.685390881));
+        crimeData.add(new CrimeRecord("JE267206",6, 15, 2021, "05:20:00 PM","048XX N PULASKI RD","0460","BATTERY",
+                "SIMPLE","PARKING LOT / GARAGE (NON RESIDENTIAL)",0,0,1712,32,"08B",41.969090767,-87.728052386));
 
+        SearchCrimeData sr = new SearchCrimeData(crimeData);
+        Set data = sr.rankByMostDangerousAreas();
+        System.out.println(data);
+    }
 
 
 }
