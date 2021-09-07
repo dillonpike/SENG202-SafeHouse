@@ -1,14 +1,19 @@
 package seng202.team8.controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import seng202.team8.model.CrimeRecord;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -106,6 +111,30 @@ public class TableController extends Controller implements Initializable {
     @FXML
     private TableColumn<CrimeRecord, Double> clmLon;
 
+    /**
+     *
+     */
+    @FXML
+    private DatePicker startDatePicker;
+
+    /**
+     *
+     */
+    @FXML
+    private DatePicker endDatePicker;
+
+    /**
+     *
+     */
+    @FXML
+    private Text startDateText;
+
+    /**
+     *
+     */
+    @FXML
+    private Text endDateText;
+
     private CrimeRecordManager manager;
 
     /**
@@ -134,14 +163,46 @@ public class TableController extends Controller implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        populateTable();
+        populateTable(manager.getLocalCopy());
     }
 
+    /**
+     *
+     * @return
+     */
     public TableView<CrimeRecord> getTable() {
     	return recordTable;
     }
 
-    public void populateTable() {
-    	recordTable.setItems(manager.getObservable());
+    /**
+     *
+     * @param crimes
+     */
+    public void populateTable(ArrayList<CrimeRecord> crimes) {
+    	recordTable.setItems(FXCollections.observableArrayList(crimes));
     }
+
+    /**
+     *
+     */
+    public void filterDates() {
+        String startDate = startDatePicker.getEditor().getText();
+        String endDate = endDatePicker.getEditor().getText();
+        try {
+            ArrayList<CrimeRecord> filteredRecords = SearchCrimeData.filterByDate(manager.getLocalCopy(),
+                    startDatePicker.getEditor().getText(),
+                    endDatePicker.getEditor().getText());
+            startDateText.setText("");
+            endDateText.setText("");
+            populateTable(filteredRecords);
+        } catch (ParseException e) { // Display error messages for appropriate dates
+            if (!SearchCrimeData.isValidDate(startDate)) {
+                startDateText.setText("Invalid Date");
+            }
+            if (!SearchCrimeData.isValidDate(endDate)) {
+                endDateText.setText("Invalid Date");
+            }
+        }
+    }
+
 }
