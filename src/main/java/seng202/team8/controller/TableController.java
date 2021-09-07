@@ -154,7 +154,6 @@ public class TableController extends Controller implements Initializable {
         clmFBI.setCellValueFactory(new PropertyValueFactory<>("fbiCD"));
         clmLat.setCellValueFactory(new PropertyValueFactory<>("latitude"));
         clmLon.setCellValueFactory(new PropertyValueFactory<>("longitude"));
-        System.out.println(getManager());
 		try {
 			getManager().importFile("src/test/java/seng202/team8/controller/5kRecords.csv");
 		} catch (FileNotFoundException e) {
@@ -199,9 +198,13 @@ public class TableController extends Controller implements Initializable {
         } catch (ParseException e) { // Display error messages for appropriate dates
             if (!SearchCrimeData.isValidDate(startDate)) {
                 startDateText.setText("Invalid Date");
+            } else {
+                startDateText.setText("");
             }
             if (!SearchCrimeData.isValidDate(endDate)) {
                 endDateText.setText("Invalid Date");
+            } else {
+                endDateText.setText("");
             }
         }
     }
