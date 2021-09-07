@@ -14,14 +14,15 @@ import seng202.team8.model.CrimeRecord;
 public class SearchCrimeData {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    
+
     /**
      * Filters the crime record data list by checking that each crime date is within the
      * given two date. If the date is within the dates, then it adds to the new list, and at the
      * end it returns the list.
+     * @param crimeRecordData, gets the crime record data list
      * @param startDate, gets the start date chosen by the user
      * @param endDate, gets the end date chosen by the user
-     * @return filterByDateList, a new list made based on the dates between start and end date included
+     * @return a new list made based on the dates between start and end date included
      * @throws ParseException If fail to parse string that is going to be saved as a specific format.
      */
     public static ArrayList<CrimeRecord> filterByDate(ArrayList<CrimeRecord> crimeRecordData, String startDate,
@@ -64,8 +65,9 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking that each crime description
      * matches the given crime description. If the description matches, then it adds to the
      * new list and therefore returns the list.
+     * @param crimeRecordData, gets the crime record data list
      * @param crimeDescription, gets the crime description of a location
-     * @return filterByCrimeTypeList, the new list based on the crime description type
+     * @return the new list based on the crime description type
      */
     public static ArrayList<CrimeRecord> filterByCrimeType(ArrayList<CrimeRecord> crimeRecordData, String crimeDescription) {
         ArrayList<CrimeRecord> filterByCrimeTypeList = new ArrayList<>();
@@ -82,8 +84,9 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking that each crime location
      * matches the given crime location. If the location matches, then it adds the crime
      * location to the new list and returns the list.
+     * @param crimeRecordData, gets the crime record data list
      * @param locationName, gets the name of the crime location
-     * @return filterByCrimeLocationList, the new list based on the crime location
+     * @return the new list based on the crime location
      */
     public static ArrayList<CrimeRecord> filterByCrimeLocation(ArrayList<CrimeRecord> crimeRecordData, String locationName) {
         ArrayList<CrimeRecord> filterByCrimeLocationList = new ArrayList<>();
@@ -100,9 +103,10 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking that each crime beat number is
      * within the given two beat numbers. If the date is within the numbers, then it adds to the
      * new list, and returns the list.
+     * @param crimeRecordData, gets the crime record data list
      * @param startBeatNum, gets the start beat number chosen
      * @param endBeatNum, gets the end beat number chosen
-     * @return filterByCrimeLocationBeat, the new list based on the beat numbers between start
+     * @return the new list based on the beat numbers between start
      * and end beat numbers included
      */
     public static ArrayList<CrimeRecord> filterByCrimeLocationBeat(ArrayList<CrimeRecord> crimeRecordData,
@@ -121,9 +125,10 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking that each crime ward number is
      * within the given two ward numbers. If the ward is within the numbers, then it adds to the
      * new list, and returns the list.
+     * @param crimeRecordData, gets the crime record data list
      * @param startWardNum, gets the start ward number chosen
      * @param endWardNum, gets the end ward number chosen
-     * @return filterByCrimeWard, the new list based on the ward numbers between start
+     * @return the new list based on the ward numbers between start
      * and end ward numbers included
      */
     public static ArrayList<CrimeRecord> filterByCrimeWard(ArrayList<CrimeRecord> crimeRecordData,
@@ -142,8 +147,9 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking whether the arrest has
      * been made or not based on the given boolean. If the boolean matches, then the crime
      * data is added to the new list, and returns the list.
+     * @param crimeRecordData, gets the crime record data list
      * @param arrestMade, gets the boolean as true for 'Y' (Yes) and false for 'N' (No)
-     * @return filterByArrestList, a new list based on the arrest has been made or not
+     * @return a new list based on the arrest has been made or not
      */
     public static ArrayList<CrimeRecord> filterByArrest(ArrayList<CrimeRecord> crimeRecordData, boolean arrestMade) {
         ArrayList<CrimeRecord> filterByArrestList = new ArrayList<>();
@@ -160,8 +166,9 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking whether there was any
      * domestic violence at the location, and compares with the given boolean. If the
      * boolean matches, then the crime data is added to the new list, and returns the list.
+     * @param crimeRecordData, gets the crime record data list
      * @param wasDomesticViolence, gets the boolean as true for 'Y' (Yes) or false for 'N' (No)
-     * @return filterByDomesticViolenceList, a new list based on whether there was domestic
+     * @return a new list based on whether there was domestic
      * violence or not
      */
     public static ArrayList<CrimeRecord> filterByDomesticViolence(ArrayList<CrimeRecord> crimeRecordData, boolean wasDomesticViolence) {
@@ -180,7 +187,8 @@ public class SearchCrimeData {
      * crimeRecordData list and checks each time the ward appears, the value is incremented by
      * 1. Next, the data is sorted in decreasing order, and then converts the key values as
      * sets and returns it.
-     * @return rankedKeySet, a set containing ranked data based on the ward areas
+     * @param crimeRecordData, gets the crime record data list
+     * @return a set containing ranked data based on the ward areas
      */
     public static Set rankByMostDangerousAreas(ArrayList<CrimeRecord> crimeRecordData) {
         HashMap<Integer, Integer> rankByMostDangerousAreasMap = new HashMap<>();
@@ -215,7 +223,8 @@ public class SearchCrimeData {
      * on crimeRecordData list and checks each time the key appears, the value is incremented
      * by 1. Next, the data is sorted in decreasing order, and then converts the key values
      * as sets and returns it.
-     * @return rankedKeySet, a set containing ranked data based on the crime primary
+     * @param crimeRecordData, gets the crime record data list
+     * @return a set containing ranked data based on the crime primary
      * description type
      */
     public static Set rankByCrimeTypeFrequency(ArrayList<CrimeRecord> crimeRecordData) {
