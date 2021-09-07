@@ -152,6 +152,10 @@ public class CrimeRecord {
      * Replaces all the attributes of a given crime with the provided ones.
      * Mainly used for editing crimes in the Local Copy of CrimeRecordManager
      *
+     * THIS SHOULD NOT BE CALLED
+     * CALL THE ONE IN CrimeRecordManager INSTEAD
+     *
+     * @param crime The crime being changed
      * @param caseNum The Case Number of the Crime
      * @param month The month the crime occurred (in int form)
      * @param date The day of the month the crime occurred (in int form)

@@ -62,5 +62,38 @@ public class CrimeRecordManagerTest extends TestCase {
         assertEquals(0, manager.getLocalCopy().size());
     }
 
+    public void testEdit() {
+        CrimeRecordManager manager = new CrimeRecordManager();
+        //Create the record
+        CrimeRecord loitering = new CrimeRecord("JE266628", 6, 15, 2021,
+                "09:30:00 AM", "080XX S DREXEL AVE" , "0820",
+                "OTHER OFFENSE", "LOITERING", "STREET",
+                0, 0, 631, 8, "06",
+                41.748486365f, (float) -87.602675062);
+        manager.addRecord(loitering);
+
+        manager.changeRecord(loitering, "JE266628", 6, 15, 2021,
+                "10:00:00 PM", "080XX S SHOPPING STREET" , "0820",
+                "OTHER OFFENSE", "LOITERING", "MALL",
+                0, 0, 631, 8, "06",
+                41.748486365f, (float) -87.602675062);
+
+        assertEquals("MALL", loitering.getLocDescription());
+    }
+
+    public void testFreq() {
+        CrimeRecordManager manager = new CrimeRecordManager();
+        //Create the record
+        CrimeRecord loitering = new CrimeRecord("JE266628", 6, 15, 2021,
+                "09:30:00 AM", "080XX S DREXEL AVE" , "0820",
+                "OTHER OFFENSE", "LOITERING", "STREET",
+                0, 0, 631, 8, "06",
+                41.748486365f, (float) -87.602675062);
+        manager.addRecord(loitering);
+
+        int actual = manager.getPrimaryFreq("OTHER OFFENSE");
+        assertEquals(1, actual);
+    }
+
 
 }

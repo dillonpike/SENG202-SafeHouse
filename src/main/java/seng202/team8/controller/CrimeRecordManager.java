@@ -58,6 +58,36 @@ public class CrimeRecordManager {
     }
 
     /**
+     * Gets the number of crimes in the local copy
+     * with the given Primary Description
+     * @param key The description
+     * @return The number of crimes with that description
+     */
+    public Integer getPrimaryFreq(String key) {
+        return primaryFreq.getOrDefault(key, 0);
+    }
+
+    /**
+     * Gets the number of crimes in the local copy
+     * with the given ward
+     * @param key The ward
+     * @return The number of crimes with that ward
+     */
+    public Integer getWardFreq(Integer key) {
+        return wardFreq.getOrDefault(key, 0);
+    }
+
+    /**
+     * Gets the number of crimes in the local copy
+     * with the given beat
+     * @param key The beat
+     * @return The number of crimes with that beat
+     */
+    public Integer getBeatFreq(Integer key) {
+        return beatFreq.getOrDefault(key, 0);
+    }
+
+    /**
      * Goes through the file and adds each line to the localCopy as a CrimeRecord object
      * @param filename The name/filepath of the file to be imported
      * @throws FileNotFoundException If the filename cannot be found, this is thrown.
@@ -314,6 +344,61 @@ public class CrimeRecordManager {
         }
         containedRecords.remove(crime.getCaseNum());
 
+    }
+
+    /**
+     * The function for editing a crimerecord in the localcopy
+     *
+     * It checks if the casenumber is vacant
+     * (either if it is unchanged or we don't already have
+     * a record with the new case number)
+     *
+     * If the number is not vacant, the function does nothing
+     * and returns false
+     * @param crime The crime being changed
+     * @param caseNum The Case Number of the Crime
+     * @param month The month the crime occurred (in int form)
+     * @param date The day of the month the crime occurred (in int form)
+     * @param year The year the crime occurred (in int form)
+     * @param time The time the crime occurred
+     * @param block The block of the crime
+     * @param iucr The IUCR of the crime
+     * @param primary The primary description of the crime
+     * @param secondary The secondary, and more detailed, description of the crime
+     * @param locdesc The description of the location
+     * @param arrest Whether an arrest was made
+     *               0 for false
+     *               1 for true
+     *               -1 for unknown
+     * @param domestic Whether the crime was domestic
+     *                 0 for false
+     *                 1 for true
+     *                 -1 for unknown
+     * @param beat The beat of the crime
+     * @param ward The ward of the crime
+     * @param fbiCD The FBI case number of the crime
+     * @param lat The latitude of the crime
+     * @param lon The longitude of the crime
+     * @return True if the edit was made, false if the case number was not vacant and
+     * consequently, the edit was not made
+     */
+    public boolean changeRecord(CrimeRecord crime, String caseNum, int month, int date, int year,
+                             String time, String block, String iucr, String primary,
+                             String secondary, String locdesc, int arrest, int domestic,
+                             int beat, int ward, String fbiCD, double lat, double lon) {
+
+
+        boolean willChange = !(containedRecords.contains(crime.getCaseNum())) || (Objects.equals(crime.getCaseNum(), caseNum));
+
+        if(willChange) {
+            decrementFreqs(crime);
+            CrimeRecord.changeRecord(crime, caseNum, month, date, year,
+                    time, block, iucr, primary, secondary, locdesc, arrest, domestic,
+                    beat, ward, fbiCD, lat, lon);
+            incrementFreqs(crime);
+        }
+
+        return willChange;
     }
 
     
