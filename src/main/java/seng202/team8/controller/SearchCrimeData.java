@@ -8,9 +8,12 @@ import java.util.stream.Collectors;
 import seng202.team8.model.CrimeRecord;
 
 /**
- * A class that contains methods to filter the crime data list based on the command given
+ * A class that contains methods to filter the crime data list based on the command given.
+ * TODO add param javadocs for crimeRecordData
  */
 public class SearchCrimeData {
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     
     /**
      * Filters the crime record data list by checking that each crime date is within the
@@ -23,16 +26,17 @@ public class SearchCrimeData {
      */
     public static ArrayList<CrimeRecord> filterByDate(ArrayList<CrimeRecord> crimeRecordData, String startDate,
                                                       String endDate) throws ParseException {
-        ArrayList<CrimeRecord> filterByDateList = new ArrayList<>();
 
+        Date startDateNum = dateFormat.parse(startDate);
+        Date endDateNum = dateFormat.parse(endDate);
+
+        ArrayList<CrimeRecord> filterByDateList = new ArrayList<>();
         for (CrimeRecord crimeData : crimeRecordData) {
             String setDateAtIndex = crimeData.getDate()[1] + "/" +
                     crimeData.getDate()[0] + "/" +
                     crimeData.getDate()[2];
 
-            Date dateAtIndex = new SimpleDateFormat("dd/MM/yyyy").parse(setDateAtIndex);
-            Date startDateNum = new SimpleDateFormat("dd/MM/yyyy").parse(startDate);
-            Date endDateNum = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
+            Date dateAtIndex = dateFormat.parse(setDateAtIndex);
 
             // startDateNum <= dateAtIndex <= endDateNum
             if (!startDateNum.after(dateAtIndex) && !endDateNum.before(dateAtIndex)) {
@@ -42,6 +46,19 @@ public class SearchCrimeData {
         return filterByDateList;
     }
 
+    /**
+     * Checks whether the given date follows the dd/MM/yyyy format used by filterByDate.
+     * @param date date to be checked
+     * @return true if valid, otherwise false
+     */
+    public static boolean isValidDate(String date) {
+        try {
+            dateFormat.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
 
     /**
      * Filters the crime record data list by checking that each crime description
@@ -61,7 +78,6 @@ public class SearchCrimeData {
         return filterByCrimeTypeList;
     }
 
-
     /**
      * Filters the crime record data list by checking that each crime location
      * matches the given crime location. If the location matches, then it adds the crime
@@ -79,7 +95,6 @@ public class SearchCrimeData {
         }
         return filterByCrimeLocationList;
     }
-
 
     /**
      * Filters the crime record data list by checking that each crime beat number is
@@ -123,7 +138,6 @@ public class SearchCrimeData {
         return filterByCrimeWard;
     }
 
-
     /**
      * Filters the crime record data list by checking whether the arrest has
      * been made or not based on the given boolean. If the boolean matches, then the crime
@@ -141,7 +155,6 @@ public class SearchCrimeData {
         }
         return filterByArrestList;
     }
-
 
     /**
      * Filters the crime record data list by checking whether there was any
