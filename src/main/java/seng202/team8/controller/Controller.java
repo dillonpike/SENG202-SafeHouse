@@ -48,6 +48,11 @@ public class Controller {
 	 * Window's y-coordinate offset from centre.
 	 */
 	private double yOffset;
+
+	/**
+	 * Application's CrimeRecordManager object.
+	 */
+	public CrimeRecordManager manager = new CrimeRecordManager();
 	
 	public Controller() {
 		stage = StartGUI.primaryStage;
@@ -145,4 +150,20 @@ public class Controller {
             s.setY(mouseEvent.getScreenY() - yOffset);
         });
     }
+
+	/**
+	 * Returns the controller's crime record manager.
+	 * @return crime record manager
+	 */
+	public CrimeRecordManager getManager() {
+		return manager;
+	}
+
+	/**
+	 * Sets the controller's crime record manager to manager.
+	 * @param manager crime record manager
+	 */
+	public void setManager(CrimeRecordManager manager) {
+		this.manager = manager;
+	}
 }

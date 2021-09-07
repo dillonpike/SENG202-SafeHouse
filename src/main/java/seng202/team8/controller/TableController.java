@@ -112,30 +112,28 @@ public class TableController extends Controller implements Initializable {
     private TableColumn<CrimeRecord, Double> clmLon;
 
     /**
-     *
+     * Date picker that the user uses to select a start date.
      */
     @FXML
     private DatePicker startDatePicker;
 
     /**
-     *
+     * Date picker that the user uses to select an end date.
      */
     @FXML
     private DatePicker endDatePicker;
 
     /**
-     *
+     * Text corresponding to startDatePicker.
      */
     @FXML
     private Text startDateText;
 
     /**
-     *
+     * Text corresponding to endDatePicker.
      */
     @FXML
     private Text endDateText;
-
-    private CrimeRecordManager manager;
 
     /**
      * Links recordTable columns to attributes of CrimeRecord.
@@ -156,14 +154,14 @@ public class TableController extends Controller implements Initializable {
         clmFBI.setCellValueFactory(new PropertyValueFactory<>("fbiCD"));
         clmLat.setCellValueFactory(new PropertyValueFactory<>("latitude"));
         clmLon.setCellValueFactory(new PropertyValueFactory<>("longitude"));
-        manager = new CrimeRecordManager();
+        System.out.println(getManager());
 		try {
-			manager.importFile("src/test/java/seng202/team8/controller/5kRecords.csv");
+			getManager().importFile("src/test/java/seng202/team8/controller/5kRecords.csv");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        populateTable(manager.getLocalCopy());
+        populateTable(getManager().getLocalCopy());
     }
 
     /**
@@ -175,23 +173,26 @@ public class TableController extends Controller implements Initializable {
     }
 
     /**
-     *
-     * @param crimes
+     * Displays the crimes given in recordTable.
+     * @param crimes ArrayList of crime records
      */
     public void populateTable(ArrayList<CrimeRecord> crimes) {
     	recordTable.setItems(FXCollections.observableArrayList(crimes));
     }
 
     /**
-     *
+     * Updates recordTable by only showing crimes that occurred within the dates in startDatePicker and endDatePicker.
+     * Displays an error message for the date pickers if they contain invalid dates.
      */
     public void filterDates() {
         String startDate = startDatePicker.getEditor().getText();
         String endDate = endDatePicker.getEditor().getText();
         try {
-            ArrayList<CrimeRecord> filteredRecords = SearchCrimeData.filterByDate(manager.getLocalCopy(),
+            ArrayList<CrimeRecord> filteredRecords = SearchCrimeData.filterByDate(
+                    getManager().getLocalCopy(),
                     startDatePicker.getEditor().getText(),
                     endDatePicker.getEditor().getText());
+
             startDateText.setText("");
             endDateText.setText("");
             populateTable(filteredRecords);
