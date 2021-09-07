@@ -12,6 +12,9 @@ import seng202.team8.model.CrimeRecord;
  */
 public class SearchCrimeData {
 
+    /**
+     * List of crime records.
+     */
     private ArrayList<CrimeRecord> crimeRecordData;
 
     public SearchCrimeData() {}
@@ -26,7 +29,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method returns the crime record data list
+     * Returns the crime record data list
      * @return crimeRecordData, it returns the crime record data list
      */
     public ArrayList<CrimeRecord> getCrimeRecordData() {
@@ -34,7 +37,7 @@ public class SearchCrimeData {
     }
 
     /**
-     * The method sets the given crime data list to the new crime record list
+     * Sets the given crime data list to the new crime record list
      * @param crimeRecordData, the param gets crime record data list
      */
     public void setCrimeRecordData(ArrayList<CrimeRecord> crimeRecordData) {
@@ -92,7 +95,7 @@ public class SearchCrimeData {
 
 
     /**
-     * The method filters the crime record data list by checking that each crime location
+     * Filters the crime record data list by checking that each crime location
      * matches the given crime location. If the location matches, then it adds the crime
      * location to the new list and returns the list.
      * @param locationName, gets the name of the crime location
