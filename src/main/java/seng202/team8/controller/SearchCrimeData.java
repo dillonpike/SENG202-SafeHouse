@@ -190,7 +190,7 @@ public class SearchCrimeData {
      * @param crimeRecordData gets the crime record data list
      * @return a set containing ranked data based on the ward areas
      */
-    public static Set rankByMostDangerousAreas(ArrayList<CrimeRecord> crimeRecordData) {
+    public static Set<Integer> rankByMostDangerousAreas(ArrayList<CrimeRecord> crimeRecordData) {
         HashMap<Integer, Integer> rankByMostDangerousAreasMap = new HashMap<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -213,7 +213,7 @@ public class SearchCrimeData {
                         LinkedHashMap::new
                 ));
 
-        Set rankedKeySet = sortedRankedMap.keySet();
+        Set<Integer> rankedKeySet = sortedRankedMap.keySet();
         return rankedKeySet;
     }
 
@@ -227,7 +227,7 @@ public class SearchCrimeData {
      * @return a set containing ranked data based on the crime primary
      * description type
      */
-    public static Set rankByCrimeTypeFrequency(ArrayList<CrimeRecord> crimeRecordData) {
+    public static Set<String> rankByCrimeTypeFrequency(ArrayList<CrimeRecord> crimeRecordData) {
         HashMap<String, Integer> rankByCrimeTypeFrequencyMap = new HashMap<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -250,7 +250,7 @@ public class SearchCrimeData {
                         LinkedHashMap::new
                 ));
 
-        Set rankedKeySet = sortedRankedMap.keySet();
+        Set<String> rankedKeySet = sortedRankedMap.keySet();
         return rankedKeySet;
     }
 
@@ -266,7 +266,7 @@ public class SearchCrimeData {
      * @return highAndLowCrimeRatesList, a list[] containing high crime rates ward list at
      * index 0, and low crime rates ward list at index 1
      */
-    public static List[] wardByHighAndLowCrimeRates(ArrayList<CrimeRecord> crimeRecordData) {
+    public static List<List<Integer>> wardByHighAndLowCrimeRates(ArrayList<CrimeRecord> crimeRecordData) {
         HashMap<Integer, Integer> rankByMostDangerousAreasMap = new HashMap<>();
 
         for (CrimeRecord crimeData : crimeRecordData) {
@@ -292,8 +292,11 @@ public class SearchCrimeData {
         ArrayList<Integer> rankedKeyList = new ArrayList<>(sortedRankedMap.keySet());
         List<Integer> highCrimeRatesWardList = rankedKeyList.subList(0, 10);
         List<Integer> lowCrimeRatesWardList = rankedKeyList.subList(rankedKeyList.size()-10, rankedKeyList.size());
-        List[] highAndLowCrimeRatesList = new List[] {highCrimeRatesWardList, lowCrimeRatesWardList};
 
+        // Creates a list of list that contains two list of high/low crime rates
+        List<List<Integer>> highAndLowCrimeRatesList = new ArrayList<List<Integer>>();
+        highAndLowCrimeRatesList.add(highCrimeRatesWardList);
+        highAndLowCrimeRatesList.add(lowCrimeRatesWardList);
         return highAndLowCrimeRatesList;
     }
 
