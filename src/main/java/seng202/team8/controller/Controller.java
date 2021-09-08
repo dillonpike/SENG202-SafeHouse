@@ -52,7 +52,7 @@ public class Controller {
 	/**
 	 * Application's CrimeRecordManager object.
 	 */
-	public CrimeRecordManager manager = new CrimeRecordManager();
+	private CrimeRecordManager manager = new CrimeRecordManager();
 	
 	public Controller() {
 		stage = StartGUI.primaryStage;

@@ -22,6 +22,11 @@ import java.util.ResourceBundle;
 public class TableController extends Controller implements Initializable {
 
     /**
+     * Crime records displayed in recordTable.
+     */
+    private ArrayList<CrimeRecord> records;
+
+    /**
      * Table that displays crime records.
      */
     @FXML
@@ -160,41 +165,39 @@ public class TableController extends Controller implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        populateTable(getManager().getLocalCopy());
+        records = getManager().getLocalCopy();
+        updateTable();
     }
 
     /**
-     *
-     * @return
+     * Updates the crimes given in recordTable with the module's records ArrayList.
      */
-    public TableView<CrimeRecord> getTable() {
-    	return recordTable;
+    private void updateTable() {
+    	recordTable.setItems(FXCollections.observableArrayList(records));
     }
 
     /**
-     * Displays the crimes given in recordTable.
-     * @param crimes ArrayList of crime records
+     * Applies filters
      */
-    public void populateTable(ArrayList<CrimeRecord> crimes) {
-    	recordTable.setItems(FXCollections.observableArrayList(crimes));
+    public void filterTable() {
+        records = getManager().getLocalCopy(); // Reset records to complete dataset
+        if (startDatePicker.getEditor().getText() != null || endDatePicker.getEditor().getText() != null) {
+            filterDates();
+        }
+        updateTable();
     }
 
     /**
-     * Updates recordTable by only showing crimes that occurred within the dates in startDatePicker and endDatePicker.
-     * Displays an error message for the date pickers if they contain invalid dates.
+     * Filter's the module's records ArrayList by removing crime record's that didn't occur between the dates provided
+     * in the GUI's date pickers. Displays an error message for the date pickers if they contain invalid dates.
      */
-    public void filterDates() {
+    private void filterDates() {
         String startDate = startDatePicker.getEditor().getText();
         String endDate = endDatePicker.getEditor().getText();
         try {
-            ArrayList<CrimeRecord> filteredRecords = SearchCrimeData.filterByDate(
-                    getManager().getLocalCopy(),
-                    startDatePicker.getEditor().getText(),
-                    endDatePicker.getEditor().getText());
-
+            records = SearchCrimeData.filterByDate(records, startDate, endDate);
             startDateText.setText("");
             endDateText.setText("");
-            populateTable(filteredRecords);
         } catch (ParseException e) { // Display error messages for appropriate dates
             if (!SearchCrimeData.isValidDate(startDate)) {
                 startDateText.setText("Invalid Date");
