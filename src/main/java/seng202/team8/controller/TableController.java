@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import seng202.team8.model.CrimeRecord;
@@ -117,13 +118,13 @@ public class TableController extends Controller implements Initializable {
     private TableColumn<CrimeRecord, Double> clmLon;
 
     /**
-     * Date picker that the user uses to select a start date.
+     * Date picker that the user uses to select a start date for filtering records.
      */
     @FXML
     private DatePicker startDatePicker;
 
     /**
-     * Date picker that the user uses to select an end date.
+     * Date picker that the user uses to select an end date for filtering records.
      */
     @FXML
     private DatePicker endDatePicker;
@@ -139,6 +140,12 @@ public class TableController extends Controller implements Initializable {
      */
     @FXML
     private Text endDateText;
+
+    /**
+     * Text field that the user types a primary description into for filtering records.
+     */
+    @FXML
+    private TextField primaryDescField;
 
     /**
      * Links recordTable columns to attributes of CrimeRecord.
@@ -181,8 +188,11 @@ public class TableController extends Controller implements Initializable {
      */
     public void filterTable() {
         records = getManager().getLocalCopy(); // Reset records to complete dataset
-        if (startDatePicker.getEditor().getText() != null || endDatePicker.getEditor().getText() != null) {
+        if (!startDatePicker.getEditor().getText().equals("") || !endDatePicker.getEditor().getText().equals("")) {
             filterDates();
+        }
+        if (!primaryDescField.getText().equals("")) {
+            records = SearchCrimeData.filterByPrimaryDesc(records, primaryDescField.getText());
         }
         updateTable();
     }

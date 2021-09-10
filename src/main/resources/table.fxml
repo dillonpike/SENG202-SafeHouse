@@ -6,6 +6,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -145,6 +146,12 @@
             <DatePicker fx:id="endDatePicker" layoutX="12.0" layoutY="110.0" onAction="#filterTable" promptText="End Date" />
             <Text fx:id="startDateText" fill="RED" layoutX="92.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="endDateText" fill="RED" layoutX="92.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text layoutX="38.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Description">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="primaryDescField" layoutX="24.0" layoutY="161.0" onKeyTyped="#filterTable" />
          </children>
       </Pane>
    </left>

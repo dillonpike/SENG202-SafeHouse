@@ -63,17 +63,17 @@ public class SearchCrimeData {
 
     /**
      * Filters the crime record data list by checking that each crime description
-     * matches the given crime description. If the description matches, then it adds to the
-     * new list and therefore returns the list.
+     * starts with the given crime description (case-insensitive). If this is the case, then it adds to the
+     * new list and returns the list.
      * @param crimeRecordData gets the crime record data list
      * @param crimeDescription gets the crime description of a location
      * @return the new list based on the crime description type
      */
-    public static ArrayList<CrimeRecord> filterByCrimeType(ArrayList<CrimeRecord> crimeRecordData, String crimeDescription) {
+    public static ArrayList<CrimeRecord> filterByPrimaryDesc(ArrayList<CrimeRecord> crimeRecordData, String crimeDescription) {
         ArrayList<CrimeRecord> filterByCrimeTypeList = new ArrayList<>();
-
+        crimeDescription = crimeDescription.toLowerCase(); // Set to lowercase to be case-insensitive
         for (CrimeRecord crimeData : crimeRecordData) {
-            if (crimeData.getPrimary().equals(crimeDescription)) {
+            if (crimeData.getPrimary().toLowerCase().startsWith(crimeDescription)) {
                 filterByCrimeTypeList.add(crimeData);
             }
         }
