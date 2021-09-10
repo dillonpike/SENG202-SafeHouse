@@ -137,21 +137,45 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Text layoutX="64.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Range">
+            <Text layoutX="64.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Range">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <DatePicker fx:id="startDatePicker" layoutX="12.0" layoutY="79.0" onAction="#filterTable" onInputMethodTextChanged="#filterTable" promptText="Start Date" />
-            <DatePicker fx:id="endDatePicker" layoutX="12.0" layoutY="110.0" onAction="#filterTable" promptText="End Date" />
-            <Text fx:id="startDateText" fill="RED" layoutX="92.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <Text fx:id="endDateText" fill="RED" layoutX="92.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <Text layoutX="38.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Description">
+            <DatePicker fx:id="startDatePicker" layoutX="13.0" layoutY="76.0" onAction="#filterTable" onKeyTyped="#filterTable" promptText="Start Date" />
+            <DatePicker fx:id="endDatePicker" layoutX="13.0" layoutY="107.0" onAction="#filterTable" onKeyTyped="#filterTable" promptText="End Date" />
+            <Text fx:id="startDateText" fill="RED" layoutX="94.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
+            <Text fx:id="endDateText" fill="RED" layoutX="94.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
+            <Text layoutX="39.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Description">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <TextField fx:id="primaryDescField" layoutX="24.0" layoutY="161.0" onKeyTyped="#filterTable" />
+            <TextField fx:id="primaryDescField" layoutX="25.0" layoutY="160.0" onKeyTyped="#filterTable" />
+            <Text layoutX="73.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="locationField" layoutX="25.0" layoutY="211.0" onKeyTyped="#filterTable" />
+            <Text layoutX="64.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beat Range">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="startBeatField" layoutX="26.0" layoutY="262.0" onKeyTyped="#filterTable" promptText="Start Beat" />
+            <TextField fx:id="endBeatField" layoutX="26.0" layoutY="293.0" onKeyTyped="#filterTable" promptText="End Beat" />
+            <Text fx:id="startBeatText" fill="RED" layoutX="105.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
+            <Text fx:id="endBeatText" fill="RED" layoutX="105.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
+            <Text layoutX="64.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ward Range">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="startWardField" layoutX="26.0" layoutY="344.0" onKeyTyped="#filterTable" promptText="Start Ward" />
+            <TextField fx:id="endWardField" layoutX="26.0" layoutY="375.0" onKeyTyped="#filterTable" promptText="End Ward" />
+            <Text fx:id="startWardText" fill="RED" layoutX="101.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
+            <Text fx:id="endWardText" fill="RED" layoutX="101.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
          </children>
       </Pane>
    </left>

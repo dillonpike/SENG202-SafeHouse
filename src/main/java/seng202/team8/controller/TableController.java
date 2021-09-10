@@ -148,6 +148,62 @@ public class TableController extends Controller implements Initializable {
     private TextField primaryDescField;
 
     /**
+     * Text field that the user types a location description into for filtering records.
+     */
+    @FXML
+    private TextField locationField;
+
+    /**
+     *
+     */
+    @FXML
+    private TextField startBeatField;
+
+    /**
+     *
+     */
+    @FXML
+    private TextField endBeatField;
+
+    /**
+     *
+     */
+    @FXML
+    private Text startBeatText;
+
+    /**
+     *
+     */
+    @FXML
+    private Text endBeatText;
+
+
+    /**
+     *
+     */
+    @FXML
+    private TextField startWardField;
+
+    /**
+     *
+     */
+    @FXML
+    private TextField endWardField;
+
+    /**
+     *
+     */
+    @FXML
+    private Text startWardText;
+
+    /**
+     *
+     */
+    @FXML
+    private Text endWardText;
+
+
+    /**
      * Links recordTable columns to attributes of CrimeRecord.
      */
     @Override
@@ -166,6 +222,14 @@ public class TableController extends Controller implements Initializable {
         clmFBI.setCellValueFactory(new PropertyValueFactory<>("fbiCD"));
         clmLat.setCellValueFactory(new PropertyValueFactory<>("latitude"));
         clmLon.setCellValueFactory(new PropertyValueFactory<>("longitude"));
+
+        startDateText.setText("");
+        endDateText.setText("");
+        startBeatText.setText("");
+        endBeatText.setText("");
+        startWardText.setText("");
+        endWardText.setText("");
+
 		try {
 			getManager().importFile("src/test/java/seng202/team8/controller/5kRecords.csv");
 		} catch (FileNotFoundException e) {
@@ -184,21 +248,20 @@ public class TableController extends Controller implements Initializable {
     }
 
     /**
-     * Applies filters
+     * Applies filters to the list of records displayed in recordTable.
      */
     public void filterTable() {
         records = getManager().getLocalCopy(); // Reset records to complete dataset
-        if (!startDatePicker.getEditor().getText().equals("") || !endDatePicker.getEditor().getText().equals("")) {
-            filterDates();
-        }
-        if (!primaryDescField.getText().equals("")) {
-            records = SearchCrimeData.filterByPrimaryDesc(records, primaryDescField.getText());
-        }
+        filterDates();
+        records = SearchCrimeData.filterByPrimaryDesc(records, primaryDescField.getText());
+        records = SearchCrimeData.filterByCrimeLocation(records, locationField.getText());
+        filterBeats();
+        filterWards();
         updateTable();
     }
 
     /**
-     * Filter's the module's records ArrayList by removing crime record's that didn't occur between the dates provided
+     * Filters the module's records ArrayList by removing crime record's that didn't occur between the dates provided
      * in the GUI's date pickers. Displays an error message for the date pickers if they contain invalid dates.
      */
     private void filterDates() {
@@ -208,16 +271,100 @@ public class TableController extends Controller implements Initializable {
             records = SearchCrimeData.filterByDate(records, startDate, endDate);
             startDateText.setText("");
             endDateText.setText("");
-        } catch (ParseException e) { // Display error messages for appropriate dates
-            if (!SearchCrimeData.isValidDate(startDate)) {
+        } catch (ParseException e) { // Display error messages for appropriate date pickers
+            if (!startDate.equals("") && !SearchCrimeData.isValidDate(startDate)) {
                 startDateText.setText("Invalid Date");
             } else {
                 startDateText.setText("");
             }
-            if (!SearchCrimeData.isValidDate(endDate)) {
+            if (!endDate.equals("") && !SearchCrimeData.isValidDate(endDate)) {
                 endDateText.setText("Invalid Date");
             } else {
                 endDateText.setText("");
+            }
+        }
+    }
+
+    /**
+     * Returns true if string can be converted to an integer, otherwise false.
+     * @param string string that is checked
+     * @return true if string can be converted to an integer, otherwise false
+     */
+    private boolean isInteger(String string) {
+        try {
+            Integer.parseInt(string);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private void filterBeats() {
+        String startBeatString = startBeatField.getText();
+        String endBeatString = endBeatField.getText();
+        try {
+            records = SearchCrimeData.filterByCrimeLocationBeat(records,
+                    Integer.parseInt(startBeatString), Integer.parseInt(endBeatString));
+            startBeatText.setText("");
+            endBeatText.setText("");
+        } catch (NumberFormatException e) { // Display error messages for appropriate beat fields
+            if (!startBeatString.equals("") && !isInteger(startBeatString)) {
+                startBeatText.setText("Invalid Beat");
+            } else {
+                startBeatText.setText("");
+            }
+            if (!endBeatString.equals("") && !isInteger(endBeatString)) {
+                endBeatText.setText("Invalid Beat");
+            } else {
+                endBeatText.setText("");
+            }
+        }
+    }
+
+    private void filterWards() {
+        String startWardString = startWardField.getText();
+        String endWardString = endWardField.getText();
+        try {
+            records = SearchCrimeData.filterByCrimeWard(records,
+                    Integer.parseInt(startWardString), Integer.parseInt(endWardString));
+            startWardText.setText("");
+            endWardText.setText("");
+        } catch (NumberFormatException e) { // Display error messages for appropriate ward fields
+            if (!startWardString.equals("") && !isInteger(startWardString)) {
+                startWardText.setText("Invalid Ward");
+            } else {
+                startWardText.setText("");
+            }
+            if (!endWardString.equals("") && !isInteger(endWardString)) {
+                endWardText.setText("Invalid Ward");
+            } else {
+                endWardText.setText("");
+            }
+        }
+    }
+
+    /**
+     * Might be used to combine filter functions
+     */
+    private void filterTextFieldRange(TextField startField, TextField endField, Text startText, Text endText) {
+        String startString = startField.getText();
+        String endString = endField.getText();
+        try {
+            records = SearchCrimeData.filterByCrimeLocationBeat(records,
+                    Integer.parseInt(startString), Integer.parseInt(endString));
+            startText.setText("");
+            endText.setText("");
+        } catch (NumberFormatException e) { // Display error messages for appropriate beat fields
+            if (!startString.equals("") && !isInteger(startString)) {
+                startText.setText("Invalid Date");
+            } else {
+                startText.setText("");
+            }
+            if (!endString.equals("") && !isInteger(endString)) {
+                endText.setText("Invalid Date");
+            } else {
+                endText.setText("");
             }
         }
     }

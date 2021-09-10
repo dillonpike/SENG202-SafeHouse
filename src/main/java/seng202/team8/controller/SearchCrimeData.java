@@ -82,17 +82,17 @@ public class SearchCrimeData {
 
     /**
      * Filters the crime record data list by checking that each crime location
-     * matches the given crime location. If the location matches, then it adds the crime
-     * location to the new list and returns the list.
+     * starts with the given crime location (case-insensitive). If this is the case, then it adds to the
+     * new list and returns the list.
      * @param crimeRecordData gets the crime record data list
      * @param locationName gets the name of the crime location
      * @return the new list based on the crime location
      */
     public static ArrayList<CrimeRecord> filterByCrimeLocation(ArrayList<CrimeRecord> crimeRecordData, String locationName) {
         ArrayList<CrimeRecord> filterByCrimeLocationList = new ArrayList<>();
-
+        locationName = locationName.toLowerCase(); // Set to lowercase to be case-insensitive
         for (CrimeRecord crimeData : crimeRecordData) {
-            if (crimeData.getLocDescription().equals(locationName)) {
+            if (crimeData.getLocDescription().toLowerCase().startsWith(locationName)) {
                 filterByCrimeLocationList.add(crimeData);
             }
         }
