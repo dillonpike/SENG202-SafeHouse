@@ -256,10 +256,6 @@ public class TableController extends Controller implements Initializable {
     private void updateTable() {
     	recordTable.setItems(FXCollections.observableArrayList(records));
     }
-    
-    public void initialiseTableWindow() {
-			openTable();
-    }
 
     /**
      * Applies filters to the list of records displayed in recordTable.

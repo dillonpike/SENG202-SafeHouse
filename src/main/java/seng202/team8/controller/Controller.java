@@ -60,6 +60,10 @@ public class Controller {
 		stage = StartGUI.primaryStage;
 	}
 	
+	/**
+	 * Starts the UI and loads the home page, sets the style of the stage to undecorated
+	 * @param s stage passed by the main function to open
+	 */
 	public void start(Stage s) {
 		try {
 			stage = s;
@@ -77,6 +81,9 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Changes the displayed page of the UI to the home page
+	 */
 	public void home()  {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/frame.fxml"));
@@ -90,6 +97,9 @@ public class Controller {
 		stage.show();
 	}
 
+	/**
+	 * Changes the displayed page of the UI to the map page
+	 */
 	public void map() {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/map.fxml"));
@@ -103,6 +113,9 @@ public class Controller {
 		stage.show();
 	}
 
+	/**
+	 * Changes the displayed page of the UI to the table page
+	 */
 	public void table() {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/table.fxml"));
@@ -116,6 +129,9 @@ public class Controller {
 		stage.show();
 	}
 	
+	/**
+	 * Changes the displayed page of the UI to the graph page
+	 */
 	public void graph()  {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/graph.fxml"));
@@ -129,6 +145,10 @@ public class Controller {
 		stage.show();
 	}
 
+	/**
+	 * Opens a popup window for adding a new record
+	 * @param e
+	 */
 	public void openAddRecord(ActionEvent e) {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/addRecord.fxml"));
@@ -145,13 +165,22 @@ public class Controller {
 		addRecordPopup.show();
 	}
 	
+	/**
+	 * Closes the add record popup window
+	 * @param e Node to collect the attached stage from
+	 */
 	public void closeAddRecord(ActionEvent e) {
 		System.out.println("Closing");
 		addRecordPopup = (Stage)((Node)e.getSource()).getScene().getWindow();
 		addRecordPopup.close();
 	}
 	
-	public String openFileLocation(ActionEvent e)  {
+	/**
+	 * 
+	 * @param Gets the path of a file selected by the file browser as a string
+	 * @return file path of selected file as a string
+	 */
+	public String openFileLocation()  {
 		FileChooser openRecords = new FileChooser();
 		openRecords.setTitle("Import Crime Data");
 		File toImport = openRecords.showOpenDialog(stage);
@@ -159,15 +188,25 @@ public class Controller {
 		return toImport.getAbsolutePath();
 	}
 	
-	public void exit(ActionEvent e) {
+	/**
+	 * Exits the window
+	 */
+	public void exit() {
 		stage.close();
 	}
 	
-	public void minimise(ActionEvent e) {
+	/**
+	 * Minimises the window
+	 */
+	public void minimise() {
 		stage.setIconified(true);
 	}
 
-	
+	/**
+	 * Makes a given node become a draggable anchor for the given stage
+	 * @param n node to be made draggable
+	 * @param s stage to be made draggable
+	 */
 	public void makeDraggable(Node n, Stage s){
 
         n.setOnMousePressed(mouseEvent -> {
