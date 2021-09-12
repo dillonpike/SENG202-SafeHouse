@@ -1,11 +1,13 @@
 package seng202.team8.controller;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -127,6 +129,14 @@ public class Controller {
 		System.out.println("Closing");
 		addRecordPopup = (Stage)((Node)e.getSource()).getScene().getWindow();
 		addRecordPopup.close();
+	}
+	
+	public String openFileLocation(ActionEvent e) throws IOException {
+		FileChooser openRecords = new FileChooser();
+		openRecords.setTitle("Import Crime Data");
+		File toImport = openRecords.showOpenDialog(stage);
+		System.out.println(toImport.getAbsolutePath());
+		return toImport.getAbsolutePath();
 	}
 	
 	public void exit(ActionEvent e) {
