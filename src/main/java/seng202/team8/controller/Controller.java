@@ -77,45 +77,65 @@ public class Controller {
 		}
 	}
 	
+	public void home()  {
+		try {
+			root = FXMLLoader.load(getClass().getResource("/frame.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		scene = new Scene(root, 1280,720);
+		stage.setScene(scene);
+		makeDraggable(root, stage);
+		stage.show();
+	}
+
+	public void map() {
+		try {
+			root = FXMLLoader.load(getClass().getResource("/map.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		scene = new Scene(root, 1280,720);
+		stage.setScene(scene);
+		makeDraggable(root, stage);
+		stage.show();
+	}
+
+	public void table() {
+		try {
+			root = FXMLLoader.load(getClass().getResource("/table.fxml"));
+		} catch (IOException e) {
+			System.out.println("FXML failed to load");
+			e.printStackTrace();
+		}
+		scene = new Scene(root, 1280,720);
+		stage.setScene(scene);
+		makeDraggable(root, stage);
+		stage.show();
+	}
 	
-	public void home(ActionEvent e) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("/frame.fxml"));
-		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+	public void graph()  {
+		try {
+			root = FXMLLoader.load(getClass().getResource("/graph.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		scene = new Scene(root, 1280,720);
 		stage.setScene(scene);
 		makeDraggable(root, stage);
 		stage.show();
 	}
 
-	public void map(ActionEvent e) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("/map.fxml"));
-		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-		scene = new Scene(root, 1280,720);
-		stage.setScene(scene);
-		makeDraggable(root, stage);
-		stage.show();
-	}
-
-	public void table(ActionEvent e) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("/table.fxml"));
-		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-		scene = new Scene(root, 1280,720);
-		stage.setScene(scene);
-		makeDraggable(root, stage);
-		stage.show();
-	}
-
-	public void graph(ActionEvent e) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("/graph.fxml"));
-		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-		scene = new Scene(root, 1280,720);
-		stage.setScene(scene);
-		makeDraggable(root, stage);
-		stage.show();
-	}
-
-	public void openAddRecord(ActionEvent e) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("/addRecord.fxml"));
+	public void openAddRecord(ActionEvent e) {
+		try {
+			root = FXMLLoader.load(getClass().getResource("/addRecord.fxml"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		addRecordPopup = new Stage();
 		addRecordPopup.initStyle(StageStyle.UNDECORATED);
 		makeDraggable(root, addRecordPopup);
@@ -131,7 +151,7 @@ public class Controller {
 		addRecordPopup.close();
 	}
 	
-	public String openFileLocation(ActionEvent e) throws IOException {
+	public String openFileLocation(ActionEvent e)  {
 		FileChooser openRecords = new FileChooser();
 		openRecords.setTitle("Import Crime Data");
 		File toImport = openRecords.showOpenDialog(stage);

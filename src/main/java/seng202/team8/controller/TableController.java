@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import seng202.team8.model.CrimeRecord;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -255,6 +256,10 @@ public class TableController extends Controller implements Initializable {
     private void updateTable() {
     	recordTable.setItems(FXCollections.observableArrayList(records));
     }
+    
+    public void initialiseTableWindow() {
+			openTable();
+    }
 
     /**
      * Applies filters to the list of records displayed in recordTable.
@@ -385,6 +390,10 @@ public class TableController extends Controller implements Initializable {
                 endText.setText("");
             }
         }
+    }
+    
+    public TableView<CrimeRecord> getTable() {
+    	return recordTable;
     }
 
 }
