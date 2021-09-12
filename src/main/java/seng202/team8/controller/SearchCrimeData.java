@@ -153,9 +153,9 @@ public class SearchCrimeData {
      */
     public static ArrayList<CrimeRecord> filterByArrest(ArrayList<CrimeRecord> crimeRecordData, boolean arrestMade) {
         ArrayList<CrimeRecord> filterByArrestList = new ArrayList<>();
-
+        int arrestMadeInt = arrestMade == true ? 1 : 0;
         for (CrimeRecord crimeData : crimeRecordData) {
-            if (crimeData.getWasArrest() == 1) {
+            if (crimeData.getWasArrest() == arrestMadeInt) {
                 filterByArrestList.add(crimeData);
             }
         }
@@ -173,9 +173,10 @@ public class SearchCrimeData {
      */
     public static ArrayList<CrimeRecord> filterByDomesticViolence(ArrayList<CrimeRecord> crimeRecordData, boolean wasDomesticViolence) {
         ArrayList<CrimeRecord> filterByDomesticViolenceList = new ArrayList<>();
-
+        int wasDomesticViolenceInt = wasDomesticViolence == true ? 1 : 0;
+        System.out.println(wasDomesticViolenceInt);
         for (CrimeRecord crimeData : crimeRecordData)
-            if (crimeData.getWasDomestic() == 1) {
+            if (crimeData.getWasDomestic() == wasDomesticViolenceInt) {
                 filterByDomesticViolenceList.add(crimeData);
             }
         return filterByDomesticViolenceList;

@@ -286,7 +286,7 @@ public class CrimeRecord {
 
     /**
      * Gets the arrest status
-     * @return true if an arrest was made, false if there was not
+     * @return true if an arrest was made, false if there was not //TODO change to nums
      */
     public int getWasArrest() {
         return wasArrest;

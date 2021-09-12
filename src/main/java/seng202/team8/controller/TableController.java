@@ -3,10 +3,7 @@ package seng202.team8.controller;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import seng202.team8.model.CrimeRecord;
@@ -202,6 +199,13 @@ public class TableController extends Controller implements Initializable {
     @FXML
     private Text endWardText;
 
+    @FXML
+    private ComboBox<String> arrestComboBox;
+
+    @FXML
+    private ComboBox<String> domesticComboBox;
+
+
 
     /**
      * Links recordTable columns to attributes of CrimeRecord.
@@ -238,6 +242,11 @@ public class TableController extends Controller implements Initializable {
 		}
         records = getManager().getLocalCopy();
         updateTable();
+
+        arrestComboBox.getItems().addAll("Don't filter", "Yes", "No");
+        domesticComboBox.getItems().addAll("Don't filter", "Yes", "No");
+        arrestComboBox.getSelectionModel().select("Don't filter");
+        domesticComboBox.getSelectionModel().select("Don't filter");
     }
 
     /**
@@ -257,6 +266,15 @@ public class TableController extends Controller implements Initializable {
         records = SearchCrimeData.filterByCrimeLocation(records, locationField.getText());
         filterBeats();
         filterWards();
+        if (!arrestComboBox.getValue().equals("Don't filter")) {
+            boolean arrestMade = arrestComboBox.getValue() == "Yes" ? true : false;
+            records = SearchCrimeData.filterByArrest(records, arrestMade);
+        }
+        System.out.println(domesticComboBox.getValue());
+        if (!domesticComboBox.getValue().equals("Don't filter")) {
+            boolean wasDomestic = domesticComboBox.getValue() == "Yes" ? true : false;
+            records = SearchCrimeData.filterByDomesticViolence(records, wasDomestic);
+        }
         updateTable();
     }
 
