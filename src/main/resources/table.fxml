@@ -15,7 +15,7 @@
    <center>
       <Pane id="stuff" prefHeight="620.0" prefWidth="1280.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
          <children>
-            <TableView id="recordTable" fx:id="recordTable" layoutX="57.0" layoutY="60.0" prefHeight="468.0" prefWidth="1183.0">
+            <TableView id="recordTable" fx:id="recordTable" layoutX="57.0" layoutY="60.0" prefHeight="468.0" prefWidth="1052.0">
               <columns>
                 <TableColumn id="clmNum" fx:id="clmNum" prefWidth="75.0" text="Case #" />
                 <TableColumn id="clmDate" fx:id="clmDate" prefWidth="75.0" text="Date" />
@@ -36,6 +36,11 @@
             <HBox layoutX="57.0" layoutY="536.0" prefHeight="45.0" prefWidth="1183.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#openAddRecord" prefHeight="40.0" prefWidth="150.0" text="Add">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#openFileLocation" prefHeight="40.0" prefWidth="150.0" text="Import Data">
                      <font>
                         <Font size="20.0" />
                      </font>
