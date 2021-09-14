@@ -205,6 +205,8 @@ public class TableController extends Controller implements Initializable {
 
     @FXML
     private ComboBox<String> domesticComboBox;
+    
+    
 
 
 
@@ -279,6 +281,13 @@ public class TableController extends Controller implements Initializable {
         updateTable();
     }
 
+    public void deleteRecord() {
+    	int index = recordTable.getSelectionModel().getSelectedIndex();
+    	getManager().removeRecord(recordTable.getSelectionModel().getSelectedItem());
+    	updateTable();
+    	recordTable.getSelectionModel().select(index);
+    }
+    
     /**
      * Filters the module's records ArrayList by removing crime record's that didn't occur between the dates provided
      * in the GUI's date pickers. Displays an error message for the date pickers if they contain invalid dates.
@@ -387,6 +396,8 @@ public class TableController extends Controller implements Initializable {
             }
         }
     }
+    
+    
     
     public TableView<CrimeRecord> getTable() {
     	return recordTable;

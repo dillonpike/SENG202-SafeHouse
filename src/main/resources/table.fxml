@@ -37,24 +37,32 @@
                 <TableColumn id="clmLon" fx:id="clmLon" prefWidth="75.0" text="Longitude" />
               </columns>
             </TableView>
-            <HBox layoutX="57.0" layoutY="536.0" prefHeight="45.0" prefWidth="1183.0">
+            <HBox layoutX="57.0" layoutY="536.0" prefHeight="45.0" prefWidth="1183.0" spacing="5.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#openAddRecord" prefHeight="40.0" prefWidth="150.0" text="Add">
+                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#openAddRecord" prefHeight="44.0" prefWidth="150.0" text="Add">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Remove">
+                  <Button fx:id="btnImport" mnemonicParsing="false" onAction="#openFileLocation" prefHeight="44.0" prefWidth="150.0" text="Import Data">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#openFileLocation" prefHeight="40.0" prefWidth="150.0" text="Import Data">
+                  <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#openFileLocation" prefHeight="44.0" prefWidth="150.0" text="Edit">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteRecord" prefHeight="44.0" prefWidth="150.0" text="Delete">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </HBox>
          </children></Pane>
    </center>
