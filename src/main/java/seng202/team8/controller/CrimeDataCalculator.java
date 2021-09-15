@@ -16,9 +16,9 @@ public class CrimeDataCalculator {
     /**
      * Gets the two locations containing its latitude (x-axis) and longitude (y-axis). Using the
      * "Haversine Formula", the distance between these two locations is calculated.
-     * @param firstLocation, gets the first crime location
-     * @param secondLocation, gets the second crime location
-     * @return crimeDistance, a crime distance between two crime locations
+     * @param firstLocation first crime location of valid location range
+     * @param secondLocation second crime location of valid location range
+     * @return a crime distance between two crime locations
      */
     public float calculateTwoCrimeDistance(double[] firstLocation, double[] secondLocation) {
         if ((firstLocation[0] == secondLocation[0]) && (firstLocation[1] == secondLocation[1])) {
@@ -45,9 +45,9 @@ public class CrimeDataCalculator {
 
     /**
      * Calculates the time difference between two crime timestamps given.
-     * @param startTime, gets the first date of crime as a string in 12-hour format
-     * @param endTime, gets the second date of crime as a string in 12-hour format
-     * @return date_Time_Difference, a string containing year, days, and time, in hours, minutes and seconds
+     * @param startTime first date of crime as a string in 12-hour format
+     * @param endTime second date of crime as a string in 12-hour format
+     * @return a string containing year, days, and time, in hours, minutes and seconds
      * @throws ParseException If fail to parse string that is going to be saved as a specific format.
      */
     public String calculateTwoCrimeTimeDifference(String startTime, String endTime) throws ParseException {

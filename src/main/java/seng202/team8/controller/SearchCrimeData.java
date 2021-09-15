@@ -19,9 +19,9 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking that each crime date is within the
      * given two date. If the date is within the dates, then it adds to the new list, and at the
      * end it returns the list.
-     * @param crimeRecordData gets the crime record data list
-     * @param startDate gets the start date chosen by the user
-     * @param endDate gets the end date chosen by the user
+     * @param crimeRecordData crime record data list
+     * @param startDate start date of valid date range
+     * @param endDate end date of valid date range
      * @return a new list made based on the dates between start and end date included
      * @throws ParseException If fail to parse string that is going to be saved as a specific format.
      */
@@ -65,8 +65,8 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking that each crime description
      * starts with the given crime description (case-insensitive). If this is the case, then it adds to the
      * new list and returns the list.
-     * @param crimeRecordData gets the crime record data list
-     * @param crimeDescription gets the crime description of a location
+     * @param crimeRecordData crime record data list
+     * @param crimeDescription crime description of a location
      * @return the new list based on the crime description type
      */
     public static ArrayList<CrimeRecord> filterByPrimaryDesc(ArrayList<CrimeRecord> crimeRecordData, String crimeDescription) {
@@ -84,8 +84,8 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking that each crime location
      * starts with the given crime location (case-insensitive). If this is the case, then it adds to the
      * new list and returns the list.
-     * @param crimeRecordData gets the crime record data list
-     * @param locationName gets the name of the crime location
+     * @param crimeRecordData crime record data list
+     * @param locationName name of the valid crime location
      * @return the new list based on the crime location
      */
     public static ArrayList<CrimeRecord> filterByCrimeLocation(ArrayList<CrimeRecord> crimeRecordData, String locationName) {
@@ -103,9 +103,9 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking that each crime beat number is
      * within the given two beat numbers. If the date is within the numbers, then it adds to the
      * new list, and returns the list.
-     * @param crimeRecordData gets the crime record data list
-     * @param startBeatNum gets the start beat number chosen
-     * @param endBeatNum gets the end beat number chosen
+     * @param crimeRecordData crime record data list
+     * @param startBeatNum start beat number of valid beat range
+     * @param endBeatNum end beat number of valid beat range
      * @return the new list based on the beat numbers between start
      * and end beat numbers included
      */
@@ -125,9 +125,9 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking that each crime ward number is
      * within the given two ward numbers. If the ward is within the numbers, then it adds to the
      * new list, and returns the list.
-     * @param crimeRecordData gets the crime record data list
-     * @param startWardNum gets the start ward number chosen
-     * @param endWardNum gets the end ward number chosen
+     * @param crimeRecordData crime record data list
+     * @param startWardNum start ward number of valid ward range
+     * @param endWardNum end ward number of valid ward range
      * @return the new list based on the ward numbers between start
      * and end ward numbers included
      */
@@ -147,8 +147,8 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking whether the arrest has
      * been made or not based on the given boolean. If the boolean matches, then the crime
      * data is added to the new list, and returns the list.
-     * @param crimeRecordData gets the crime record data list
-     * @param arrestMade gets the boolean as true for 'Y' (Yes) and false for 'N' (No)
+     * @param crimeRecordData valid crime record data list
+     * @param arrestMade boolean as true for 'Y' (Yes) and false for 'N' (No)
      * @return a new list based on the arrest has been made or not
      */
     public static ArrayList<CrimeRecord> filterByArrest(ArrayList<CrimeRecord> crimeRecordData, boolean arrestMade) {
@@ -166,7 +166,7 @@ public class SearchCrimeData {
      * Filters the crime record data list by checking whether there was any
      * domestic violence at the location, and compares with the given boolean. If the
      * boolean matches, then the crime data is added to the new list, and returns the list.
-     * @param crimeRecordData gets the crime record data list
+     * @param crimeRecordData crime record data list
      * @param wasDomesticViolence gets the boolean as true for 'Y' (Yes) or false for 'N' (No)
      * @return a new list based on whether there was domestic
      * violence or not
@@ -188,7 +188,7 @@ public class SearchCrimeData {
      * crimeRecordData list and checks each time the ward appears, the value is incremented by
      * 1. Next, the data is sorted in decreasing order, and then converts the key values as
      * sets and returns it.
-     * @param crimeRecordData gets the crime record data list
+     * @param crimeRecordData crime record data list
      * @return a set containing ranked data based on the ward areas
      */
     public static Set<Integer> rankByMostDangerousAreas(ArrayList<CrimeRecord> crimeRecordData) {
@@ -224,7 +224,7 @@ public class SearchCrimeData {
      * on crimeRecordData list and checks each time the key appears, the value is incremented
      * by 1. Next, the data is sorted in decreasing order, and then converts the key values
      * as sets and returns it.
-     * @param crimeRecordData gets the crime record data list
+     * @param crimeRecordData crime record data list
      * @return a set containing ranked data based on the crime primary
      * description type
      */
@@ -263,7 +263,7 @@ public class SearchCrimeData {
      * a list. After this, it creates two lists, one is high crime rates list (contains top 10 ward
      * by frequency) and the other is low crime rates list (contains bottom 10 ward by frequency).
      * low crime rates
-     * @param crimeRecordData
+     * @param crimeRecordData crime data list
      * @return highAndLowCrimeRatesList, a list[] containing high crime rates ward list at
      * index 0, and low crime rates ward list at index 1
      */
