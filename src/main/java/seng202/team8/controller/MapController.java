@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -13,7 +12,7 @@ public class MapController extends Controller implements Initializable {
 
     @FXML
     private WebView mapView;
-
+    
     private WebEngine webEngine;
 
 
@@ -23,8 +22,8 @@ public class MapController extends Controller implements Initializable {
     }
 
     private void initMap() {
-        webEngine = new WebEngine(getClass().getResource("/map.html").toString());
-        mapView = new WebView(webEngine);
-
+    	webEngine = mapView.getEngine();
+    	System.out.println("Map");
+        webEngine.load(getClass().getResource("/map.html").toExternalForm());
     }
 }
