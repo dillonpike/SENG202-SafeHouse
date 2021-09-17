@@ -44,11 +44,19 @@ public class ValidateCrime {
      * Since it's related to the IUCR, the number of different
      * primaries could be in the hundreds, so it is
      * assumed that any valid string is a valid primary
+     *
+     * NOTE:
+     * The current regex check is "characters or a whitespace one or more times".
+     * This would make double whitespaces valid
+     * The regex will need to be 'refurbished' into
+     * (characters one or more times) followed by zero to one whitespaces,
+     * with that pattern occuring one or more times.
+     *
      * @param primary The string to be validated
      * @return True if valid, false otherwise
      */
     public static boolean validatePrimary (String primary) {
-        return primary.matches("[a-zA-Z]+");
+        return primary.matches("[a-zA-Z\\s]+");
     }
 
     /**
