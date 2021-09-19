@@ -28,11 +28,12 @@ public class DatabaseServer {
     }
 
     /**
-     * Creates a crime record table
+     * Creates a new crime record table
+     * @param tableName crime data table name
      */
-    public void createCrimeRecordTable() {
+    public void createCrimeRecordTable(String tableName) {
         try (Connection connection = databaseConnection(); Statement statement = connection.createStatement()) {
-            statement.execute("CREATE TABLE IF NOT EXISTS Crime_Record (CaseNum varchar(50) primary key unique, " +
+            statement.execute("CREATE TABLE IF NOT EXISTS " + tableName + " (CaseNum varchar(50) primary key unique, " +
                     "Date_Of_Occurrence varchar(50), Block varchar(100), IUCR varchar(30), Primary_Desc varchar(150), " +
                     "Secondary_Desc varchar(150), Location_Desc varchar(100), Arrest int, Domestic int, Beat int," +
                     "Ward int, Fbi_Cd varchar(100), Latitude number, Longitude number)");
@@ -42,14 +43,15 @@ public class DatabaseServer {
     }
 
     /**
-     *
-     * @param crimeRecord a new crime data
+     * Inserts a new crime data into the specified table
+     * @param crimeRecord a new crime data for insertion
+     * @param tableName crime data table name
      */
-    public void insertCrimeData(CrimeRecord crimeRecord) {
+    public void insertCrimeData(CrimeRecord crimeRecord, String tableName) {
         // protects from SQL injection attacks
 
         try (Connection connection = databaseConnection(); PreparedStatement preparedStatement =
-                connection.prepareStatement("INSERT INTO Crime_Record (CaseNum, Date_Of_Occurrence, " +
+                connection.prepareStatement("INSERT INTO " + tableName + " (CaseNum, Date_Of_Occurrence, " +
                 "Block, IUCR, Primary_Desc, Secondary_Desc, Location_Desc, Arrest, Domestic, Beat, Ward, Fbi_Cd, " +
                 "Latitude, Longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             preparedStatement.setString(1, crimeRecord.getCaseNum());
@@ -78,14 +80,15 @@ public class DatabaseServer {
     }
 
     /**
-     *
+     * Converts all the table data to array list and returns it
+     * @param tableName crime data table name
      * @return the array list of crime record data
      */
-    public ArrayList<CrimeRecord> getAllCrimeData() {
+    public ArrayList<CrimeRecord> getAllCrimeData(String tableName) {
         ArrayList<CrimeRecord> crimeRecordList = new ArrayList<>();
 
         try (Connection connection = databaseConnection(); Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM Crime_Record")) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM " + tableName)) {
 
             while (resultSet.next()) {
                 CrimeRecord crimeRecord = new CrimeRecord();
@@ -114,13 +117,14 @@ public class DatabaseServer {
     }
 
     /**
-     *
+     * Deletes the selected crime data row from the table
      * @param caseNumber unique crime case number
+     * @param tableName crime data table name
      */
-    public void deleteCrimeData(String caseNumber) {
+    public void deleteCrimeData(String caseNumber, String tableName) {
 
         try (Connection connection = databaseConnection(); PreparedStatement preparedStatement =
-                connection.prepareStatement("DELETE FROM Crime_Record WHERE CaseNum = ?")) {
+                connection.prepareStatement("DELETE FROM " + tableName + " WHERE CaseNum = ?")) {
             preparedStatement.setString(1, caseNumber);
             preparedStatement.executeUpdate();
 
@@ -131,14 +135,15 @@ public class DatabaseServer {
     }
 
     /**
-     * Updates the crime data
+     * Updates the crime data at the given case number
      * @param crimeRecord new crime data to add
+     * @param tableName crime data table name
      * @param caseNumber unique crime case number
      */
-    public void updateCrimeData(CrimeRecord crimeRecord, String caseNumber) {
+    public void updateCrimeData(CrimeRecord crimeRecord, String tableName, String caseNumber) {
 
         try (Connection connection = databaseConnection(); PreparedStatement preparedStatement =
-                connection.prepareStatement("UPDATE Crime_Record SET CaseNum = ?, Date_Of_Occurrence" +
+                connection.prepareStatement("UPDATE " + tableName + " SET CaseNum = ?, Date_Of_Occurrence" +
                 " = ?, Block = ?, IUCR = ?, Primary_Desc = ?, Secondary_Desc = ?, Location_Desc = ?, Arrest = ?, " +
                 "Domestic = ?, Beat = ?, Ward = ?, Fbi_Cd = ?, Latitude = ?, Longitude = ? WHERE CaseNum = ?")) {
             preparedStatement.setString(1, crimeRecord.getCaseNum());
