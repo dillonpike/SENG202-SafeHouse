@@ -20,10 +20,15 @@ public class ValidateCrime {
      * @return True if the case number is valid, false otherwise
      */
     public static boolean validateCaseNum (String caseNum) {
-        boolean letters = caseNum.substring(0, 2).matches("[a-zA-Z]+");
-        boolean numbers = caseNum.substring(2).matches("[0-9]+");
+        try {
+            boolean letters = caseNum.substring(0, 2).matches("[a-zA-Z]+");
+            boolean numbers = caseNum.substring(2).matches("[0-9]+");
 
-        return (letters && numbers);
+            return (letters && numbers);
+        } catch(StringIndexOutOfBoundsException e) {
+            //The string is not long enough to be valid
+            return false;
+        }
     }
 
     /**
