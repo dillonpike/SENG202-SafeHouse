@@ -87,6 +87,11 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
+                  <Button mnemonicParsing="false" onAction="#testMapping" prefHeight="48.0" prefWidth="143.0" text="Map It!">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
               </items>
             </ToolBar>
          </children></HBox>
