@@ -99,7 +99,8 @@ public class ValidateCrime {
     /**
      * Validates if a string is a valid FBI crime code
      * The FBI crime code is a category of the crime,
-     * and is three digits long.
+     * and is often three digits long
+     * but sometimes can be two
      * For some, the final digit is a letter.
      *
      * You may have to remind users to add leading 0's
@@ -107,9 +108,10 @@ public class ValidateCrime {
      * @return True if valid, false if not
      */
     public static boolean validateFbiCD (String candidate) {
-        boolean suffix = candidate.substring(2).matches("[a-zA-Z0-9]");
-        boolean prefix = candidate.substring(0, 2).matches("[0-9]+");
+        int length = candidate.length();
+        boolean suffix = candidate.substring(length - 1).matches("[a-zA-Z0-9]");
+        boolean prefix = candidate.substring(0, length - 1).matches("[0-9]+");
 
-        return (suffix && prefix && (candidate.length() == 3));
+        return (suffix && prefix && (length <= 3));
     }
 }

@@ -76,10 +76,30 @@ public class ValidateCrimeTest extends TestCase {
     /**
      * Tests an invalid FBI code
      * Only tests incorrect formats
-     * Incorrect lengths are rather trivial
      */
     public void testInvalidFbiCd() {
         String candidate = "BAD"; //An invalid code
         assertFalse(ValidateCrime.validateFbiCD(candidate));
+    }
+
+    /**
+     * Tests an FBI code
+     * that is too long to be valid
+     */
+    public void testLongFbiCd() {
+        String candidate = "972B"; //An invalid code - too long
+        assertFalse(ValidateCrime.validateFbiCD(candidate));
+    }
+
+    /**
+     * Tests an FBI code of length 2
+     * One with a number end
+     * and another with a letter end
+     */
+    public void testTwoLengthFbiCd() {
+        String candidate = "06";
+        assertTrue(ValidateCrime.validateFbiCD(candidate));
+        candidate = "2C";
+        assertTrue(ValidateCrime.validateFbiCD(candidate));
     }
 }
