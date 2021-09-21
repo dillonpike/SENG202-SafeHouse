@@ -2,12 +2,13 @@ package seng202.team8.view;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seng202.team8.controller.Controller;
+import seng202.team8.controller.DataManager;
 
 
 public class StartGUI extends Application {
 	public static Stage primaryStage;
-	public static Controller control;
+	public static DataManager manager;
+	//public static Controller control;
 	public static javafx.scene.layout.BorderPane root; 
 	
 	
@@ -21,8 +22,14 @@ public class StartGUI extends Application {
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			//primaryStage.setScene(scene);
 			//primaryStage.show();
+			/*
 			control = new Controller();
 			control.start(primaryStage);
+			 */
+
+			manager = new DataManager();
+			manager.startGUI(primaryStage);
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -237,12 +237,14 @@ public class TableController extends Controller implements Initializable {
         startWardText.setText("");
         endWardText.setText("");
 
+        /*
 		try {
 			getManager().importFile("src/test/java/seng202/team8/controller/5kRecords.csv");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+         */
         records = getManager().getLocalCopy();
         updateTable();
 
@@ -250,6 +252,18 @@ public class TableController extends Controller implements Initializable {
         domesticComboBox.getItems().addAll("Don't filter", "Yes", "No");
         arrestComboBox.getSelectionModel().select("Don't filter");
         domesticComboBox.getSelectionModel().select("Don't filter");
+    }
+
+    public void importFile() {
+        String filename = openFileLocation();
+        try {
+            getManager().importFile(filename);
+            //Update the screen
+            updateTable();
+        } catch (FileNotFoundException e) {
+            //The file wasn't found!
+            e.printStackTrace();
+        }
     }
 
     /**
