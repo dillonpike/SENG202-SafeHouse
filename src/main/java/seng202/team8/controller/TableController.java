@@ -41,7 +41,7 @@ public class TableController extends Controller implements Initializable {
      * Column for a crime record's date.
      */
     @FXML
-    private TableColumn<CrimeRecord, int[]> clmDate;
+    private TableColumn<CrimeRecord, String> clmDate;
 
     /**
      * Column for a crime record's block.
@@ -206,7 +206,47 @@ public class TableController extends Controller implements Initializable {
     @FXML
     private ComboBox<String> domesticComboBox;
     
-    
+    @FXML
+    private Label lblDate;
+
+    @FXML
+    private Label lblCaseNum;
+
+    @FXML
+    private Label lblBlock;
+
+    @FXML
+    private Label lblUCR;
+
+    @FXML
+    private Label lblPrimary;
+
+    @FXML
+    private Label lblSecondary;
+
+    @FXML
+    private Label lblLocation;
+
+    @FXML
+    private Label lblArrest;
+
+    @FXML
+    private Label lblDomestic;
+
+    @FXML
+    private Label lblBeat;
+
+    @FXML
+    private Label lblWard;
+
+    @FXML
+    private Label lblFbi;
+
+    @FXML
+    private Label lblLat;
+
+    @FXML
+    private Label lblLon;
 
 
 
@@ -217,18 +257,10 @@ public class TableController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         clmNum.setCellValueFactory(new PropertyValueFactory<>("caseNum"));
         clmDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        clmBlock.setCellValueFactory(new PropertyValueFactory<>("block"));
-        clmIUCR.setCellValueFactory(new PropertyValueFactory<>("iucr"));
         clmPrimaryDesc.setCellValueFactory(new PropertyValueFactory<>("primary"));
-        clmSecondaryDesc.setCellValueFactory(new PropertyValueFactory<>("secondary"));
         clmLocation.setCellValueFactory(new PropertyValueFactory<>("locDescription"));
         clmArrest.setCellValueFactory(new PropertyValueFactory<>("wasArrest"));
         clmDomestic.setCellValueFactory(new PropertyValueFactory<>("wasDomestic"));
-        clmBeat.setCellValueFactory(new PropertyValueFactory<>("beat"));
-        clmWard.setCellValueFactory(new PropertyValueFactory<>("ward"));
-        clmFBI.setCellValueFactory(new PropertyValueFactory<>("fbiCD"));
-        clmLat.setCellValueFactory(new PropertyValueFactory<>("latitude"));
-        clmLon.setCellValueFactory(new PropertyValueFactory<>("longitude"));
 
         startDateText.setText("");
         endDateText.setText("");
@@ -237,12 +269,14 @@ public class TableController extends Controller implements Initializable {
         startWardText.setText("");
         endWardText.setText("");
 
+        /*
 		try {
 			getManager().importFile("src/test/java/seng202/team8/controller/5kRecords.csv");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+         */
         records = getManager().getLocalCopy();
         updateTable();
 
@@ -250,6 +284,18 @@ public class TableController extends Controller implements Initializable {
         domesticComboBox.getItems().addAll("Don't filter", "Yes", "No");
         arrestComboBox.getSelectionModel().select("Don't filter");
         domesticComboBox.getSelectionModel().select("Don't filter");
+    }
+
+    public void importFile() {
+        String filename = openFileLocation();
+        try {
+            getManager().importFile(filename);
+            //Update the screen
+            updateTable();
+        } catch (FileNotFoundException e) {
+            //The file wasn't found!
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -397,6 +443,24 @@ public class TableController extends Controller implements Initializable {
         }
     }
     
+    public void updateExtendedInfo() {
+    	CrimeRecord selectedRecord = recordTable.getSelectionModel().getSelectedItem();
+    	lblCaseNum.setText(selectedRecord.getCaseNum());
+    	lblDate.setText(selectedRecord.getDate().toString());
+    	lblBlock.setText(selectedRecord.getBlock());
+    	lblUCR.setText(selectedRecord.getIucr());
+    	lblPrimary.setText(selectedRecord.getPrimary());
+    	lblSecondary.setText(selectedRecord.getSecondary());
+    	lblLocation.setText(selectedRecord.getLocDescription());
+    	lblArrest.setText(String.valueOf(selectedRecord.getWasArrest()));
+    	lblDomestic.setText(String.valueOf(selectedRecord.getWasDomestic()));
+    	lblBeat.setText(String.valueOf(selectedRecord.getBeat()));
+    	lblWard.setText(String.valueOf(selectedRecord.getWard()));
+    	lblFbi.setText(selectedRecord.getFbiCD());
+    	lblLat.setText(String.valueOf(selectedRecord.getLatitude()));
+    	lblLon.setText(String.valueOf(selectedRecord.getLongitude()));
+    	
+    }
     
     
     public TableView<CrimeRecord> getTable() {
