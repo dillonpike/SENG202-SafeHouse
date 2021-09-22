@@ -18,8 +18,8 @@
 <body>
 <div id="map"></div>
 <script>
-	var map;
-	var markers = [];
+	let map;
+	let markers = [];
 
 	/**
 	 * Function to create the map
@@ -28,7 +28,7 @@
 	function initMap() {
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: 41.857912, lng: -87.652007},
-			zoom: 15
+			zoom: 10
 		});
 
 	}
@@ -41,21 +41,46 @@
 	 */
 	function placeMarker(latitude, longitude, name) {
 		//Create a marker
-		new google.maps.Marker({
+		const marker = new google.maps.Marker({
 			position: {lng: longitude, lat: latitude},
 			map: map,
-			title: name
-		})
+			title: name,
+			//This optimization stops the non-rendering at the cost of performance
+			optimized: false
+		});
+		markers.push(marker);
 	}
 
-	function placeTestMarker() {
-		//Create a test marker
-		new google.maps.Marker({
-			position: {lat: 41.857912, lng: -87.652007},
-			map: map,
-			title: "Steven"
-		})
+	/**
+	 * Sets the map on all markers in the array
+	 * @param map The map that the markers are set to
+	 * For our purposes map is showing them
+	 * and null is hiding them
+	 */
+	function setMapOnAll(map) {
+		for (let i = 0; i < markers.length; i++) {
+			markers[i].setMap(map);
+		}
 	}
+
+	/**
+	 * Hides all the markers on the map
+	 */
+	function hideMarkers() {
+		setMapOnAll(null);
+	}
+
+	/**
+	 * Deletes all the markers in the array by removing the references to them
+	 *
+	 * Hides them and then resets the array
+	 */
+	function deleteMarkers() {
+		hideMarkers();
+		markers = [];
+	}
+
+
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8JEdVqGpe2r2AfGchC0bMne0a_-9zuU4&callback=initMap"
