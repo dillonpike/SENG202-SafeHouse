@@ -12,7 +12,9 @@ import seng202.team8.model.CrimeRecord;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MapController extends Controller implements Initializable {
@@ -61,10 +63,10 @@ public class MapController extends Controller implements Initializable {
     public Text endWardText;
 
     @FXML
-    public ComboBox arrestComboBox;
+    public ComboBox<String> arrestComboBox;
 
     @FXML
-    public ComboBox domesticComboBox;
+    public ComboBox<String> domesticComboBox;
 
     @FXML
     public TextField markNumberField;
@@ -88,7 +90,20 @@ public class MapController extends Controller implements Initializable {
     private void initMap() {
     	webEngine = mapView.getEngine();
     	System.out.println("Map");
-        webEngine.load(getClass().getResource("/map.html").toExternalForm());
+        webEngine.load(Objects.requireNonNull(getClass().getResource("/map.html")).toExternalForm());
+
+        //Filter Text Fields
+        startDateText.setText("");
+        endDateText.setText("");
+        startBeatText.setText("");
+        endBeatText.setText("");
+        startWardText.setText("");
+        endWardText.setText("");
+        //Filter Combo Box initialization
+        arrestComboBox.getItems().addAll("Don't filter", "Yes", "No");
+        domesticComboBox.getItems().addAll("Don't filter", "Yes", "No");
+        arrestComboBox.getSelectionModel().select("Don't filter");
+        domesticComboBox.getSelectionModel().select("Don't filter");
     }
 
     /**
@@ -116,7 +131,90 @@ public class MapController extends Controller implements Initializable {
      * Filters the map
      */
     public void filterMap() {
+        records = getManager().getLocalCopy(); // Reset records to complete dataset
+        filterDates();
+        records = SearchCrimeData.filterByPrimaryDesc(records, primaryDescField.getText());
+        records = SearchCrimeData.filterByCrimeLocation(records, locationField.getText());
+        filterBeats();
+        filterWards();
+        if (!arrestComboBox.getValue().equals("Don't filter")) {
+            boolean arrestMade = Objects.equals(arrestComboBox.getValue(), "Yes");
+            records = SearchCrimeData.filterByArrest(records, arrestMade);
+        }
+        System.out.println(domesticComboBox.getValue());
+        if (!domesticComboBox.getValue().equals("Don't filter")) {
+            boolean wasDomestic = Objects.equals(domesticComboBox.getValue(), "Yes");
+            records = SearchCrimeData.filterByDomesticViolence(records, wasDomestic);
+        }
+    }
 
+    /**
+     * Filters the module's records ArrayList by removing crime record's that didn't occur between the dates provided
+     * in the GUI's date pickers. Displays an error message for the date pickers if they contain invalid dates.
+     */
+    private void filterDates() {
+        String startDate = startDatePicker.getEditor().getText();
+        String endDate = endDatePicker.getEditor().getText();
+        try {
+            records = SearchCrimeData.filterByDate(records, startDate, endDate);
+            startDateText.setText("");
+            endDateText.setText("");
+        } catch (ParseException e) { // Display error messages for appropriate date pickers
+            if (!startDate.equals("") && !SearchCrimeData.isValidDate(startDate)) {
+                startDateText.setText("Invalid Date");
+            } else {
+                startDateText.setText("");
+            }
+            if (!endDate.equals("") && !SearchCrimeData.isValidDate(endDate)) {
+                endDateText.setText("Invalid Date");
+            } else {
+                endDateText.setText("");
+            }
+        }
+    }
+
+    private void filterBeats() {
+        String startBeatString = startBeatField.getText();
+        String endBeatString = endBeatField.getText();
+        try {
+            records = SearchCrimeData.filterByCrimeLocationBeat(records,
+                    Integer.parseInt(startBeatString), Integer.parseInt(endBeatString));
+            startBeatText.setText("");
+            endBeatText.setText("");
+        } catch (NumberFormatException e) { // Display error messages for appropriate beat fields
+            if (!startBeatString.equals("") && !isInteger(startBeatString)) {
+                startBeatText.setText("Invalid Beat");
+            } else {
+                startBeatText.setText("");
+            }
+            if (!endBeatString.equals("") && !isInteger(endBeatString)) {
+                endBeatText.setText("Invalid Beat");
+            } else {
+                endBeatText.setText("");
+            }
+        }
+    }
+
+    private void filterWards() {
+        String startWardString = startWardField.getText();
+        String endWardString = endWardField.getText();
+        try {
+            records = SearchCrimeData.filterByCrimeWard(records,
+                    Integer.parseInt(startWardString), Integer.parseInt(endWardString));
+            startWardText.setText("");
+            endWardText.setText("");
+        } catch (NumberFormatException e) { // Display error messages for appropriate ward fields
+            if (!startWardString.equals("") && !isInteger(startWardString)) {
+                startWardText.setText("Invalid Ward");
+            } else {
+                startWardText.setText("");
+            }
+            if (!endWardString.equals("") && !isInteger(endWardString)) {
+                endWardText.setText("Invalid Ward");
+            } else {
+                endWardText.setText("");
+            }
+        }
     }
 
     /**
@@ -143,7 +241,7 @@ public class MapController extends Controller implements Initializable {
             String scriptToExecute = "deleteMarkers();";
             webEngine.executeScript(scriptToExecute);
             //Map them
-            placeNumMarkers(getManager().getLocalCopy(), quantity);
+            placeNumMarkers(records, quantity);
 
         } catch (NumberFormatException e) {
             //Display the text
