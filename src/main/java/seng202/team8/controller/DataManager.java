@@ -1,22 +1,12 @@
 package seng202.team8.controller;
 
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Static class that stores the data of the application
+ */
 public class DataManager {
-
-    /**
-     * The general controller
-     */
-    private Controller control = new Controller();
-
 
     /**
      * An ArrayList of all the different Managers that the application uses
@@ -31,20 +21,35 @@ public class DataManager {
      */
     private static CrimeRecordManager currentDataset = new CrimeRecordManager();
 
-    //Stuff for each scene going up/going down
 
-    public void startGUI(Stage primaryStage) {
-        control.start(primaryStage);
-    }
-
+    /**
+     * gets which dataset is currently in use
+     * @return the current dataset
+     */
     public static CrimeRecordManager getCurrentDataset() {
         return currentDataset;
     }
 
+    /**
+     * Gets the list of datasets
+     * @return An ArrayList of the datasets
+     */
     public static ArrayList<CrimeRecordManager> getDatasets() { return datasets;}
 
+    /**
+     * Sets the current dataset
+     * @param dataset The dataset being made into the current dataset
+     */
     public static void setCurrentDataset(CrimeRecordManager dataset) {
         currentDataset = dataset;
+    }
+
+    /**
+     * Adds the given dataset/CrimeRecordManager to the list of datasets
+     * @param dataset The CrimeRecordManager object to be added
+     */
+    public static void addToDatasets(CrimeRecordManager dataset) {
+        datasets.add(dataset);
     }
 
 
