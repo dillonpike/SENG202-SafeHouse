@@ -2,7 +2,6 @@ package seng202.team8.controller;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +11,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seng202.team8.view.StartGUI;
-
-import java.net.*;
-import java.util.ResourceBundle;
 
 /**
  *  Contains controller methods and attributes used across multiple scenes of the GUI.
@@ -51,10 +47,6 @@ public class Controller {
 	 */
 	private double yOffset;
 
-	/**
-	 * Application's CrimeRecordManager object.
-	 */
-	private CrimeRecordManager manager = new CrimeRecordManager();
 	
 	public Controller() {
 		stage = StartGUI.primaryStage;
@@ -147,7 +139,7 @@ public class Controller {
 
 	/**
 	 * Opens a popup window for adding a new record
-	 * @param e
+	 * @param e Input of type ActionEvent
 	 */
 	public void openAddRecord(ActionEvent e) {
 		try {
@@ -177,7 +169,7 @@ public class Controller {
 	
 	/**
 	 * 
-	 * @param Gets the path of a file selected by the file browser as a string
+	 * Gets the path of a file selected by the file browser as a string
 	 * @return file path of selected file as a string
 	 */
 	public String openFileLocation()  {
@@ -225,14 +217,6 @@ public class Controller {
 	 * @return crime record manager
 	 */
 	public CrimeRecordManager getManager() {
-		return manager;
-	}
-
-	/**
-	 * Sets the controller's crime record manager to manager.
-	 * @param manager crime record manager
-	 */
-	public void setManager(CrimeRecordManager manager) {
-		this.manager = manager;
+		return DataManager.getCurrentDataset();
 	}
 }

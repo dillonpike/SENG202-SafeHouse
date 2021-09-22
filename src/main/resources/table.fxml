@@ -44,7 +44,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnImport" mnemonicParsing="false" onAction="#openFileLocation" prefHeight="44.0" prefWidth="150.0" text="Import Data">
+                  <Button fx:id="btnImport" mnemonicParsing="false" onAction="#importFile" prefHeight="44.0" prefWidth="150.0" text="Import Data">
                      <font>
                         <Font size="20.0" />
                      </font>
