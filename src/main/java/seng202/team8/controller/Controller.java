@@ -213,6 +213,21 @@ public class Controller {
     }
 
 	/**
+	 * Returns true if string can be converted to an integer, otherwise false.
+	 * @param string string that is checked
+	 * @return true if string can be converted to an integer, otherwise false
+	 */
+	public boolean isInteger(String string) {
+		try {
+			Integer.parseInt(string);
+			return true;
+		}
+		catch (NumberFormatException e) {
+			return false;
+		}
+	}
+
+	/**
 	 * Returns the controller's crime record manager.
 	 * @return crime record manager
 	 */
