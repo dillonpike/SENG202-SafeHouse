@@ -267,4 +267,5 @@ public class SearchCrimeDataTest extends TestCase {
                 "BATTERY", "SIMPLE", "PARK PROPERTY", 1, 0, 1434, 32,"08B",41.914562993,-87.677553434));
         return crimeRecordData;
     }
+
 }
