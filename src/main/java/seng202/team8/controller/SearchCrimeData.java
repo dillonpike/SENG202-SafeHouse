@@ -291,8 +291,21 @@ public class SearchCrimeData {
                 ));
 
         ArrayList<Integer> rankedKeyList = new ArrayList<>(sortedRankedMap.keySet());
-        List<Integer> highCrimeRatesWardList = rankedKeyList.subList(0, 10);
-        List<Integer> lowCrimeRatesWardList = rankedKeyList.subList(rankedKeyList.size()-10, rankedKeyList.size());
+        List<Integer> highCrimeRatesWardList  = new ArrayList<>();
+        List<Integer> lowCrimeRatesWardList  = new ArrayList<>();
+
+        // Checks if there are 10 or more crime data record
+        if (rankedKeyList.size() < 10) {
+            highCrimeRatesWardList = rankedKeyList;
+
+            // Creating a new copy, so it doesn't affect the original list
+            List<Integer> copyRankedKeyList = new ArrayList<>(rankedKeyList);
+            lowCrimeRatesWardList = copyRankedKeyList;
+            Collections.reverse(lowCrimeRatesWardList);
+        } else {
+            highCrimeRatesWardList = rankedKeyList.subList(0, 10);
+            lowCrimeRatesWardList = rankedKeyList.subList(rankedKeyList.size()-10, rankedKeyList.size());
+        }
 
         // Creates a list of list that contains two list of high/low crime rates
         List<List<Integer>> highAndLowCrimeRatesList = new ArrayList<List<Integer>>();
