@@ -359,21 +359,6 @@ public class TableController extends Controller implements Initializable {
         }
     }
 
-    /**
-     * Returns true if string can be converted to an integer, otherwise false.
-     * @param string string that is checked
-     * @return true if string can be converted to an integer, otherwise false
-     */
-    private boolean isInteger(String string) {
-        try {
-            Integer.parseInt(string);
-            return true;
-        }
-        catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
     private void filterBeats() {
         String startBeatString = startBeatField.getText();
         String endBeatString = endBeatField.getText();
