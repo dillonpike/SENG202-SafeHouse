@@ -10,14 +10,13 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seng202.team8.model.CrimeRecord;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class MapController extends Controller implements Initializable {
+public class MapController extends GUIController implements Initializable {
 
 
     @FXML

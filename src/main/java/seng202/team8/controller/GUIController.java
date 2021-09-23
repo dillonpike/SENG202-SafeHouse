@@ -15,7 +15,7 @@ import seng202.team8.view.StartGUI;
 /**
  *  Contains controller methods and attributes used across multiple scenes of the GUI.
  */
-public class Controller {
+public class GUIController {
 
 	/**
 	 * Stage for the main window of the application.
@@ -46,9 +46,8 @@ public class Controller {
 	 * Window's y-coordinate offset from centre.
 	 */
 	private double yOffset;
-
 	
-	public Controller() {
+	public GUIController() {
 		stage = StartGUI.primaryStage;
 	}
 	
@@ -83,10 +82,7 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		scene = new Scene(root, 1280,720);
-		stage.setScene(scene);
-		makeDraggable(root, stage);
-		stage.show();
+		stage.getScene().setRoot(root);
 	}
 
 	/**
@@ -99,10 +95,7 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		scene = new Scene(root, 1280,720);
-		stage.setScene(scene);
-		makeDraggable(root, stage);
-		stage.show();
+		stage.getScene().setRoot(root);
 	}
 
 	/**
@@ -115,10 +108,7 @@ public class Controller {
 			System.out.println("FXML failed to load");
 			e.printStackTrace();
 		}
-		scene = new Scene(root, 1280,720);
-		stage.setScene(scene);
-		makeDraggable(root, stage);
-		stage.show();
+		stage.getScene().setRoot(root);
 	}
 	
 	/**
@@ -131,10 +121,7 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		scene = new Scene(root, 1280,720);
-		stage.setScene(scene);
-		makeDraggable(root, stage);
-		stage.show();
+		stage.getScene().setRoot(root);
 	}
 
 	/**

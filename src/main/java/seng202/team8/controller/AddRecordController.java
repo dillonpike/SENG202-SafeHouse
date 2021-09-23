@@ -10,16 +10,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import seng202.team8.model.CrimeRecord;
 import javafx.fxml.Initializable;
 
-public class AddRecordController extends Controller implements Initializable {
+public class AddRecordController extends GUIController implements Initializable {
 
 	@FXML
     private TextField fldCaseNum;

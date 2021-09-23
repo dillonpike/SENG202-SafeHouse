@@ -9,7 +9,6 @@ import javafx.scene.text.Text;
 import seng202.team8.model.CrimeRecord;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.ResourceBundle;
 /**
  * Contains attributes and methods for the table page in the application's GUI.
  */
-public class TableController extends Controller implements Initializable {
+public class TableController extends GUIController implements Initializable {
 
     /**
      * Crime records displayed in recordTable.
