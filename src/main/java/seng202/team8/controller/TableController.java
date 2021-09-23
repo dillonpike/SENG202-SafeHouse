@@ -261,28 +261,22 @@ public class TableController extends GUIController implements Initializable {
         clmArrest.setCellValueFactory(new PropertyValueFactory<>("wasArrest"));
         clmDomestic.setCellValueFactory(new PropertyValueFactory<>("wasDomestic"));
 
+        // Filter text fields
         startDateText.setText("");
         endDateText.setText("");
         startBeatText.setText("");
         endBeatText.setText("");
         startWardText.setText("");
         endWardText.setText("");
-
-        /*
-		try {
-			getManager().importFile("src/test/java/seng202/team8/controller/5kRecords.csv");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-         */
         records = getManager().getLocalCopy();
-        updateTable();
 
+        // Combo box initialization
         arrestComboBox.getItems().addAll("Don't filter", "Yes", "No");
         domesticComboBox.getItems().addAll("Don't filter", "Yes", "No");
         arrestComboBox.getSelectionModel().select("Don't filter");
         domesticComboBox.getSelectionModel().select("Don't filter");
+
+        updateTable();
     }
 
     public void importFile() {
@@ -318,7 +312,6 @@ public class TableController extends GUIController implements Initializable {
             boolean arrestMade = arrestComboBox.getValue() == "Yes" ? true : false;
             records = SearchCrimeData.filterByArrest(records, arrestMade);
         }
-        System.out.println(domesticComboBox.getValue());
         if (!domesticComboBox.getValue().equals("Don't filter")) {
             boolean wasDomestic = domesticComboBox.getValue() == "Yes" ? true : false;
             records = SearchCrimeData.filterByDomesticViolence(records, wasDomestic);
@@ -332,7 +325,7 @@ public class TableController extends GUIController implements Initializable {
     	updateTable();
     	recordTable.getSelectionModel().select(index);
     }
-    
+
     /**
      * Filters the module's records ArrayList by removing crime record's that didn't occur between the dates provided
      * in the GUI's date pickers. Displays an error message for the date pickers if they contain invalid dates.
@@ -398,31 +391,6 @@ public class TableController extends GUIController implements Initializable {
                 endWardText.setText("Invalid Ward");
             } else {
                 endWardText.setText("");
-            }
-        }
-    }
-
-    /**
-     * Might be used to combine filter functions
-     */
-    private void filterTextFieldRange(TextField startField, TextField endField, Text startText, Text endText) {
-        String startString = startField.getText();
-        String endString = endField.getText();
-        try {
-            records = SearchCrimeData.filterByCrimeLocationBeat(records,
-                    Integer.parseInt(startString), Integer.parseInt(endString));
-            startText.setText("");
-            endText.setText("");
-        } catch (NumberFormatException e) { // Display error messages for appropriate beat fields
-            if (!startString.equals("") && !isInteger(startString)) {
-                startText.setText("Invalid Date");
-            } else {
-                startText.setText("");
-            }
-            if (!endString.equals("") && !isInteger(endString)) {
-                endText.setText("Invalid Date");
-            } else {
-                endText.setText("");
             }
         }
     }

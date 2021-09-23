@@ -88,17 +88,17 @@ public class MapController extends GUIController implements Initializable {
 
     private void initMap() {
     	webEngine = mapView.getEngine();
-    	System.out.println("Map");
         webEngine.load(Objects.requireNonNull(getClass().getResource("/map.html")).toExternalForm());
 
-        //Filter Text Fields
+        // Filter text fields
         startDateText.setText("");
         endDateText.setText("");
         startBeatText.setText("");
         endBeatText.setText("");
         startWardText.setText("");
         endWardText.setText("");
-        //Filter Combo Box initialization
+
+        // Combo box initialization
         arrestComboBox.getItems().addAll("Don't filter", "Yes", "No");
         domesticComboBox.getItems().addAll("Don't filter", "Yes", "No");
         arrestComboBox.getSelectionModel().select("Don't filter");
@@ -127,7 +127,7 @@ public class MapController extends GUIController implements Initializable {
     }
 
     /**
-     * Filters the map
+     * Filters the map.
      */
     public void filterMap() {
         records = getManager().getLocalCopy(); // Reset records to complete dataset
@@ -140,7 +140,6 @@ public class MapController extends GUIController implements Initializable {
             boolean arrestMade = Objects.equals(arrestComboBox.getValue(), "Yes");
             records = SearchCrimeData.filterByArrest(records, arrestMade);
         }
-        System.out.println(domesticComboBox.getValue());
         if (!domesticComboBox.getValue().equals("Don't filter")) {
             boolean wasDomestic = Objects.equals(domesticComboBox.getValue(), "Yes");
             records = SearchCrimeData.filterByDomesticViolence(records, wasDomestic);
