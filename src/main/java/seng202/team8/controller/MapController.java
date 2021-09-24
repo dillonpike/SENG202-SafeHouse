@@ -119,8 +119,8 @@ public class MapController extends GUIController implements Initializable {
         //Go through a for loop a set number of times
         for (int i = 0; i < number; i++) {
             CrimeRecord crime = records.get(i);
-            String scriptToExecute = "placeMarker(" + crime.getLongitude() + ", " +
-                    crime.getLatitude() + ", \"" +
+            String scriptToExecute = "placeMarker(" + crime.getLatitude() + ", " +
+                    crime.getLongitude() + ", \"" +
                     crime.getCaseNum() + "\");";
             webEngine.executeScript(scriptToExecute);
         }
