@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -71,14 +72,27 @@ public class AddRecordController extends Controller implements Initializable {
 
     @FXML
     private Button btnClose;
+    
+    @FXML
+    private Spinner<Integer> fldHour;
+    
+    @FXML private Spinner<Integer> fldMinute;
 	
     public void createRecord() {
     	if (checkCaseNum() && checkFBI() && checkIUCR() && checkPrimary() && checkWard() && checkBeat() && checkLat() && checkLon() == true) {
     		CrimeRecord newRecord = new CrimeRecord(fldCaseNum.getText(), fldDate.getValue().getMonthValue(), fldDate.getValue().getDayOfMonth(),
-    		fldDate.getValue().getYear(), "0:00", fldBlock.getText(), fldIUCR.getText(), fldPrimaryDesc.getText(), fldSecondaryDesc.getText(),
-    		"tempLoc", -1, -1, (int)Integer.valueOf(fldBeat.getText()), 
+    		fldDate.getValue().getYear(), (String.valueOf(fldHour.getValue()) + ":" + String.valueOf(fldMinute.getValue())), fldBlock.getText(), fldIUCR.getText(), fldPrimaryDesc.getText(), fldSecondaryDesc.getText(),
+    		fldLocation.getSelectionModel().getSelectedItem(), parseCheckbox(fldArrest), parseCheckbox(fldDomestic), (int)Integer.valueOf(fldBeat.getText()), 
     		(int)Integer.valueOf(fldWard.getText()), fldFBI.getText(), (double)Double.valueOf(fldLat.getText()), (double)Double.valueOf(fldLon.getText()));
-    		System.out.println(newRecord.toString());
+    		DataManager.getCurrentDataset().addRecord(newRecord);
+    	}
+    }
+    
+    public int parseCheckbox(CheckBox c) {
+    	if (c.isSelected()) {
+    		return 1;
+    	} else {
+    		return 0;
     	}
     }
     
@@ -257,6 +271,8 @@ public class AddRecordController extends Controller implements Initializable {
 				"VEHICLE - OTHER RIDE SHARE SERVICE (LYFT, UBER, ETC.)",
 				"VEHICLE NON-COMMERCIAL",
 				"WAREHOUSE"));
+			fldHour.setEditable(true);
+			fldMinute.setEditable(true);
 
 		
 	}

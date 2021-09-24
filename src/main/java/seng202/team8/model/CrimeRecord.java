@@ -525,7 +525,7 @@ public class CrimeRecord {
     public String toString() {
     	return ("Case Number: " + caseNum + "\nDate: " + date[1] + "/" + date[0] + "/" + date[2] + "\nTime: " + timeOfCrime + "\nBlock: " 
     			+ block + "\nIUCR: " + iucr + "\nPrimary Description: " + primary + "\nSecondary Description: " + secondary +
-    			 "\nLocation: " + location + "\nArrest Made: " + wasArrest + "\nDomestic: " + wasDomestic + "\nBeat: " + 
+    			 "\nLocation: " + locDescription + "\nArrest Made: " + wasArrest + "\nDomestic: " + wasDomestic + "\nBeat: " + 
     			beat + "\nWard: " + ward + "\nFBI CD: " + fbiCD + "\nX Coord: " + xCoord + "\nY Coord: " + yCoord + 
     			"\nLatitude: " + latitude + "\nLongitude: " + longitude);
     }
