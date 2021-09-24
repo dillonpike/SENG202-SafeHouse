@@ -102,4 +102,21 @@ public class ValidateCrimeTest extends TestCase {
         candidate = "2C";
         assertTrue(ValidateCrime.validateFbiCD(candidate));
     }
+
+    /**
+     * Tests empty candidates for validateFbiCD
+     */
+    public void testEmptyFbiCD() {
+        String candidate = "";
+        assertFalse(ValidateCrime.validateFbiCD(candidate));
+
+    }
+
+    /**
+     * Tests empty candidates for validatePrimary
+     */
+    public void testEmptyPrimary() {
+        String candidate = "";
+        assertFalse(ValidateCrime.validatePrimary(candidate));
+    }
 }
