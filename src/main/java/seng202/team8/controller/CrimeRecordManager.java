@@ -252,7 +252,7 @@ public class CrimeRecordManager {
     }
 
     /**
-     * A helper function that increments the frequency hashtables
+     * A helper function that increments the frequency hash tables
      * related to the given crime
      * Used for adding a crime to the local copy
      * @param crime The crime which is being added to the copy
@@ -282,7 +282,7 @@ public class CrimeRecordManager {
     }
 
     /**
-     * Decrements the frequency hashtables
+     * Decrements the frequency hash tables
      * related to the given crime
      * Used for deletion of a crime
      * Does nothing if the key is not in the table
@@ -313,6 +313,7 @@ public class CrimeRecordManager {
      */
     public void addRecord(CrimeRecord crime) {
         if (!(containedRecords.contains(crime.getCaseNum()))) {
+            containedRecords.add(crime.getCaseNum());
             localCopy.add(crime);
             incrementFreqs(crime);
         }
@@ -347,14 +348,15 @@ public class CrimeRecordManager {
     }
 
     /**
-     * The function for editing a crimerecord in the localcopy
+     * The function for editing a crime record in the local copy
      *
-     * It checks if the casenumber is vacant
-     * (either if it is unchanged or we don't already have
-     * a record with the new case number)
+     * It checks that the given crime record exists and
+     * if the case number is vacant (either if it is unchanged or
+     * we don't already have a record with the new case number)
      *
-     * If the number is not vacant, the function does nothing
-     * and returns false
+     * If the crime record doesn't exist or the number is not vacant,
+     * the function does nothing and returns false
+     *
      * @param crime The crime being changed
      * @param caseNum The Case Number of the Crime
      * @param month The month the crime occurred (in int form)
@@ -387,10 +389,10 @@ public class CrimeRecordManager {
                              String secondary, String locdesc, int arrest, int domestic,
                              int beat, int ward, String fbiCD, double lat, double lon) {
 
+        //True if the new case number isn't being used, or if the case number is not going to be changed
+        boolean willChange = !(containedRecords.contains(caseNum)) || (Objects.equals(crime.getCaseNum(), caseNum));
 
-        boolean willChange = !(containedRecords.contains(crime.getCaseNum())) || (Objects.equals(crime.getCaseNum(), caseNum));
-
-        if(willChange) {
+        if (willChange) {
             decrementFreqs(crime);
             CrimeRecord.changeRecord(crime, caseNum, month, date, year,
                     time, block, iucr, primary, secondary, locdesc, arrest, domestic,
