@@ -2,13 +2,13 @@ package seng202.team8.view;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seng202.team8.controller.Controller;
+import seng202.team8.controller.GUIController;
 import seng202.team8.controller.DataManager;
 
 
 public class StartGUI extends Application {
 	public static Stage primaryStage;
-	public static Controller control;
+	public static GUIController control;
 	public static javafx.scene.layout.BorderPane root; 
 	
 	
@@ -23,7 +23,7 @@ public class StartGUI extends Application {
 			//primaryStage.setScene(scene);
 			//primaryStage.show();
 
-			control = new Controller();
+			control = new GUIController();
 			DataManager.addToDatasets(DataManager.getCurrentDataset());
 			control.start(primaryStage);
 

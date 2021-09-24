@@ -1,6 +1,5 @@
 package seng202.team8.controller;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,6 +8,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Hashtable;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seng202.team8.model.CrimeRecord;
@@ -95,21 +96,20 @@ public class CrimeRecordManager {
      * @return Returns an ArrayList of all lines that contain errors/could not be imported
      */
     public ArrayList<Integer> importFile(String filename) throws FileNotFoundException {
-        BufferedReader csvReader = new BufferedReader(new FileReader(filename));
-        String row;
+        CSVReader csvReader = new CSVReader(new FileReader(filename));
+        String[] row;
         ArrayList<Integer> linesWithErrors = new ArrayList<>();
         int counter = 1;
         try {
             //Skip the first line since it's just header info
-            csvReader.readLine();
-            while ((row = csvReader.readLine()) != null) {
-                String[] data = row.split(",", -1);
+            csvReader.readNext();
+            while ((row = csvReader.readNext()) != null) {
                 //Each data array should be 17 entries long
                 CrimeRecord newCrime = new CrimeRecord();
                 /*
                 Try to add the essential stuff to the record
                 */
-                if (!(addEssentials(data, newCrime))) {
+                if (!(addEssentials(row, newCrime))) {
                     /*If we couldn't, skip this iteration
                     and add this line to the lines with errors
                      */
@@ -124,7 +124,7 @@ public class CrimeRecordManager {
                     containedRecords.add(newCrime.getCaseNum());
                 }
                 //Add the non-essential stuff
-                addSkipables(data, newCrime);
+                addSkipables(row, newCrime);
 
                 //Increment the tables
                 incrementFreqs(newCrime);
@@ -141,7 +141,7 @@ public class CrimeRecordManager {
             }
             csvReader.close();
         }
-        catch (IOException ex) {
+        catch (IOException | CsvValidationException ex) {
             ex.printStackTrace();
         }
         return linesWithErrors;
