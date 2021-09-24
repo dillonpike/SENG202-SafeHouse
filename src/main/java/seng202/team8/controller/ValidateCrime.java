@@ -61,7 +61,10 @@ public class ValidateCrime {
      * @return True if valid, false otherwise
      */
     public static boolean validatePrimary (String primary) {
-        return primary.matches("[a-zA-Z\\s]+");
+        //Is valid if it conforms to the regex and isn't empty
+        boolean format = primary.matches("[a-zA-Z\\s]+");
+        boolean onlyWhitespace = primary.matches("[\\s]+");
+        return format && !(onlyWhitespace);
     }
 
     /**
@@ -108,10 +111,19 @@ public class ValidateCrime {
      * @return True if valid, false if not
      */
     public static boolean validateFbiCD (String candidate) {
-        int length = candidate.length();
-        boolean suffix = candidate.substring(length - 1).matches("[a-zA-Z0-9]");
-        boolean prefix = candidate.substring(0, length - 1).matches("[0-9]+");
+        try {
+            int length = candidate.length();
+            //The final character of the candidate
+            boolean suffix = candidate.substring(length - 1).matches("[a-zA-Z0-9]");
+            boolean prefix = candidate.substring(0, length - 1).matches("[0-9]+");
 
-        return (suffix && prefix && (length <= 3));
+            return (suffix && prefix && (length <= 3));
+        } catch (StringIndexOutOfBoundsException e) {
+            /*
+            Caused if we try to access a string index that doesn't exist
+            Which would be when the candidate is empty
+             */
+            return false;
+        }
     }
 }
