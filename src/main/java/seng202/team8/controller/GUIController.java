@@ -96,6 +96,7 @@ public class GUIController {
 			e.printStackTrace();
 		}
 		stage.getScene().setRoot(root);
+		makeDraggable(root, stage);
 	}
 
 	/**
@@ -109,6 +110,7 @@ public class GUIController {
 			e.printStackTrace();
 		}
 		stage.getScene().setRoot(root);
+		makeDraggable(root, stage);
 	}
 	
 	/**
@@ -122,26 +124,33 @@ public class GUIController {
 			e.printStackTrace();
 		}
 		stage.getScene().setRoot(root);
+		makeDraggable(root, stage);
 	}
 
 	/**
 	 * Opens a popup window for adding a new record
-	 * @param e Input of type ActionEvent
 	 */
-	public void openAddRecord(ActionEvent e) {
+	public AddRecordController openAddRecord() {
+		AddRecordController newController = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/addRecord.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/addRecord.fxml"));
+			Parent root;
+			root = loader.load();
+			addRecordPopup = new Stage();
+			addRecordPopup.initStyle(StageStyle.UNDECORATED);
+			makeDraggable(root, addRecordPopup);
+			addRecordPopup.initModality(Modality.APPLICATION_MODAL);
+			Scene popup = new Scene(root, 400, 600);
+			addRecordPopup.setScene(popup);
+			addRecordPopup.show();
+			newController = loader.getController(); 
+			return newController;
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		addRecordPopup = new Stage();
-		addRecordPopup.initStyle(StageStyle.UNDECORATED);
-		makeDraggable(root, addRecordPopup);
-		addRecordPopup.initModality(Modality.APPLICATION_MODAL);
-		Scene popup = new Scene(root, 400, 600);
-		addRecordPopup.setScene(popup);
-		addRecordPopup.show();
+		return newController;
+		
 	}
 	
 	/**

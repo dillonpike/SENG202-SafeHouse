@@ -3,9 +3,12 @@ package seng202.team8.controller;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import seng202.team8.model.CrimeRecord;
 
 import java.io.FileNotFoundException;
@@ -246,6 +249,9 @@ public class TableController extends GUIController implements Initializable {
 
     @FXML
     private Label lblLon;
+    
+    @FXML
+    private Pane dragBar;
 
 
 
@@ -294,8 +300,8 @@ public class TableController extends GUIController implements Initializable {
     /**
      * Updates the crimes given in recordTable with the module's records ArrayList.
      */
-    private void updateTable() {
-    	recordTable.setItems(FXCollections.observableArrayList(records));
+    public void updateTable() {
+    	recordTable.setItems(FXCollections.observableArrayList(DataManager.getCurrentDataset().getLocalCopy()));
     }
 
     /**
@@ -324,6 +330,17 @@ public class TableController extends GUIController implements Initializable {
     	getManager().removeRecord(recordTable.getSelectionModel().getSelectedItem());
     	updateTable();
     	recordTable.getSelectionModel().select(index);
+    }
+    
+    public void editRecord() {
+    	if (recordTable.getSelectionModel().getSelectedItem() != null) {
+    		AddRecordController editController = openAddRecord();
+    		editController.lblTitle.setText("EDIT RECORD");
+    		editController.fldCaseNum.setEditable(false);
+    		editController.editing = true;
+    		editController.toEdit = recordTable.getSelectionModel().getSelectedItem();
+    		editController.fillFields();
+    	}
     }
 
     /**

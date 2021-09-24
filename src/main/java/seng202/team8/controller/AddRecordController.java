@@ -5,19 +5,22 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import seng202.team8.model.CrimeRecord;
 import javafx.fxml.Initializable;
 
 public class AddRecordController extends GUIController implements Initializable {
 
 	@FXML
-    private TextField fldCaseNum;
+    public TextField fldCaseNum;
 
     @FXML
     private DatePicker fldDate;
@@ -71,6 +74,33 @@ public class AddRecordController extends GUIController implements Initializable 
     private Spinner<Integer> fldHour;
     
     @FXML private Spinner<Integer> fldMinute;
+    
+    @FXML
+    public Label lblTitle;
+    
+    public boolean editing = false;
+    
+    public CrimeRecord toEdit = null;
+    
+    public void fillFields() {
+    	fldCaseNum.setText(toEdit.getCaseNum());
+    	fldBlock.setText(toEdit.getBlock());
+    	fldIUCR.setText(toEdit.getIucr());
+    	fldPrimaryDesc.setText(toEdit.getPrimary());
+    	fldSecondaryDesc.setText(toEdit.getSecondary());
+    	fldLocation.getSelectionModel().select(toEdit.getLocDescription());
+    	if (toEdit.getWasArrest() == 1) {
+    		fldArrest.setSelected(true);
+    	}
+    	if (toEdit.getWasDomestic() == 1) {
+    		fldDomestic.setSelected(true);
+    	}
+    	fldBeat.setText(String.valueOf(toEdit.getBeat()));
+    	fldWard.setText(String.valueOf(toEdit.getWard()));
+    	fldFBI.setText(toEdit.getFbiCD());
+    	fldLat.setText(String.valueOf(toEdit.getLatitude()));
+    	fldLon.setText(String.valueOf(toEdit.getLongitude()));
+    }
 	
     public void createRecord() {
     	if (checkCaseNum() && checkFBI() && checkIUCR() && checkPrimary() && checkWard() && checkBeat() && checkLat() && checkLon() == true) {
@@ -78,7 +108,17 @@ public class AddRecordController extends GUIController implements Initializable 
     		fldDate.getValue().getYear(), (String.valueOf(fldHour.getValue()) + ":" + String.valueOf(fldMinute.getValue())), fldBlock.getText(), fldIUCR.getText(), fldPrimaryDesc.getText(), fldSecondaryDesc.getText(),
     		fldLocation.getSelectionModel().getSelectedItem(), parseCheckbox(fldArrest), parseCheckbox(fldDomestic), (int)Integer.valueOf(fldBeat.getText()), 
     		(int)Integer.valueOf(fldWard.getText()), fldFBI.getText(), (double)Double.valueOf(fldLat.getText()), (double)Double.valueOf(fldLon.getText()));
-    		DataManager.getCurrentDataset().addRecord(newRecord);
+    		if (editing == false) {
+    			DataManager.getCurrentDataset().addRecord(newRecord);
+    		} else {
+    			DataManager.getCurrentDataset().changeRecord(toEdit, newRecord.getCaseNum(), newRecord.getDate()[0], newRecord.getDate()[1], newRecord.getDate()[2], 
+    					newRecord.getTimeOfCrime(), newRecord.getBlock(), newRecord.getIucr(), newRecord.getPrimary(), newRecord.getSecondary(), newRecord.getLocDescription(),
+    					newRecord.getWasArrest(), newRecord.getWasDomestic(), newRecord.getBeat(), newRecord.getWard(), newRecord.getFbiCD(), newRecord.getLatitude(), 
+    					newRecord.getLongitude());
+    		}
+    		Stage addRecordPopup = (Stage) fldArrest.getScene().getWindow();
+    		addRecordPopup.close();
+    		
     	}
     }
     
