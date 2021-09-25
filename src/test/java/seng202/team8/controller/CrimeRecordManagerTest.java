@@ -1,6 +1,7 @@
 package seng202.team8.controller;
 
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -291,7 +292,16 @@ class CrimeRecordManagerTest {
     @Test
     void testDate() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
-        // TODO when date storage is finalised
+        assertEquals(LocalDate.of(2021, 6, 15), records.get(0).getDate());
+    }
+
+    /**
+     * Tests that the CrimeRecordManager properly imports the time.
+     */
+    @Test
+    void testTime() {
+        ArrayList<CrimeRecord> records = testManager.getLocalCopy();
+        assertEquals(LocalTime.of(3, 3), records.get(0).getTime());
     }
 
     /**
@@ -345,7 +355,7 @@ class CrimeRecordManagerTest {
     @Test
     void testArrest() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
-        //TODO when arrest storage finalised assertEquals("No", records.get(0).getWasArrest());
+        assertEquals("Yes", records.get(0).getWasArrest());
     }
 
     /**
@@ -354,7 +364,7 @@ class CrimeRecordManagerTest {
     @Test
     void testDomestic() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
-        //TODO when domestic storage finalised assertEquals("No", records.get(0).getWasDomestic());
+        assertEquals("No", records.get(0).getWasDomestic());
     }
 
     /**
