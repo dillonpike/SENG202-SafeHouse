@@ -84,6 +84,9 @@ public class AddRecordController extends GUIController implements Initializable 
     
     public TableController currentTable;
     
+    /**
+     * Initialises the fields for all values to that of the crime record to be edited.
+     */
     public void fillFields() {
     	fldCaseNum.setText(toEdit.getCaseNum());
     	fldBlock.setText(toEdit.getBlock());
@@ -104,6 +107,11 @@ public class AddRecordController extends GUIController implements Initializable 
     	fldLon.setText(String.valueOf(toEdit.getLongitude()));
     }
 	
+    /**
+     * Calls all validation methods, and if none fail either a new record will be created using data from every field of the window, or the given record will
+     * be updated to the values present in all fields. Editing or creating is determined by the editing boolean flag. After this the table is updated and the 
+     * stage is closed.
+     */
     public void createRecord() {
     	if (checkCaseNum() && checkFBI() && checkIUCR() && checkPrimary() && checkWard() && checkBeat() && checkLat() && checkLon() == true) {
     		CrimeRecord newRecord = new CrimeRecord(fldCaseNum.getText(), fldDate.getValue().getMonthValue(), fldDate.getValue().getDayOfMonth(),
@@ -124,6 +132,11 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
     
+    /**
+     * Parses a checkbox into a 0 or 1 depending on if it is ticked.
+     * @param c checkbox to be inspected
+     * @return 0 if the checkbox is not checked, 1 if it is.
+     */
     public int parseCheckbox(CheckBox c) {
     	if (c.isSelected()) {
     		return 1;
@@ -132,6 +145,10 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
 
+    /**
+     * Calls the case number validation method to compare with the current value in the case number field.
+     * @return true if the value is accepted, false otherwise.
+     */
     public boolean checkCaseNum() {
     	if (ValidateCrime.validateCaseNum(fldCaseNum.getText())== false) {
     		fldCaseNum.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
@@ -142,6 +159,10 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
 
+    /**
+     * Calls the FBICD validation method to compare with the current value in the FBICD field.
+     * @return true if the value is accepted, false otherwise.
+     */
     public boolean checkFBI() {
     	if (ValidateCrime.validateFbiCD(fldFBI.getText()) == false) {
     		fldFBI.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
@@ -152,6 +173,10 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
 
+    /**
+     * Calls the IUCR validation method to compare with the current value in the IUCR field.
+     * @return true if the value is accepted, false otherwise.
+     */
     public boolean checkIUCR() {
     	if (ValidateCrime.validateIucr(fldIUCR.getText()) == false) {
     		fldIUCR.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
@@ -162,6 +187,10 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
 
+    /**
+     * Calls the primary description validation method to compare with the current value in the primaryDesc field.
+     * @return true if the value is accepted, false otherwise.
+     */
     public boolean checkPrimary() {
     	if (ValidateCrime.validatePrimary(fldPrimaryDesc.getText()) == false) {
     		fldPrimaryDesc.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
@@ -172,6 +201,10 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
 
+    /**
+     * Calls the ward validation method to compare with the current value in the ward field.
+     * @return true if the value is accepted, false otherwise.
+     */
     public boolean checkWard() {
     	if (ValidateCrime.validateInt(fldWard.getText()) == false) {
     		fldWard.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
@@ -182,6 +215,10 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
 
+    /**
+     * Calls the beat validation method to compare with the current value in the beat field.
+     * @return true if the value is accepted, false otherwise.
+     */
     public boolean checkBeat() {
     	if (ValidateCrime.validateInt(fldBeat.getText()) == false) {
     		fldBeat.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
@@ -192,6 +229,10 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
 
+    /**
+     * Calls the latitude validation method to compare with the current value in the latitude field.
+     * @return true if the value is accepted, false otherwise.
+     */
     public boolean checkLat() {
     	if (ValidateCrime.validateDouble(fldLat.getText()) == false) {
     		fldLat.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
@@ -202,6 +243,10 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
 
+    /**
+     * Calls the latitude validation method to compare with the current value in the latitude field.
+     * @return true if the value is accepted, false otherwise.
+     */
     public boolean checkLon() {
     	if (ValidateCrime.validateDouble(fldLon.getText()) == false) {
     		fldLon.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
@@ -212,6 +257,9 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
     
+    /**
+     * Initialises the combo box for location with all possible values, also makes time spinners directly editable
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		fldLocation.setItems(FXCollections.observableArrayList(

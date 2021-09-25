@@ -286,6 +286,9 @@ public class TableController extends GUIController implements Initializable {
         updateTable();
     }
 
+    /**
+     * Calls the method to locate a file through windows explorer then passes it to the CrimeRecordManager for importing. Updates the table after.
+     */
     public void importFile() {
         String filename = openFileLocation();
         try {
@@ -324,6 +327,9 @@ public class TableController extends GUIController implements Initializable {
         updateTable();
     }
 
+    /**
+     * Removes a selected record from the local copy of records and updates the table, maintains selected position on the screen.
+     */
     public void deleteRecord() {
     	int index = recordTable.getSelectionModel().getSelectedIndex();
     	getManager().removeRecord(recordTable.getSelectionModel().getSelectedItem());
@@ -331,6 +337,10 @@ public class TableController extends GUIController implements Initializable {
     	recordTable.getSelectionModel().select(index);
     }
     
+    /**
+     * Calls the method to open the window for adding a new record, then sets the title to EDIT RECORD and passes through the current crime to
+     * the newly created window. The case number field is locked to prevent editing and a flag is set to let the window know it is in edit mode.
+     */
     public void editRecord() {
     	if (recordTable.getSelectionModel().getSelectedItem() != null) {
     		AddRecordController editController = openAddRecord();
@@ -343,6 +353,9 @@ public class TableController extends GUIController implements Initializable {
     	}
     }
     
+    /**
+     * Calls the method to open the window for adding a new record, then initialises the table controller in the window as this current object.
+     */
     public void addRecord() {
     	AddRecordController addController = openAddRecord();
     	addController.currentTable = this;
