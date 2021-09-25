@@ -338,8 +338,15 @@ public class TableController extends GUIController implements Initializable {
     		editController.fldCaseNum.setEditable(false);
     		editController.editing = true;
     		editController.toEdit = recordTable.getSelectionModel().getSelectedItem();
+    		editController.currentTable = this;
     		editController.fillFields();
     	}
+    }
+    
+    public void addRecord() {
+    	AddRecordController addController = openAddRecord();
+    	addController.currentTable = this;
+    	
     }
 
     /**

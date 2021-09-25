@@ -82,6 +82,8 @@ public class AddRecordController extends GUIController implements Initializable 
     
     public CrimeRecord toEdit = null;
     
+    public TableController currentTable;
+    
     public void fillFields() {
     	fldCaseNum.setText(toEdit.getCaseNum());
     	fldBlock.setText(toEdit.getBlock());
@@ -116,6 +118,7 @@ public class AddRecordController extends GUIController implements Initializable 
     					newRecord.getWasArrestValue(), newRecord.getWasDomesticValue(), newRecord.getBeat(), newRecord.getWard(), newRecord.getFbiCD(), newRecord.getLatitude(),
     					newRecord.getLongitude());
     		}
+    		currentTable.updateTable();
     		Stage addRecordPopup = (Stage) fldArrest.getScene().getWindow();
     		addRecordPopup.close();
     	}

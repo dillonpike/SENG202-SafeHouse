@@ -34,7 +34,7 @@
             </TableView>
             <HBox layoutY="512.0" prefHeight="45.0" prefWidth="880.0" spacing="5.0">
                <children>
-                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#openAddRecord" prefHeight="44.0" prefWidth="150.0" text="Add">
+                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#addRecord" prefHeight="44.0" prefWidth="150.0" text="Add">
                      <font>
                         <Font size="20.0" />
                      </font>
