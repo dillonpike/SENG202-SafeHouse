@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -274,7 +275,6 @@ public class TableController extends GUIController implements Initializable {
         endBeatText.setText("");
         startWardText.setText("");
         endWardText.setText("");
-        records = getManager().getLocalCopy();
 
         // Combo box initialization
         arrestComboBox.getItems().addAll("Don't filter", "Yes", "No");
@@ -282,6 +282,7 @@ public class TableController extends GUIController implements Initializable {
         arrestComboBox.getSelectionModel().select("Don't filter");
         domesticComboBox.getSelectionModel().select("Don't filter");
 
+        records = getManager().getLocalCopy();
         updateTable();
     }
 
@@ -292,7 +293,7 @@ public class TableController extends GUIController implements Initializable {
             //Update the screen
             updateTable();
         } catch (FileNotFoundException e) {
-            //The file wasn't found!
+            // The file wasn't found!
             e.printStackTrace();
         }
     }
@@ -301,7 +302,7 @@ public class TableController extends GUIController implements Initializable {
      * Updates the crimes given in recordTable with the module's records ArrayList.
      */
     public void updateTable() {
-    	recordTable.setItems(FXCollections.observableArrayList(DataManager.getCurrentDataset().getLocalCopy()));
+    	recordTable.setItems(FXCollections.observableArrayList(records));
     }
 
     /**
@@ -315,12 +316,10 @@ public class TableController extends GUIController implements Initializable {
         filterBeats();
         filterWards();
         if (!arrestComboBox.getValue().equals("Don't filter")) {
-            boolean arrestMade = arrestComboBox.getValue() == "Yes" ? true : false;
-            records = SearchCrimeData.filterByArrest(records, arrestMade);
+            records = SearchCrimeData.filterByArrest(records, arrestComboBox.getValue().equals("Yes"));
         }
         if (!domesticComboBox.getValue().equals("Don't filter")) {
-            boolean wasDomestic = domesticComboBox.getValue() == "Yes" ? true : false;
-            records = SearchCrimeData.filterByDomesticViolence(records, wasDomestic);
+            records = SearchCrimeData.filterByDomesticViolence(records, domesticComboBox.getValue().equals("Yes"));
         }
         updateTable();
     }

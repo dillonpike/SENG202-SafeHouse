@@ -51,7 +51,7 @@ public class CrimeRecordManager {
     private Hashtable<Integer, Integer> beatFreq = new Hashtable<>();
 
     /**
-     * Gets the local copy of our crime records
+     * Gets the local copy of crime records
      * @return The local copy of CrimeRecord objects, in the form of an ArrayList
      */
     public ArrayList<CrimeRecord> getLocalCopy() {

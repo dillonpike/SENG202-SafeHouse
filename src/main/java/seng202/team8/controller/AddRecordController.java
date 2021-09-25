@@ -89,10 +89,10 @@ public class AddRecordController extends GUIController implements Initializable 
     	fldPrimaryDesc.setText(toEdit.getPrimary());
     	fldSecondaryDesc.setText(toEdit.getSecondary());
     	fldLocation.getSelectionModel().select(toEdit.getLocDescription());
-    	if (toEdit.getWasArrest() == 1) {
+    	if (toEdit.getWasArrestValue() == 1) {
     		fldArrest.setSelected(true);
     	}
-    	if (toEdit.getWasDomestic() == 1) {
+    	if (toEdit.getWasDomesticValue() == 1) {
     		fldDomestic.setSelected(true);
     	}
     	fldBeat.setText(String.valueOf(toEdit.getBeat()));
@@ -113,12 +113,11 @@ public class AddRecordController extends GUIController implements Initializable 
     		} else {
     			DataManager.getCurrentDataset().changeRecord(toEdit, newRecord.getCaseNum(), newRecord.getDate()[0], newRecord.getDate()[1], newRecord.getDate()[2], 
     					newRecord.getTimeOfCrime(), newRecord.getBlock(), newRecord.getIucr(), newRecord.getPrimary(), newRecord.getSecondary(), newRecord.getLocDescription(),
-    					newRecord.getWasArrest(), newRecord.getWasDomestic(), newRecord.getBeat(), newRecord.getWard(), newRecord.getFbiCD(), newRecord.getLatitude(), 
+    					newRecord.getWasArrestValue(), newRecord.getWasDomesticValue(), newRecord.getBeat(), newRecord.getWard(), newRecord.getFbiCD(), newRecord.getLatitude(),
     					newRecord.getLongitude());
     		}
     		Stage addRecordPopup = (Stage) fldArrest.getScene().getWindow();
     		addRecordPopup.close();
-    		
     	}
     }
     

@@ -137,12 +137,10 @@ public class MapController extends GUIController implements Initializable {
         filterBeats();
         filterWards();
         if (!arrestComboBox.getValue().equals("Don't filter")) {
-            boolean arrestMade = Objects.equals(arrestComboBox.getValue(), "Yes");
-            records = SearchCrimeData.filterByArrest(records, arrestMade);
+            records = SearchCrimeData.filterByArrest(records, arrestComboBox.getValue().equals("Yes"));
         }
         if (!domesticComboBox.getValue().equals("Don't filter")) {
-            boolean wasDomestic = Objects.equals(domesticComboBox.getValue(), "Yes");
-            records = SearchCrimeData.filterByDomesticViolence(records, wasDomestic);
+            records = SearchCrimeData.filterByDomesticViolence(records, domesticComboBox.getValue().equals("Yes"));
         }
     }
 

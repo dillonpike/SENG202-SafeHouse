@@ -285,18 +285,46 @@ public class CrimeRecord {
     }
 
     /**
-     * Gets the arrest status
-     * @return true if an arrest was made, false if there was not //TODO change to nums
+     * gets the arrest status
+     * @return "Yes" if an arrest was made, "No" if there was not, and "N/A" if it's unknown
      */
-    public int getWasArrest() {
+    public String getWasArrest() {
+        if (wasArrest == 1) {
+            return "Yes";
+        } else if (wasArrest == 0) {
+            return "No";
+        } else {
+            return "N/A";
+        }
+    }
+
+    /**
+     * gets the arrest status
+     * @return 1 if an arrest was made, 0 if there was not, and -1 if it's unknown
+     */
+    public int getWasArrestValue() {
         return wasArrest;
     }
 
     /**
      * gets the domestic status
-     * @return true if the crime was domestic, false otherwise
+     * @return "Yes" if the crime was domestic, "No" if it was not, and "N/A" if it's unknown
      */
-    public int getWasDomestic() {
+    public String getWasDomestic() {
+        if (wasDomestic == 1) {
+            return "Yes";
+        } else if (wasDomestic == 0) {
+            return "No";
+        } else {
+            return "N/A";
+        }
+    }
+
+    /**
+     * gets the domestic status
+     * @return 1 if the crime was domestic, 0 if it was not, and -1 if it's unknown
+     */
+    public int getWasDomesticValue() {
         return wasDomestic;
     }
 
