@@ -327,6 +327,7 @@ public class TableController extends GUIController implements Initializable {
     public void deleteRecord() {
     	int index = recordTable.getSelectionModel().getSelectedIndex();
     	getManager().removeRecord(recordTable.getSelectionModel().getSelectedItem());
+        filterTable();
     	updateTable();
     	recordTable.getSelectionModel().select(index);
     }
@@ -419,22 +420,25 @@ public class TableController extends GUIController implements Initializable {
     }
     
     public void updateExtendedInfo() {
-    	CrimeRecord selectedRecord = recordTable.getSelectionModel().getSelectedItem();
-    	lblCaseNum.setText(selectedRecord.getCaseNum());
-    	lblDate.setText(selectedRecord.getDate().toString());
-    	lblBlock.setText(selectedRecord.getBlock());
-    	lblUCR.setText(selectedRecord.getIucr());
-    	lblPrimary.setText(selectedRecord.getPrimary());
-    	lblSecondary.setText(selectedRecord.getSecondary());
-    	lblLocation.setText(selectedRecord.getLocDescription());
-    	lblArrest.setText(String.valueOf(selectedRecord.getWasArrest()));
-    	lblDomestic.setText(String.valueOf(selectedRecord.getWasDomestic()));
-    	lblBeat.setText(String.valueOf(selectedRecord.getBeat()));
-    	lblWard.setText(String.valueOf(selectedRecord.getWard()));
-    	lblFbi.setText(selectedRecord.getFbiCD());
-    	lblLat.setText(String.valueOf(selectedRecord.getLatitude()));
-    	lblLon.setText(String.valueOf(selectedRecord.getLongitude()));
-    	
+        try {
+            CrimeRecord selectedRecord = recordTable.getSelectionModel().getSelectedItem();
+            lblCaseNum.setText(selectedRecord.getCaseNum());
+            lblDate.setText(selectedRecord.getDate().toString() + " " + selectedRecord.getTime().toString());
+            lblBlock.setText(selectedRecord.getBlock());
+            lblUCR.setText(selectedRecord.getIucr());
+            lblPrimary.setText(selectedRecord.getPrimary());
+            lblSecondary.setText(selectedRecord.getSecondary());
+            lblLocation.setText(selectedRecord.getLocDescription());
+            lblArrest.setText(String.valueOf(selectedRecord.getWasArrest()));
+            lblDomestic.setText(String.valueOf(selectedRecord.getWasDomestic()));
+            lblBeat.setText(String.valueOf(selectedRecord.getBeat()));
+            lblWard.setText(String.valueOf(selectedRecord.getWard()));
+            lblFbi.setText(selectedRecord.getFbiCD());
+            lblLat.setText(String.valueOf(selectedRecord.getLatitude()));
+            lblLon.setText(String.valueOf(selectedRecord.getLongitude()));
+        } catch (NullPointerException e) {
+            // Do nothing if the table was clicked in an empty spot
+        }
     }
     
     

@@ -1,11 +1,12 @@
 package seng202.team8.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -107,20 +108,23 @@ public class AddRecordController extends GUIController implements Initializable 
     public void createRecord() {
     	if (checkCaseNum() && checkFBI() && checkIUCR() && checkPrimary() && checkWard() && checkBeat() && checkLat() && checkLon() == true) {
     		CrimeRecord newRecord = new CrimeRecord(fldCaseNum.getText(), fldDate.getValue().getMonthValue(), fldDate.getValue().getDayOfMonth(),
-    		fldDate.getValue().getYear(), (String.valueOf(fldHour.getValue()) + ":" + String.valueOf(fldMinute.getValue())), fldBlock.getText(), fldIUCR.getText(), fldPrimaryDesc.getText(), fldSecondaryDesc.getText(),
+    		fldDate.getValue().getYear(), LocalTime.of(fldHour.getValue(), fldMinute.getValue()), fldBlock.getText(), fldIUCR.getText(), fldPrimaryDesc.getText(), fldSecondaryDesc.getText(),
     		fldLocation.getSelectionModel().getSelectedItem(), parseCheckbox(fldArrest), parseCheckbox(fldDomestic), (int)Integer.valueOf(fldBeat.getText()), 
     		(int)Integer.valueOf(fldWard.getText()), fldFBI.getText(), (double)Double.valueOf(fldLat.getText()), (double)Double.valueOf(fldLon.getText()));
     		if (editing == false) {
     			DataManager.getCurrentDataset().addRecord(newRecord);
     		} else {
-    			DataManager.getCurrentDataset().changeRecord(toEdit, newRecord.getCaseNum(), newRecord.getDate()[0], newRecord.getDate()[1], newRecord.getDate()[2], 
-    					newRecord.getTimeOfCrime(), newRecord.getBlock(), newRecord.getIucr(), newRecord.getPrimary(), newRecord.getSecondary(), newRecord.getLocDescription(),
+    			LocalDate date = newRecord.getDate();
+    			DataManager.getCurrentDataset().changeRecord(toEdit, newRecord.getCaseNum(), date.getYear(), date.getMonthValue(), date.getDayOfMonth(),
+    					newRecord.getTime(), newRecord.getBlock(), newRecord.getIucr(), newRecord.getPrimary(), newRecord.getSecondary(), newRecord.getLocDescription(),
     					newRecord.getWasArrestValue(), newRecord.getWasDomesticValue(), newRecord.getBeat(), newRecord.getWard(), newRecord.getFbiCD(), newRecord.getLatitude(),
     					newRecord.getLongitude());
     		}
-    		currentTable.updateTable();
     		Stage addRecordPopup = (Stage) fldArrest.getScene().getWindow();
     		addRecordPopup.close();
+
+			currentTable.filterTable();
+			currentTable.updateTable();
     	}
     }
     

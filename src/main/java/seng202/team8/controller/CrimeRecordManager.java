@@ -3,6 +3,7 @@ package seng202.team8.controller;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
@@ -222,17 +223,28 @@ public class CrimeRecordManager {
      * Helper method for importFile.
      * Adds the date and time entries.
      * @param crime The CrimeRecord object being modified
-     * @param Date The Date and Time string (should be data[1]) containing the date and time
+     * @param date The date and Time string (should be data[1]) containing the date and time
      */
-    private void addDateAndTime(CrimeRecord crime, String Date) {
+    private void addDateAndTime(CrimeRecord crime, String date) {
         //Should split entries into [0] Date, [1] Time [2] AM/PM
-        String[] dateAndTime = Date.split(" ");
+        String[] dateAndTime = date.split(" ");
         String[] dateNums = dateAndTime[0].split("/");
         int month = Integer.parseInt(dateNums[0]);
         int day = Integer.parseInt(dateNums[1]);
         int year = Integer.parseInt(dateNums[2]);
         crime.setDate(month, day, year);
-        crime.setTimeOfCrime((dateAndTime[1] + " " + dateAndTime[2]));
+        crime.setTime(stringToLocalTime((dateAndTime[1] + " " + dateAndTime[2])));
+    }
+
+    private LocalTime stringToLocalTime(String timeString) {
+        String[] timeStrings = timeString.split(":");
+        int hour = Integer.parseInt(timeStrings[0]);
+        int minute = Integer.parseInt(timeStrings[1]);
+        int second = Integer.parseInt(timeStrings[2].substring(0, 2));
+        if (timeStrings[2].length() > 2 && timeStrings[2].substring(3) == "PM") {
+            hour += 12;
+        }
+        return LocalTime.of(hour, minute, second);
     }
 
     /**
@@ -385,7 +397,7 @@ public class CrimeRecordManager {
      * consequently, the edit was not made
      */
     public boolean changeRecord(CrimeRecord crime, String caseNum, int month, int date, int year,
-                             String time, String block, String iucr, String primary,
+                             LocalTime time, String block, String iucr, String primary,
                              String secondary, String locdesc, int arrest, int domestic,
                              int beat, int ward, String fbiCD, double lat, double lon) {
 

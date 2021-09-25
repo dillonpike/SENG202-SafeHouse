@@ -1,6 +1,7 @@
 package seng202.team8.controller;
 
 import java.io.FileNotFoundException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
@@ -48,12 +49,12 @@ public class CrimeRecordManagerTest extends TestCase {
 
         //Create similar records used in tests with different case numbers
         testRecord1 = new CrimeRecord("JE266628", 6, 15, 2021,
-                "09:30:00 AM", "080XX S DREXEL AVE" , "0820",
+                LocalTime.of(9,30), "080XX S DREXEL AVE" , "0820",
                 "OTHER OFFENSE", "LOITERING", "STREET",
                 0, 0, 631, 8, "06",
                 41.748486365f, (float) -87.602675062);
         testRecord2 = new CrimeRecord("JD393294", 6, 15, 2021,
-                "09:30:00 AM", "080XX S DREXEL AVE" , "0820",
+                LocalTime.of(9,30), "080XX S DREXEL AVE" , "0820",
                 "OTHER OFFENSE", "LOITERING", "STREET",
                 0, 0, 631, 8, "06",
                 41.748486365f, (float) -87.602675062);
@@ -132,7 +133,7 @@ public class CrimeRecordManagerTest extends TestCase {
 
         //Change the record's location description to "MALL"
         manager.changeRecord(testRecord1, testRecord1.getCaseNum(), 6, 15, 2021,
-                "10:00:00 PM", testRecord1.getBlock(), testRecord1.getIucr(),
+                testRecord1.getTime(), testRecord1.getBlock(), testRecord1.getIucr(),
                 testRecord1.getPrimary(), testRecord1.getSecondary(), "MALL",
                 0, 0, testRecord1.getBeat(), testRecord1.getWard(), testRecord1.getFbiCD(),
                 testRecord1.getLatitude(), testRecord1.getLongitude());
@@ -151,7 +152,7 @@ public class CrimeRecordManagerTest extends TestCase {
 
         //Attempt to edit record that doesn't exist in the manager
         boolean result = manager.changeRecord(testRecord2, testRecord1.getCaseNum(), 6, 15, 2021,
-                "10:00:00 PM", testRecord1.getBlock(), testRecord1.getIucr(),
+                testRecord1.getTime(), testRecord1.getBlock(), testRecord1.getIucr(),
                 testRecord1.getPrimary(), testRecord1.getSecondary(), "MALL",
                 0, 0, testRecord1.getBeat(), testRecord1.getWard(), testRecord1.getFbiCD(),
                 testRecord1.getLatitude(), testRecord1.getLongitude());
@@ -172,7 +173,7 @@ public class CrimeRecordManagerTest extends TestCase {
 
         //Change the record's case number to a vacant one
         manager.changeRecord(testRecord1, newCaseNum, 6, 15, 2021,
-                "10:00:00 PM", testRecord1.getBlock(), testRecord1.getIucr(),
+                testRecord1.getTime(), testRecord1.getBlock(), testRecord1.getIucr(),
                 testRecord1.getPrimary(), testRecord1.getSecondary(), testRecord1.getLocDescription(),
                 0, 0, testRecord1.getBeat(), testRecord1.getWard(), testRecord1.getFbiCD(),
                 testRecord1.getLatitude(), testRecord1.getLongitude());
@@ -196,7 +197,7 @@ public class CrimeRecordManagerTest extends TestCase {
 
         //Attempt to change the record's case number to a testRecord2's case number
         manager.changeRecord(testRecord1, testRecord2.getCaseNum(), 6, 15, 2021,
-                "10:00:00 PM", testRecord1.getBlock(), testRecord1.getIucr(),
+                testRecord1.getTime(), testRecord1.getBlock(), testRecord1.getIucr(),
                 testRecord1.getPrimary(), testRecord1.getSecondary(), testRecord1.getLocDescription(),
                 0, 0, testRecord1.getBeat(), testRecord1.getWard(), testRecord1.getFbiCD(),
                 testRecord1.getLatitude(), testRecord1.getLongitude());

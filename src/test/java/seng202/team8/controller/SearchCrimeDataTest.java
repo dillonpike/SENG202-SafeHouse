@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import seng202.team8.model.CrimeRecord;
 
 import java.text.ParseException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -254,16 +255,16 @@ public class SearchCrimeDataTest extends TestCase {
      */
     public ArrayList<CrimeRecord> getCrimeDataForTesting() {
         ArrayList<CrimeRecord> crimeRecordData = new ArrayList<>();
-        crimeRecordData.add(new CrimeRecord("JE266628", 8, 26, 2021, "09:30:00 AM",
+        crimeRecordData.add(new CrimeRecord("JE266628", 8, 26, 2021, LocalTime.of(9,30),
                 "080XX S DREXEL AVE", "0820", "THEFT", "$500 AND UNDER", "STREET", 1, 0,
                 631, 7, "06", 41.748486365, -87.602675062));
-        crimeRecordData.add(new CrimeRecord("JE266473",6, 15, 2021, "07:47:00 AM",
+        crimeRecordData.add(new CrimeRecord("JE266473",6, 15, 2021, LocalTime.of(7,47),
                 "062XX S MORGAN ST","0110","HOMICIDE","FIRST DEGREE MURDER","APARTMENT",0,0,
                 712,16,"01A",41.780850996,-87.649674221));
-        crimeRecordData.add(new CrimeRecord("JE163990", 11, 23, 2020, "03:05:00 PM",
+        crimeRecordData.add(new CrimeRecord("JE163990", 11, 23, 2020, LocalTime.of(3,5),
                 "073XX S SOUTH SHORE DR", "4386", "THEFT", "$500 AND UNDER",
                 "APARTMENT", 0, 1, 334, 7, "6", 41.748486365, -87.602675062));
-        crimeRecordData.add(new CrimeRecord("JE266959",2, 15, 2021, "01:30:00 PM", "018XX N DAMEN AVE", "0460",
+        crimeRecordData.add(new CrimeRecord("JE266959",2, 15, 2021, LocalTime.of(1,30), "018XX N DAMEN AVE", "0460",
                 "BATTERY", "SIMPLE", "PARK PROPERTY", 1, 0, 1434, 32,"08B",41.914562993,-87.677553434));
         return crimeRecordData;
     }

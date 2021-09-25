@@ -1,6 +1,10 @@
 package seng202.team8.model;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 /**
  * A basic crime record class, currently consisting of only attributes
  * as well as getters and setters
@@ -13,17 +17,14 @@ public class CrimeRecord {
     private String caseNum;
 
     /**
-     * The date, in the form of a three-piece ineteger array. Arranged to american date format.
-     * The 0 index is the month
-     * The 1 index is the date
-     * The 2 index is the year
+     * Date of the crime.
      */
-    private int[] date = new int[3];
+    private LocalDate date;
 
     /**
-     * The time that the crime took place.
+     * Time of the crime
      */
-    private String timeOfCrime;
+    private LocalTime time;
 
     /**
      * The block - contains numbers and letters so is a string.
@@ -142,15 +143,13 @@ public class CrimeRecord {
      * @param lat The latitude of the crime
      * @param lon The longitude of the crime
      */
-    public CrimeRecord(String caseNum, int month, int date, int year, String time, String block,
+    public CrimeRecord(String caseNum, int month, int date, int year, LocalTime time, String block,
                        String iucr, String primary, String secondary, String locdesc,
                        int arrest, int domestic, int beat, int ward, String fbiCD,
                        double lat, double lon) {
         this.caseNum = caseNum;
-        this.date[0] = month;
-        this.date[1] = date;
-        this.date[2] = year;
-        this.timeOfCrime = time;
+        this.date = LocalDate.of(year, month, date);
+        this.time = time;
         this.block = block;
         this.iucr = iucr;
         this.primary = primary;
@@ -163,7 +162,6 @@ public class CrimeRecord {
         this.fbiCD = fbiCD;
         this.latitude = lat;
         this.longitude = lon;
-
     }
 
     /**
@@ -199,13 +197,12 @@ public class CrimeRecord {
      * @param lon The longitude of the crime
      */
     public static void changeRecord(CrimeRecord crime, String caseNum, int month, int date, int year,
-                             String time, String block, String iucr, String primary,
+                             LocalTime time, String block, String iucr, String primary,
                              String secondary, String locdesc, int arrest, int domestic,
                              int beat, int ward, String fbiCD, double lat, double lon) {
         crime.setCaseNum(caseNum);
-        crime.setDate(month, date,
-                year);
-        crime.setTimeOfCrime(time);
+        crime.setDate(month, date, year);
+        crime.setTime(time);
         crime.setBlock(block);
         crime.setIucr(iucr);
         crime.setPrimary(primary);
@@ -218,7 +215,6 @@ public class CrimeRecord {
         crime.setFbiCD(fbiCD);
         crime.setLatitude(lat);
         crime.setLongitude(lon);
-
     }
 
     /**
@@ -231,18 +227,19 @@ public class CrimeRecord {
 
     /**
      * Gets the date
-     * @return Returns an integer array of the date, in [month, day, year] format.
+     * @return Returns LocalDate object of the crime's date
      */
-    public int[] getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
     /**
-     * Gets the time of the crime
-     * @return The time of the crime, in string form. E.G. '08:40:00 AM'
-     *
+     * Gets the date
+     * @return Returns LocalDate object of the crime's date
      */
-    public String getTimeOfCrime() {return timeOfCrime; }
+    public LocalTime getTime() {
+        return time;
+    }
 
     /**
      * Gets the block.
@@ -407,19 +404,15 @@ public class CrimeRecord {
      * @param year The year of the crime
      */
     public void setDate(int month, int day, int year) {
-        this.date[0] = month;
-        this.date[1] = day;
-        this.date[2] = year;
+        this.date = LocalDate.of(year, month, day);
     }
 
     /**
-     * Sets the time of the crime
-     * @param time The time that the crime took place.
-     *             Should be in a 12-hour format, followed by am or pm
-     *             E.G.: '08:40:00 AM'
+     * Sets the time
+     * @param time The time of the crime
      */
-    public void setTimeOfCrime(String time) {
-        this.timeOfCrime = time;
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     /**
@@ -551,9 +544,10 @@ public class CrimeRecord {
     }
     
     public String toString() {
-    	return ("Case Number: " + caseNum + "\nDate: " + date[1] + "/" + date[0] + "/" + date[2] + "\nTime: " + timeOfCrime + "\nBlock: " 
-    			+ block + "\nIUCR: " + iucr + "\nPrimary Description: " + primary + "\nSecondary Description: " + secondary +
-    			 "\nLocation: " + locDescription + "\nArrest Made: " + wasArrest + "\nDomestic: " + wasDomestic + "\nBeat: " + 
+    	return ("Case Number: " + caseNum + "\nDate: " + date.getMonthValue() + "/" + date.getDayOfMonth() + "/"
+                + date.getYear() + "\nTime: " + time.toString() + "\nBlock: " + block + "\nIUCR: " + iucr +
+                "\nPrimary Description: " + primary + "\nSecondary Description: " + secondary + "\nLocation: " +
+                locDescription + "\nArrest Made: " + wasArrest + "\nDomestic: " + wasDomestic + "\nBeat: " +
     			beat + "\nWard: " + ward + "\nFBI CD: " + fbiCD + "\nX Coord: " + xCoord + "\nY Coord: " + yCoord + 
     			"\nLatitude: " + latitude + "\nLongitude: " + longitude);
     }

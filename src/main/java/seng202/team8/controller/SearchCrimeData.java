@@ -2,6 +2,7 @@
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,9 +34,10 @@ public class SearchCrimeData {
 
         ArrayList<CrimeRecord> filterByDateList = new ArrayList<>();
         for (CrimeRecord crimeData : crimeRecordData) {
-            String setDateAtIndex = crimeData.getDate()[1] + "/" +
-                    crimeData.getDate()[0] + "/" +
-                    crimeData.getDate()[2];
+            LocalDate date = crimeData.getDate();
+            String setDateAtIndex = date.getDayOfMonth() + "/" +
+                    date.getMonthValue() + "/" +
+                    date.getYear();
 
             Date dateAtIndex = dateFormat.parse(setDateAtIndex);
 
