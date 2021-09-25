@@ -1,17 +1,20 @@
 package seng202.team8.controller;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests some methods of ValidateCrime
  * Mainly just to make sure the Regex was done correctly
  */
-public class ValidateCrimeTest extends TestCase {
+class ValidateCrimeTest {
 
     /**
      * Tests the validation of a case number
      */
-    public void testValidateCaseNum() {
+    @Test
+    void testValidateCaseNum() {
         String candidate = "JE505667";
         assertTrue(ValidateCrime.validateCaseNum(candidate));
     }
@@ -20,7 +23,8 @@ public class ValidateCrimeTest extends TestCase {
      * Tests an invalid case number
      * checking if it is actually treated as invalid
      */
-    public void testInvalidCaseNum() {
+    @Test
+    void testInvalidCaseNum() {
         String candidate = "1242B";
         //The case number is incorrectly formatted
         assertFalse(ValidateCrime.validateCaseNum(candidate));
@@ -29,7 +33,8 @@ public class ValidateCrimeTest extends TestCase {
     /**
      * Tests the validation of an Iucr
      */
-    public void testValidateIucr() {
+    @Test
+    void testValidateIucr() {
         String candidate = "051B";
         assertTrue(ValidateCrime.validateIucr(candidate));
     }
@@ -37,7 +42,8 @@ public class ValidateCrimeTest extends TestCase {
     /**
      * Tests invalid IUCR's
      */
-    public void testInvalidIucr() {
+    @Test
+    void testInvalidIucr() {
         String candidate = "65413";
         //This code is invalid because it is too long.
         assertFalse(ValidateCrime.validateIucr(candidate));
@@ -49,7 +55,8 @@ public class ValidateCrimeTest extends TestCase {
     /**
      * Tests the validation of a Primary Description
      */
-    public void testValidatePrimary() {
+    @Test
+    void testValidatePrimary() {
         String candidate = "ASSAULT";
         assertTrue(ValidateCrime.validatePrimary(candidate));
         //Also test spaces (somewhat trivial, but important to check if the regex is right)
@@ -60,7 +67,8 @@ public class ValidateCrimeTest extends TestCase {
     /**
      * Tests an invalid Primary Description
      */
-    public void testInvalidPrimary() {
+    @Test
+    void testInvalidPrimary() {
         String candidate = "2 COOL 4 SKOOL";
         assertFalse(ValidateCrime.validatePrimary(candidate));
     }
@@ -68,7 +76,8 @@ public class ValidateCrimeTest extends TestCase {
     /**
      * Tests the validation of an FBI CD
      */
-    public void testValidateFbiCD() {
+    @Test
+    void testValidateFbiCD() {
         String candidate = "90B"; //This is the code for loitering!
         assertTrue(ValidateCrime.validateFbiCD(candidate));
     }
@@ -77,7 +86,8 @@ public class ValidateCrimeTest extends TestCase {
      * Tests an invalid FBI code
      * Only tests incorrect formats
      */
-    public void testInvalidFbiCd() {
+    @Test
+    void testInvalidFbiCd() {
         String candidate = "BAD"; //An invalid code
         assertFalse(ValidateCrime.validateFbiCD(candidate));
     }
@@ -86,7 +96,8 @@ public class ValidateCrimeTest extends TestCase {
      * Tests an FBI code
      * that is too long to be valid
      */
-    public void testLongFbiCd() {
+    @Test
+    void testLongFbiCd() {
         String candidate = "972B"; //An invalid code - too long
         assertFalse(ValidateCrime.validateFbiCD(candidate));
     }
@@ -96,7 +107,8 @@ public class ValidateCrimeTest extends TestCase {
      * One with a number end
      * and another with a letter end
      */
-    public void testTwoLengthFbiCd() {
+    @Test
+    void testTwoLengthFbiCd() {
         String candidate = "06";
         assertTrue(ValidateCrime.validateFbiCD(candidate));
         candidate = "2C";
@@ -106,7 +118,8 @@ public class ValidateCrimeTest extends TestCase {
     /**
      * Tests empty candidates for validateFbiCD
      */
-    public void testEmptyFbiCD() {
+    @Test
+    void testEmptyFbiCD() {
         String candidate = "";
         assertFalse(ValidateCrime.validateFbiCD(candidate));
 
@@ -115,7 +128,8 @@ public class ValidateCrimeTest extends TestCase {
     /**
      * Tests empty candidates for validatePrimary
      */
-    public void testEmptyPrimary() {
+    @Test
+    void testEmptyPrimary() {
         String candidate = "";
         assertFalse(ValidateCrime.validatePrimary(candidate));
     }

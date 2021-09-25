@@ -5,40 +5,37 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import seng202.team8.model.CrimeRecord;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests CrimeRecordManager methods.
  */
-public class CrimeRecordManagerTest extends TestCase {
+class CrimeRecordManagerTest {
 
     /**
      * Manager used in various tests with test data loaded in.
      */
-    private CrimeRecordManager testManager;
+    private static CrimeRecordManager testManager;
 
     /**
      * An example crime record used for testing.
      */
-    private CrimeRecord testRecord1;
+    private static CrimeRecord testRecord1;
 
     /**
      * An example crime record used for testing. Identical to testRecord1 except it has a different case number.
      */
-    private CrimeRecord testRecord2;
+    private static CrimeRecord testRecord2;
 
     /**
      * Set up a CrimeRecordManager with test data and create two crime records for testing.
      */
-    public void setUp() {
-        try {
-            super.setUp();
-        } catch (Exception ex) {
-            System.out.println("An exception occurred while setting up CrimeRecordManager tests.");
-            ex.printStackTrace();
-        }
-
+    @BeforeAll
+    static void setUp() {
         //Initialise testManager and import test data
         testManager = new CrimeRecordManager();
         try {
@@ -64,7 +61,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests to see if the manager can import data.
      */
-    public void testImporting() {
+    @Test
+    void testImporting() {
         CrimeRecordManager manager = new CrimeRecordManager();
         try {
             manager.importFile("src/main/resources/5kRecords.csv");
@@ -79,7 +77,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager addRecord method adds a crime record to its local copy.
      */
-    public void testAdding() {
+    @Test
+    void testAdding() {
         CrimeRecordManager manager = new CrimeRecordManager();
         //Add the record
         manager.addRecord(testRecord1);
@@ -92,7 +91,8 @@ public class CrimeRecordManagerTest extends TestCase {
      * Note that the test data contains some 3-length IUCRS
      * and also an empty IUCR - which should not make it into the records
      */
-    public void testIucrPadding() {
+    @Test
+    void testIucrPadding() {
         //Check that every single IUCR that was imported is padded correctly
         boolean result = false;
         for (CrimeRecord crime: testManager.getLocalCopy()) {
@@ -109,7 +109,8 @@ public class CrimeRecordManagerTest extends TestCase {
      *
      * If you add a record with "0000" as an IUCR, this test will break.
      */
-    public void testEmptyIucr() {
+    @Test
+    void testEmptyIucr() {
         boolean result = true;
         for (CrimeRecord crime: testManager.getLocalCopy()) {
             result = (Objects.equals(crime.getIucr(), "0000"));
@@ -120,7 +121,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager addRecord method does nothing when adding a duplicate crime.
      */
-    public void testAddingDuplicate() {
+    @Test
+    void testAddingDuplicate() {
         CrimeRecordManager manager = new CrimeRecordManager();
         //Add the record twice
         manager.addRecord(testRecord1);
@@ -132,7 +134,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager removeRecord method removes crime records.
      */
-    public void testDeletion() {
+    @Test
+    void testDeletion() {
         CrimeRecordManager manager = new CrimeRecordManager();
         //Add the record
         manager.addRecord(testRecord1);
@@ -145,7 +148,8 @@ public class CrimeRecordManagerTest extends TestCase {
      * Tests that the CrimeRecordManager removeRecord method does nothing when trying to delete a crime record that
      * doesn't exist.
      */
-    public void testAbsentDeletion() {
+    @Test
+    void testAbsentDeletion() {
         CrimeRecordManager manager = new CrimeRecordManager();
         //Add the record
         manager.addRecord(testRecord1);
@@ -157,7 +161,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager changeRecord method edits a crime record.
      */
-    public void testEdit() {
+    @Test
+    void testEdit() {
         CrimeRecordManager manager = new CrimeRecordManager();
         //Add the record
         manager.addRecord(testRecord1);
@@ -176,7 +181,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager changeRecord method returns false when given a record that doesn't exist.
      */
-    public void testAbsentEdit() {
+    @Test
+    void testAbsentEdit() {
         CrimeRecordManager manager = new CrimeRecordManager();
         //Add the record
         manager.addRecord(testRecord1);
@@ -195,7 +201,8 @@ public class CrimeRecordManagerTest extends TestCase {
      * Tests that the CrimeRecordManager changeRecord method edits a crime record's case number if the new case number
      * is available.
      */
-    public void testEditVacantCaseNum() {
+    @Test
+    void testEditVacantCaseNum() {
         CrimeRecordManager manager = new CrimeRecordManager();
         //Add the record
         manager.addRecord(testRecord1);
@@ -217,7 +224,8 @@ public class CrimeRecordManagerTest extends TestCase {
      * Tests that the CrimeRecordManager changeRecord method doesn't edit a crime record's case number if the new case
      * number is not available.
      */
-    public void testEditUsedCaseNum() {
+    @Test
+    void testEditUsedCaseNum() {
         CrimeRecordManager manager = new CrimeRecordManager();
         //Add the record
         manager.addRecord(testRecord1);
@@ -240,7 +248,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager changeRecord method adds to the crime primary frequencies when adding a record.
      */
-    public void testFreqAdding() {
+    @Test
+    void testFreqAdding() {
         CrimeRecordManager manager = new CrimeRecordManager();
         //Add the record
         manager.addRecord(testRecord1);
@@ -254,7 +263,8 @@ public class CrimeRecordManagerTest extends TestCase {
      * Tests that the CrimeRecordManager changeRecord method removes from the crime primary frequencies when removing a
      * record.
      */
-    public void testFreqRemoving() {
+    @Test
+    void testFreqRemoving() {
         CrimeRecordManager manager = new CrimeRecordManager();
         //Add the record
         manager.addRecord(testRecord1);
@@ -269,7 +279,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the case number.
      */
-    public void testCaseNum() {
+    @Test
+    void testCaseNum() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals("JE267023", records.get(0).getCaseNum());
     }
@@ -277,7 +288,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the date.
      */
-    public void testDate() {
+    @Test
+    void testDate() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         // TODO when date storage is finalised
     }
@@ -285,7 +297,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the block.
      */
-    public void testBlock() {
+    @Test
+    void testBlock() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals("082XX S STONY ISLAND AVE", records.get(0).getBlock());
     }
@@ -293,7 +306,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the IUCR.
      */
-    public void testIUCR() {
+    @Test
+    void testIUCR() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals("0460", records.get(0).getIucr());
     }
@@ -301,7 +315,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the primary description.
      */
-    public void testPrimaryDesc() {
+    @Test
+    void testPrimaryDesc() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals("BATTERY", records.get(0).getPrimary());
     }
@@ -309,7 +324,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the secondary description.
      */
-    public void testSecondaryDesc() {
+    @Test
+    void testSecondaryDesc() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals("SIMPLE", records.get(0).getSecondary());
     }
@@ -317,7 +333,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the location description.
      */
-    public void testLocationDesc() {
+    @Test
+    void testLocationDesc() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals("STREET", records.get(0).getLocDescription());
     }
@@ -325,7 +342,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the arrest value.
      */
-    public void testArrest() {
+    @Test
+    void testArrest() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         //TODO when arrest storage finalised assertEquals("No", records.get(0).getWasArrest());
     }
@@ -333,7 +351,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the domestic value.
      */
-    public void testDomestic() {
+    @Test
+    void testDomestic() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         //TODO when domestic storage finalised assertEquals("No", records.get(0).getWasDomestic());
     }
@@ -341,7 +360,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the beat.
      */
-    public void testBeat() {
+    @Test
+    void testBeat() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals(411, records.get(0).getBeat());
     }
@@ -349,7 +369,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the ward.
      */
-    public void testWard() {
+    @Test
+    void testWard() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals(8, records.get(0).getWard());
     }
@@ -357,7 +378,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the FBI CD.
      */
-    public void testFbiCD() {
+    @Test
+    void testFbiCD() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals("08B", records.get(0).getFbiCD());
     }
@@ -365,7 +387,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the x-coordinate.
      */
-    public void testXCoord() {
+    @Test
+    void testXCoord() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals(1188236, records.get(0).getXCoord());
     }
@@ -373,7 +396,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the y-coordinate.
      */
-    public void testYCoord() {
+    @Test
+    void testYCoord() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals(1850761, records.get(0).getYCoord());
     }
@@ -381,7 +405,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the latitude.
      */
-    public void testLatitude() {
+    @Test
+    void testLatitude() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals(41.74556517, records.get(0).getLatitude());
     }
@@ -389,7 +414,8 @@ public class CrimeRecordManagerTest extends TestCase {
     /**
      * Tests that the CrimeRecordManager properly imports the longitude.
      */
-    public void testLongitude() {
+    @Test
+    void testLongitude() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
         assertEquals(-87.58584092, records.get(0).getLongitude());
     }

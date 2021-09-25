@@ -1,6 +1,6 @@
 package seng202.team8.controller;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 import seng202.team8.model.CrimeRecord;
 
 import java.text.ParseException;
@@ -10,17 +10,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * A test class that checks SearchCrimeData class methods, whether their input and output are
  * working correctly
  */
-public class SearchCrimeDataTest extends TestCase {
+class SearchCrimeDataTest {
 
     /**
      * Testing filter by date method. First, it specifies the start and end date, which is passed to the method
      * to get the sorted crime data list. At last, it checks the expected list with actual list.
      */
-    public void testFilterByDate() {
+    @Test
+    void testFilterByDate() {
         // The dummy crime data list
         ArrayList<CrimeRecord> crimeRecordData = getCrimeDataForTesting();
 
@@ -48,7 +51,8 @@ public class SearchCrimeDataTest extends TestCase {
      * which is passed to the method to get the filtered data list by the description. Then, it compares and
      * checks this list to the expected list.
      */
-    public void testFilterByPrimaryDesc() {
+    @Test
+    void testFilterByPrimaryDesc() {
         // The dummy crime data list
         ArrayList<CrimeRecord> crimeRecordData = getCrimeDataForTesting();
 
@@ -71,7 +75,8 @@ public class SearchCrimeDataTest extends TestCase {
      * which is passed to the method to get the filtered data list by the description. Then, it compares and
      * checks this list to the expected list.
      */
-    public void testFilterByCrimeLocation() {
+    @Test
+    void testFilterByCrimeLocation() {
         // The dummy crime data list
         ArrayList<CrimeRecord> crimeRecordData = getCrimeDataForTesting();
 
@@ -93,7 +98,8 @@ public class SearchCrimeDataTest extends TestCase {
      * passed to the method to get the filtered data list by beat. Then, it compares and checks this list to the
      * expected list.
      */
-    public void testFilterByCrimeLocationBeat() {
+    @Test
+    void testFilterByCrimeLocationBeat() {
         // The dummy crime data list
         ArrayList<CrimeRecord> crimeRecordData = getCrimeDataForTesting();
 
@@ -118,7 +124,8 @@ public class SearchCrimeDataTest extends TestCase {
      * passed to the method to get the filtered data list by ward. Then, it compares and checks this list to the
      * expected list.
      */
-    public void testFilterByCrimeWard() {
+    @Test
+    void testFilterByCrimeWard() {
         // The dummy crime data list
         ArrayList<CrimeRecord> crimeRecordData = getCrimeDataForTesting();
 
@@ -141,7 +148,8 @@ public class SearchCrimeDataTest extends TestCase {
      * Testing the filter by crime arrest method. First, it passes true to the method to get the filtered data list
      * by arrest made. Then, it compares and checks this list to the expected list.
      */
-    public void testFilterByArrest() {
+    @Test
+    void testFilterByArrest() {
         // The dummy crime data list
         ArrayList<CrimeRecord> crimeRecordData = getCrimeDataForTesting();
 
@@ -161,7 +169,8 @@ public class SearchCrimeDataTest extends TestCase {
      * Testing the filter by domestic violence method. First, it passes true to the method to get the filtered data
      * list by domestic violence. Then, it compares and checks this list to the expected list.
      */
-    public void testFilterByDomesticViolence() {
+    @Test
+    void testFilterByDomesticViolence() {
         // The dummy crime data list
         ArrayList<CrimeRecord> crimeRecordData = getCrimeDataForTesting();
 
@@ -181,7 +190,8 @@ public class SearchCrimeDataTest extends TestCase {
      * Testing the rank by most dangerous areas method by ward. First, it passes crime data list to the method.
      * Then, it compares and checks this list to the expected list by ward frequency.
      */
-    public void testRankByMostDangerousAreas() {
+    @Test
+    void testRankByMostDangerousAreas() {
         // The dummy crime data list
         ArrayList<CrimeRecord> crimeRecordData = getCrimeDataForTesting();
 
@@ -202,7 +212,8 @@ public class SearchCrimeDataTest extends TestCase {
      * Testing the rank by most dangerous areas method by primary description. First, it passes crime data list to
      * the method. Then, it compares and checks this list to the expected list by primary description frequency.
      */
-    public void testRankByCrimeTypeFrequency() {
+    @Test
+    void testRankByCrimeTypeFrequency() {
         // The dummy crime data list
         ArrayList<CrimeRecord> crimeRecordData = getCrimeDataForTesting();
 
@@ -223,7 +234,8 @@ public class SearchCrimeDataTest extends TestCase {
      * Testing the rank by high and low crime rates method by ward. First, it passes crime data list to the method.
      * Then, it compares and checks, high and low crime rates list to the two expected list by ward frequency.
      */
-    public void testWardByHighAndLowCrimeRates() {
+    @Test
+    void testWardByHighAndLowCrimeRates() {
         // The dummy crime data list
         ArrayList<CrimeRecord> crimeRecordData = getCrimeDataForTesting();
 
@@ -253,7 +265,8 @@ public class SearchCrimeDataTest extends TestCase {
      * For testing the methods in SearchCrimeData class
      * @return crimeRecordData, a crime record data list of CrimeRecord
      */
-    public ArrayList<CrimeRecord> getCrimeDataForTesting() {
+    @Test
+    ArrayList<CrimeRecord> getCrimeDataForTesting() {
         ArrayList<CrimeRecord> crimeRecordData = new ArrayList<>();
         crimeRecordData.add(new CrimeRecord("JE266628", 8, 26, 2021, LocalTime.of(9,30),
                 "080XX S DREXEL AVE", "0820", "THEFT", "$500 AND UNDER", "STREET", 1, 0,
