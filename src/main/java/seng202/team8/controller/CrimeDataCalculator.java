@@ -20,7 +20,7 @@ public class CrimeDataCalculator {
      * @param secondLocation second crime location of valid location range
      * @return a crime distance between two crime locations
      */
-    public float calculateTwoCrimeDistance(double[] firstLocation, double[] secondLocation) {
+    public double calculateTwoCrimeDistance(double[] firstLocation, double[] secondLocation) {
         if ((firstLocation[0] == secondLocation[0]) && (firstLocation[1] == secondLocation[1])) {
             return 0;
         }
@@ -39,7 +39,7 @@ public class CrimeDataCalculator {
         // Converting the crime distance to string to 2 decimal places and then converting
         // float and returning it
         String stringCrimeDistance = String.format("%.2f", (c * radiusOfEarth));
-        float crimeDistance = Float.parseFloat(stringCrimeDistance);
+        double crimeDistance = Double.parseDouble(stringCrimeDistance);
         return crimeDistance;
     }
 
@@ -65,9 +65,9 @@ public class CrimeDataCalculator {
         long differenceYears = (differenceTime / (1000L * 60 * 60 * 24 * 365));
         long differenceDays = (differenceTime / (1000 * 60 * 60 * 24)) % 365;
 
-        String date_Time_Difference = "Difference in timestamps-> " + differenceYears + " years, " +
+        String date_Time_Difference = differenceYears + " years, " +
                 differenceDays + " days, " + differenceHours + " hours, " +
-                differenceMinutes + " minutes, " + differenceSeconds + " seconds";
+                differenceMinutes + " minutes and " + differenceSeconds + " seconds";
         return date_Time_Difference;
     }
 
