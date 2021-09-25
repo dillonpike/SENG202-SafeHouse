@@ -10,6 +10,7 @@ import java.util.Hashtable;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+import com.sun.jdi.AbsentInformationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seng202.team8.model.CrimeRecord;
@@ -158,7 +159,8 @@ public class CrimeRecordManager {
     private boolean addEssentials(String[] data, CrimeRecord newCrime) {
         try {
             newCrime.setCaseNum(data[0]);
-            newCrime.setIucr(data[3]);
+            String iucr = padIUCR(data[3]);
+            newCrime.setIucr(iucr);
             newCrime.setPrimary(data[4]);
             newCrime.setLatitude(Double.parseDouble(data[14]));
             newCrime.setLongitude(Double.parseDouble(data[15]));
@@ -166,6 +168,31 @@ public class CrimeRecordManager {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    /**
+     * Checks the given IUCR and attempts to pad it
+     * with zero's if it's too short
+     *
+     * Will reject empty strings, but not trivial
+     * strings like '1'
+     *
+     * used in importing as programs like excel
+     * may chop off leading zeros
+     * @param iucr The iucr to be padded
+     */
+    private String padIUCR(String iucr) throws AbsentInformationException {
+        //The stringbuilder is a mutable string
+        if (iucr.length() == 0) {
+            //String is empty, so should be rejected
+            throw new AbsentInformationException("Empty IUCR!");
+        }
+        StringBuilder paddedIucr = new StringBuilder(iucr);
+        while (paddedIucr.length() < 4) {
+            //add a '0' to the front
+            paddedIucr.insert(0, '0');
+        }
+        return paddedIucr.toString();
     }
 
     /**
