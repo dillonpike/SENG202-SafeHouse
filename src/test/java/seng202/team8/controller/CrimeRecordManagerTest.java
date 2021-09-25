@@ -86,6 +86,29 @@ public class CrimeRecordManagerTest extends TestCase {
     }
 
     /**
+     * Tests if the IUCR numbers being imported are padded correctly
+     * Note that the test data contains some 3-length IUCRS
+     * and also an empty IUCR - which should not make it into the records
+     */
+    public void testIucrPadding() {
+        CrimeRecordManager manager = new CrimeRecordManager();
+        //Import the test data
+        try {
+            manager.importFile("src/main/resources/testdata.csv");
+        } catch (FileNotFoundException ex) {
+            System.out.println("Import test's filename/filepath is incorrect and/or missing!");
+            ex.printStackTrace();
+        }
+        //Check that every single IUCR that was imported is padded correctly
+        boolean result = false;
+        for (CrimeRecord crime: manager.getLocalCopy()) {
+            //If it's padded correctly, it should be valid
+            result = ValidateCrime.validateIucr(crime.getIucr());
+        }
+        assertTrue(result);
+    }
+
+    /**
      * Tests that the CrimeRecordManager addRecord method does nothing when adding a duplicate crime.
      */
     public void testAddingDuplicate() {
@@ -263,7 +286,7 @@ public class CrimeRecordManagerTest extends TestCase {
      */
     public void testIUCR() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
-        assertEquals("460", records.get(0).getIucr());
+        assertEquals("0460", records.get(0).getIucr());
     }
 
     /**
