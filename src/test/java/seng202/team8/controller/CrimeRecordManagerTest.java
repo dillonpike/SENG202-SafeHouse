@@ -2,6 +2,7 @@ package seng202.team8.controller;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import junit.framework.TestCase;
 import seng202.team8.model.CrimeRecord;
@@ -91,21 +92,28 @@ public class CrimeRecordManagerTest extends TestCase {
      * and also an empty IUCR - which should not make it into the records
      */
     public void testIucrPadding() {
-        CrimeRecordManager manager = new CrimeRecordManager();
-        //Import the test data
-        try {
-            manager.importFile("src/main/resources/testdata.csv");
-        } catch (FileNotFoundException ex) {
-            System.out.println("Import test's filename/filepath is incorrect and/or missing!");
-            ex.printStackTrace();
-        }
         //Check that every single IUCR that was imported is padded correctly
         boolean result = false;
-        for (CrimeRecord crime: manager.getLocalCopy()) {
+        for (CrimeRecord crime: testManager.getLocalCopy()) {
             //If it's padded correctly, it should be valid
             result = ValidateCrime.validateIucr(crime.getIucr());
         }
         assertTrue(result);
+    }
+
+    /**
+     * Checks that a record with an empty IUCR is not padded, and is rejected for import
+     * Just does this by checking that no record has '0000' as its IUCR
+     * using test data that contains a record with an empty IUCR
+     *
+     * If you add a record with "0000" as an IUCR, this test will break.
+     */
+    public void testEmptyIucr() {
+        boolean result = true;
+        for (CrimeRecord crime: testManager.getLocalCopy()) {
+            result = (Objects.equals(crime.getIucr(), "0000"));
+        }
+        assertFalse(result);
     }
 
     /**
