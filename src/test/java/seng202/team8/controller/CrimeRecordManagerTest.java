@@ -301,7 +301,7 @@ class CrimeRecordManagerTest {
     @Test
     void testTime() {
         ArrayList<CrimeRecord> records = testManager.getLocalCopy();
-        assertEquals(LocalTime.of(3, 3), records.get(0).getTime());
+        assertEquals(LocalTime.of(15, 3), records.get(0).getTime());
     }
 
     /**
