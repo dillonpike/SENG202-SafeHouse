@@ -115,6 +115,8 @@ public class MapController extends GUIController implements Initializable {
      * @param number The number of records to place
      */
     public void placeNumMarkers(ArrayList<CrimeRecord> records, int number) {
+        // Lowers number to the total number of records
+        number = Math.min(records.size(), number);
 
         //Go through a for loop a set number of times
         for (int i = 0; i < number; i++) {
