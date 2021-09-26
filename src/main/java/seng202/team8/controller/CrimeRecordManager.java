@@ -260,9 +260,6 @@ public class CrimeRecordManager {
         int day = Integer.parseInt(dateNums[1]);
         int year = Integer.parseInt(dateNums[2]);
         crime.setDate(month, day, year);
-        System.out.println(crime.getCaseNum());
-        System.out.print(date);
-        System.out.println(dateAndTime[1] + " " + dateAndTime[2]);
         crime.setTime(stringToLocalTime((dateAndTime[1] + " " + dateAndTime[2])));
     }
 
