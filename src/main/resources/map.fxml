@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.MapController">
+<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.MapController">
    <center>
       <Pane prefHeight="620.0" prefWidth="1280.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
          <children>
@@ -94,7 +94,7 @@
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button id="btn_map" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#map" style="-fx-background-color: D6D6D6;" text="MAP">
+                  <Button id="btn_map" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#map" style="-fx-background-color: D6D6D6;" text="MAP" underline="true">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -119,11 +119,6 @@
                      </font>
                   </Button>
                   <Button id="btn_minimize" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#minimise" prefHeight="42.0" prefWidth="42.0" text="-">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-                  <Button id="btn_settings" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="43.0" text="*">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -154,15 +149,7 @@
                   <Text layoutX="158.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How many records would you like to mark:" />
                   <Text fx:id="markNumberText" fill="RED" layoutX="157.0" layoutY="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter a number between 1 and 1000" />
                </children></Pane>
-            <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="51.0" prefWidth="402.0" style="-fx-background-color: D6D6D6;">
-              <items>
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="HELP">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-              </items>
-            </ToolBar>
+            <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="51.0" prefWidth="402.0" style="-fx-background-color: D6D6D6;" />
          </children></HBox>
    </bottom>
    <stylesheets>

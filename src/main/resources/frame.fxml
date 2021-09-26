@@ -10,11 +10,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.GUIController">
+<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.GUIController">
    <center>
       <Pane prefHeight="620.0" prefWidth="1280.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="626.0" layoutY="302.0" text="HOME" />
+            <Label layoutX="510.0" layoutY="261.0" text="Welcome to SafeHouse">
+               <font>
+                  <Font size="25.0" />
+               </font></Label>
+            <Label layoutX="435.0" layoutY="310.0" text="To start, head to the table tab and import a dataset.">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children></Pane>
    </center>
    <top>
@@ -25,7 +33,7 @@
          <children>
             <ToolBar depthTest="DISABLE" style="-fx-background-color: D6D6D6;">
               <items>
-                <Button id="btn_safehouse" mnemonicParsing="false" onAction="#home" style="-fx-background-color: D6D6D6;" text="SAFEHOUSE">
+                <Button id="btn_safehouse" mnemonicParsing="false" onAction="#home" style="-fx-background-color: D6D6D6;" text="SAFEHOUSE" underline="true">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -59,11 +67,6 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button id="btn_settings" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="43.0" text="*">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
               </items>
             </ToolBar>
          </children>
@@ -80,15 +83,7 @@
          <children>
             <ToolBar prefHeight="40.0" prefWidth="420.0" style="-fx-background-color: D6D6D6;" />
             <Pane prefHeight="50.0" prefWidth="420.0" />
-            <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="420.0" style="-fx-background-color: D6D6D6;">
-              <items>
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="HELP">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-              </items>
-            </ToolBar>
+            <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="420.0" style="-fx-background-color: D6D6D6;" />
          </children></HBox>
    </bottom>
    <stylesheets>
