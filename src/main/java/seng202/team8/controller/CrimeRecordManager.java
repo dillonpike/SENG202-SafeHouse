@@ -260,6 +260,9 @@ public class CrimeRecordManager {
         int day = Integer.parseInt(dateNums[1]);
         int year = Integer.parseInt(dateNums[2]);
         crime.setDate(month, day, year);
+        System.out.println(crime.getCaseNum());
+        System.out.print(date);
+        System.out.println(dateAndTime[1] + " " + dateAndTime[2]);
         crime.setTime(stringToLocalTime((dateAndTime[1] + " " + dateAndTime[2])));
     }
 
@@ -268,7 +271,7 @@ public class CrimeRecordManager {
         int hour = Integer.parseInt(timeStrings[0]);
         int minute = Integer.parseInt(timeStrings[1]);
         int second = Integer.parseInt(timeStrings[2].substring(0, 2));
-        if (timeStrings[2].length() > 2 && timeStrings[2].substring(3) == "PM") {
+        if (timeStrings[2].length() > 2 && timeStrings[2].substring(3).equals("PM") && hour < 12) {
             hour += 12;
         }
         return LocalTime.of(hour, minute, second);
@@ -441,12 +444,4 @@ public class CrimeRecordManager {
 
         return willChange;
     }
-
-    
-    public ObservableList<CrimeRecord> getObservable() {
-    	ObservableList<CrimeRecord> records = FXCollections.observableArrayList(localCopy);
-    	return records;
-    }
-    
-    
 }
