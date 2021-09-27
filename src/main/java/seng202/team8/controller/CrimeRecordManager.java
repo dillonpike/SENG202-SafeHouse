@@ -378,12 +378,13 @@ public class CrimeRecordManager {
      * @param crime The crime to be removed.
      */
     public void removeRecord(CrimeRecord crime) {
-        localCopy.remove(crime);
-        if (containedRecords.contains((crime.getCaseNum()))) {
-            decrementFreqs(crime);
+        if (crime != null) {
+            localCopy.remove(crime);
+            if (containedRecords.contains((crime.getCaseNum()))) {
+                decrementFreqs(crime);
+            }
+            containedRecords.remove(crime.getCaseNum());
         }
-        containedRecords.remove(crime.getCaseNum());
-
     }
 
     /**
