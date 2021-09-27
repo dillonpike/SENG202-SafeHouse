@@ -176,7 +176,7 @@ public class GUIController {
 		try {
 			path = toImport.getAbsolutePath();
 		} catch (NullPointerException e) {
-			
+
 		}
 		return path;
 	}
