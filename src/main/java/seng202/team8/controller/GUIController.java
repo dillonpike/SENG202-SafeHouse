@@ -159,7 +159,6 @@ public class GUIController {
 	 * @param e Node to collect the attached stage from
 	 */
 	public void closeAddRecord(ActionEvent e) {
-		System.out.println("Closing");
 		addRecordPopup = (Stage)((Node)e.getSource()).getScene().getWindow();
 		addRecordPopup.close();
 	}
@@ -173,7 +172,6 @@ public class GUIController {
 		FileChooser openRecords = new FileChooser();
 		openRecords.setTitle("Import Crime Data");
 		File toImport = openRecords.showOpenDialog(stage);
-		System.out.println(toImport.getAbsolutePath());
 		return toImport.getAbsolutePath();
 	}
 	
