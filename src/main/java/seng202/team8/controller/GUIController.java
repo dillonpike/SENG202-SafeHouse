@@ -172,7 +172,13 @@ public class GUIController {
 		FileChooser openRecords = new FileChooser();
 		openRecords.setTitle("Import Crime Data");
 		File toImport = openRecords.showOpenDialog(stage);
-		return toImport.getAbsolutePath();
+		String path = null;
+		try {
+			path = toImport.getAbsolutePath();
+		} catch (NullPointerException e) {
+			
+		}
+		return path;
 	}
 	
 	/**

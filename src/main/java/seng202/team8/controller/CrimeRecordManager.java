@@ -98,6 +98,9 @@ public class CrimeRecordManager {
      * @return Returns an ArrayList of all lines that contain errors/could not be imported
      */
     public ArrayList<Integer> importFile(String filename) throws FileNotFoundException {
+        if (filename == null) {
+            return new ArrayList<>();
+        }
         CSVReader csvReader = new CSVReader(new FileReader(filename));
         String[] row;
         ArrayList<Integer> linesWithErrors = new ArrayList<>();
@@ -142,8 +145,7 @@ public class CrimeRecordManager {
                 localCopy.add(newCrime);
             }
             csvReader.close();
-        }
-        catch (IOException | CsvValidationException ex) {
+        } catch (IOException | CsvValidationException ex) {
             ex.printStackTrace();
         }
         return linesWithErrors;
