@@ -90,6 +90,7 @@ public class AddRecordController extends GUIController implements Initializable 
      */
     public void fillFields() {
     	fldCaseNum.setText(toEdit.getCaseNum());
+    	fldDate.setValue(toEdit.getDate());
     	fldBlock.setText(toEdit.getBlock());
     	fldIUCR.setText(toEdit.getIucr());
     	fldPrimaryDesc.setText(toEdit.getPrimary());
@@ -123,7 +124,7 @@ public class AddRecordController extends GUIController implements Initializable 
     			DataManager.getCurrentDataset().addRecord(newRecord);
     		} else {
     			LocalDate date = newRecord.getDate();
-    			DataManager.getCurrentDataset().changeRecord(toEdit, newRecord.getCaseNum(), date.getYear(), date.getMonthValue(), date.getDayOfMonth(),
+    			DataManager.getCurrentDataset().changeRecord(toEdit, newRecord.getCaseNum(), date.getMonthValue(), date.getDayOfMonth(), date.getYear(),
     					newRecord.getTime(), newRecord.getBlock(), newRecord.getIucr(), newRecord.getPrimary(), newRecord.getSecondary(), newRecord.getLocDescription(),
     					newRecord.getWasArrestValue(), newRecord.getWasDomesticValue(), newRecord.getBeat(), newRecord.getWard(), newRecord.getFbiCD(), newRecord.getLatitude(),
     					newRecord.getLongitude());
