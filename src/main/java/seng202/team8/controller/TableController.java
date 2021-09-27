@@ -267,6 +267,8 @@ public class TableController extends GUIController implements Initializable {
         clmLocation.setCellValueFactory(new PropertyValueFactory<>("locDescription"));
         clmArrest.setCellValueFactory(new PropertyValueFactory<>("wasArrest"));
         clmDomestic.setCellValueFactory(new PropertyValueFactory<>("wasDomestic"));
+        clmBeat.setCellValueFactory(new PropertyValueFactory<>("beat"));
+        clmWard.setCellValueFactory(new PropertyValueFactory<>("ward"));
 
         // Filter text fields
         startDateText.setText("");

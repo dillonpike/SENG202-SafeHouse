@@ -18,18 +18,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.TableController">
+<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.TableController">
    <center>
       <Pane id="stuff" prefHeight="620.0" prefWidth="780.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
          <children>
             <TableView id="recordTable" fx:id="recordTable" layoutY="60.0" onMouseClicked="#updateExtendedInfo" prefHeight="446.0" prefWidth="780.0">
               <columns>
-                <TableColumn id="clmNum" fx:id="clmNum" minWidth="150.0" prefWidth="150.0" text="Case #" />
-                <TableColumn id="clmDate" fx:id="clmDate" prefWidth="150.0" text="Date" />
+                <TableColumn id="clmNum" fx:id="clmNum" minWidth="120.0" prefWidth="120.0" text="Case #" />
+                <TableColumn id="clmDate" fx:id="clmDate" prefWidth="120.0" text="Date" />
                 <TableColumn id="clmPrimaryDesc" fx:id="clmPrimaryDesc" prefWidth="150.0" text="Primary Desc" />
                 <TableColumn id="clmLocation" fx:id="clmLocation" prefWidth="150.0" text="Location" />
-                <TableColumn id="clmArrest" fx:id="clmArrest" prefWidth="90.0" text="Arrest" />
-                <TableColumn id="clmDomestic" fx:id="clmDomestic" prefWidth="90.0" text="Domestic" />
+                <TableColumn id="clmArrest" fx:id="clmArrest" prefWidth="60.0" text="Arrest" />
+                <TableColumn id="clmDomestic" fx:id="clmDomestic" prefWidth="60.0" text="Domestic" />
+                  <TableColumn id="clmDomestic" fx:id="clmBeat" prefWidth="60.0" text="Beat" />
+                  <TableColumn id="clmDomestic" fx:id="clmWard" prefWidth="60.0" text="Ward" />
               </columns>
             </TableView>
             <HBox layoutY="512.0" prefHeight="45.0" prefWidth="880.0" spacing="5.0">
