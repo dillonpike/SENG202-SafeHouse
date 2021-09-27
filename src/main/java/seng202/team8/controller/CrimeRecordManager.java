@@ -12,8 +12,6 @@ import java.util.Hashtable;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import com.sun.jdi.AbsentInformationException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seng202.team8.model.CrimeRecord;
 
 /**
