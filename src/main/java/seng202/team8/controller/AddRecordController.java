@@ -114,12 +114,12 @@ public class AddRecordController extends GUIController implements Initializable 
      * stage is closed.
      */
     public void createRecord() {
-    	if (checkCaseNum() && checkFBI() && checkIUCR() && checkPrimary() && checkWard() && checkBeat() && checkLat() && checkLon() == true) {
+    	if (checkFields()) {
     		CrimeRecord newRecord = new CrimeRecord(fldCaseNum.getText(), fldDate.getValue().getMonthValue(), fldDate.getValue().getDayOfMonth(),
     		fldDate.getValue().getYear(), LocalTime.of(fldHour.getValue(), fldMinute.getValue()), fldBlock.getText(), fldIUCR.getText(), fldPrimaryDesc.getText(), fldSecondaryDesc.getText(),
-    		fldLocation.getSelectionModel().getSelectedItem(), parseCheckbox(fldArrest), parseCheckbox(fldDomestic), (int)Integer.valueOf(fldBeat.getText()), 
-    		(int)Integer.valueOf(fldWard.getText()), fldFBI.getText(), (double)Double.valueOf(fldLat.getText()), (double)Double.valueOf(fldLon.getText()));
-    		if (editing == false) {
+    		fldLocation.getSelectionModel().getSelectedItem(), parseCheckbox(fldArrest), parseCheckbox(fldDomestic), Integer.parseInt(fldBeat.getText()),
+    		Integer.parseInt(fldWard.getText()), fldFBI.getText(), Double.parseDouble(fldLat.getText()), Double.parseDouble(fldLon.getText()));
+    		if (!editing) {
     			DataManager.getCurrentDataset().addRecord(newRecord);
     		} else {
     			LocalDate date = newRecord.getDate();
@@ -149,12 +149,29 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
 
+	/**
+	 * Checks all the fields that must have valid entries and returns true if they are all valid, otherwise false.
+	 * @return true if all necessary fields have valid entries, otherwise false.
+	 */
+	private boolean checkFields() {
+    	boolean caseNum = checkCaseNum();
+    	boolean date = checkDate();
+    	boolean fbi = checkFBI();
+    	boolean iucr = checkIUCR();
+    	boolean primary = checkPrimary();
+    	boolean ward = checkWard();
+    	boolean beat = checkBeat();
+    	boolean lat = checkLat();
+    	boolean lon = checkLon();
+    	return caseNum && date && fbi && iucr && primary && ward && beat && lat && lon;
+	}
+
     /**
      * Calls the case number validation method to compare with the current value in the case number field.
      * @return true if the value is accepted, false otherwise.
      */
-    public boolean checkCaseNum() {
-    	if (ValidateCrime.validateCaseNum(fldCaseNum.getText())== false) {
+    private boolean checkCaseNum() {
+    	if (!ValidateCrime.validateCaseNum(fldCaseNum.getText())) {
     		fldCaseNum.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
     		return false;
     	} else {
@@ -163,12 +180,27 @@ public class AddRecordController extends GUIController implements Initializable 
     	}
     }
 
-    /**
+	/**
+	 * Checks if the date field contains a valid date. If it doesn't it sets the field to have a red border, otherwise
+	 * it resets the border.
+	 * @return true if the date field contains a valid date, otherwise false.
+	 */
+	private boolean checkDate() {
+		if (fldDate.getValue() == null) {
+			fldDate.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
+			return false;
+		} else {
+			fldDate.setStyle(null);
+			return true;
+		}
+	}
+
+	/**
      * Calls the FBICD validation method to compare with the current value in the FBICD field.
      * @return true if the value is accepted, false otherwise.
      */
-    public boolean checkFBI() {
-    	if (ValidateCrime.validateFbiCD(fldFBI.getText()) == false) {
+	private boolean checkFBI() {
+    	if (!ValidateCrime.validateFbiCD(fldFBI.getText())) {
     		fldFBI.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
     		return false;
     	} else {
@@ -181,8 +213,8 @@ public class AddRecordController extends GUIController implements Initializable 
      * Calls the IUCR validation method to compare with the current value in the IUCR field.
      * @return true if the value is accepted, false otherwise.
      */
-    public boolean checkIUCR() {
-    	if (ValidateCrime.validateIucr(fldIUCR.getText()) == false) {
+	private boolean checkIUCR() {
+    	if (!ValidateCrime.validateIucr(fldIUCR.getText())) {
     		fldIUCR.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
     		return false;
     	} else {
@@ -195,8 +227,8 @@ public class AddRecordController extends GUIController implements Initializable 
      * Calls the primary description validation method to compare with the current value in the primaryDesc field.
      * @return true if the value is accepted, false otherwise.
      */
-    public boolean checkPrimary() {
-    	if (ValidateCrime.validatePrimary(fldPrimaryDesc.getText()) == false) {
+	private boolean checkPrimary() {
+    	if (!ValidateCrime.validatePrimary(fldPrimaryDesc.getText())) {
     		fldPrimaryDesc.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
     		return false;
     	} else {
@@ -209,8 +241,8 @@ public class AddRecordController extends GUIController implements Initializable 
      * Calls the ward validation method to compare with the current value in the ward field.
      * @return true if the value is accepted, false otherwise.
      */
-    public boolean checkWard() {
-    	if (ValidateCrime.validateInt(fldWard.getText()) == false) {
+	private boolean checkWard() {
+    	if (!ValidateCrime.validateInt(fldWard.getText())) {
     		fldWard.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
     		return false;
     	} else {
@@ -223,8 +255,8 @@ public class AddRecordController extends GUIController implements Initializable 
      * Calls the beat validation method to compare with the current value in the beat field.
      * @return true if the value is accepted, false otherwise.
      */
-    public boolean checkBeat() {
-    	if (ValidateCrime.validateInt(fldBeat.getText()) == false) {
+	private boolean checkBeat() {
+    	if (!ValidateCrime.validateInt(fldBeat.getText())) {
     		fldBeat.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
     		return false;
     	} else {
@@ -237,8 +269,8 @@ public class AddRecordController extends GUIController implements Initializable 
      * Calls the latitude validation method to compare with the current value in the latitude field.
      * @return true if the value is accepted, false otherwise.
      */
-    public boolean checkLat() {
-    	if (ValidateCrime.validateDouble(fldLat.getText()) == false) {
+	private boolean checkLat() {
+    	if (!ValidateCrime.validateDouble(fldLat.getText())) {
     		fldLat.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
     		return false;
     	} else {
@@ -251,8 +283,8 @@ public class AddRecordController extends GUIController implements Initializable 
      * Calls the latitude validation method to compare with the current value in the latitude field.
      * @return true if the value is accepted, false otherwise.
      */
-    public boolean checkLon() {
-    	if (ValidateCrime.validateDouble(fldLon.getText()) == false) {
+	private boolean checkLon() {
+    	if (!ValidateCrime.validateDouble(fldLon.getText())) {
     		fldLon.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
     		return false;
     	} else {
@@ -359,6 +391,7 @@ public class AddRecordController extends GUIController implements Initializable 
 				"VEHICLE - OTHER RIDE SHARE SERVICE (LYFT, UBER, ETC.)",
 				"VEHICLE NON-COMMERCIAL",
 				"WAREHOUSE"));
+			fldLocation.getSelectionModel().select(fldLocation.getItems().get(0));
 			fldHour.setEditable(true);
 			fldMinute.setEditable(true);
 		
