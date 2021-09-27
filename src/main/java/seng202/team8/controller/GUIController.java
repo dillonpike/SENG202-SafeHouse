@@ -83,6 +83,7 @@ public class GUIController {
 			e.printStackTrace();
 		}
 		stage.getScene().setRoot(root);
+		makeDraggable(root, stage);
 	}
 
 	/**
