@@ -98,6 +98,9 @@ public class CrimeRecordManager {
     public ArrayList<Integer> importFile(String filename) throws FileNotFoundException {
         if (filename == null) {
             return new ArrayList<>();
+        } else if (!filename.endsWith(".csv")) {
+            //This is done so we can be sure the filename isn't null
+            return new ArrayList<>();
         }
         CSVReader csvReader = new CSVReader(new FileReader(filename));
         String[] row;
@@ -205,7 +208,7 @@ public class CrimeRecordManager {
     private void addSkipables(String[] data, CrimeRecord newCrime) {
         try {
             addDateAndTime(newCrime, data[1]);
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
             //Do nothing and leave the field(s) empty.
         }
         /*
