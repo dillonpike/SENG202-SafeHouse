@@ -390,6 +390,13 @@ public class TableController extends GUIController implements Initializable {
         }
     }
 
+
+    /**
+     * Filters the module's records by removing records that do not occur
+     * within the beat range provided in the beat entry fields
+     *
+     * Displays an error message if the entry fields contain invalid beats
+     */
     private void filterBeats() {
         String startBeatString = startBeatField.getText();
         String endBeatString = endBeatField.getText();
@@ -412,6 +419,13 @@ public class TableController extends GUIController implements Initializable {
         }
     }
 
+
+    /**
+     * Filters the module's records by removing records that do not occur
+     * within the ward range provided in the ward entry fields
+     *
+     * Displays an error message if the entry fields contain invalid ward
+     */
     private void filterWards() {
         String startWardString = startWardField.getText();
         String endWardString = endWardField.getText();
