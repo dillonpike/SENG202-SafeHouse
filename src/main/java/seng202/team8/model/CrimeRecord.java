@@ -550,4 +550,69 @@ public class CrimeRecord {
     			beat + "\nWard: " + ward + "\nFBI CD: " + fbiCD + "\nX Coord: " + xCoord + "\nY Coord: " + yCoord + 
     			"\nLatitude: " + latitude + "\nLongitude: " + longitude);
     }
+
+    /**
+     * Returns a version of this crime record in an appropriate csv-format
+     * @return The string representation of this record's crime values, as comma seperated values
+     */
+    public String toCSV() {
+        /*
+        Note for readers:
+        As you can see, I've broken up the format string into line segments
+        The values of those formats are also broken up into line segments
+        As you might guess, these are related: each line of values
+        directly corresponds to a line of the format string.
+         */
+        return String.format("%s,%02d/%02d/%04d %s," +
+                        "%s,%s,%s,%s,%s," +
+                        "%s,%s," +
+                        "%d,%d,%s,%d,%d," +
+                        "%.9f,%.9f,\"(%18$.9f, %19$.9f)\"",
+                caseNum, date.getMonthValue(), date.getDayOfMonth(), date.getYear(), timeToCSV(time),
+                block, iucr, primary, secondary, locDescription,
+                wasLetter(wasArrest), wasLetter(wasDomestic),
+                beat, ward, fbiCD, xCoord, yCoord,
+                latitude, longitude);
+    }
+
+    /**
+     * Helper function that turns a wasArrest or wasDomestic value into a Y, N or X.
+     * Used for string conversion.
+     * @param wasValue The wasArrest or wasDomestic value being converted
+     * @return Y if there was an arrest, N if there was not, and X if unknown.
+     */
+    private String wasLetter(int wasValue) {
+        if (wasValue == 1) {
+            return "Y";
+        } else if (wasValue == 0) {
+            return "N";
+        } else {
+            return "X";
+        }
+    }
+
+    /**
+     * Converts the local time into the same format that we expect from the CSVs.
+     * This means we can later import this section.
+     * @param localTime The localTime object to be converted into a csv-friendly format
+     * @return A string representation of the time
+     */
+    private String timeToCSV(LocalTime localTime) {
+        //Check if we're in AM or PM
+        int hour;
+        String suffix;
+        if (localTime.getHour() > 12) {
+            //The time is PM
+            hour = time.getHour() - 12;
+            suffix = "PM";
+        } else {
+            //The time is AM
+            hour = time.getHour();
+            suffix = "AM";
+        }
+        //Now create our output string
+        return String.format("%02d:%02d:%02d %s",
+                hour, localTime.getMinute(), localTime.getSecond(), suffix);
+
+    }
 }
