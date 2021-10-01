@@ -1,8 +1,7 @@
 package seng202.team8.controller;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.MalformedInputException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,8 +11,6 @@ import java.util.Hashtable;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import com.sun.jdi.AbsentInformationException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seng202.team8.model.CrimeRecord;
 
 /**
@@ -98,6 +95,12 @@ public class CrimeRecordManager {
      * @return Returns an ArrayList of all lines that contain errors/could not be imported
      */
     public ArrayList<Integer> importFile(String filename) throws FileNotFoundException {
+        if (filename == null) {
+            return new ArrayList<>();
+        } else if (!filename.endsWith(".csv")) {
+            //This is done so we can be sure the filename isn't null
+            return new ArrayList<>();
+        }
         CSVReader csvReader = new CSVReader(new FileReader(filename));
         String[] row;
         ArrayList<Integer> linesWithErrors = new ArrayList<>();
@@ -142,8 +145,7 @@ public class CrimeRecordManager {
                 localCopy.add(newCrime);
             }
             csvReader.close();
-        }
-        catch (IOException | CsvValidationException ex) {
+        } catch (IOException | CsvValidationException ex) {
             ex.printStackTrace();
         }
         return linesWithErrors;
@@ -205,7 +207,7 @@ public class CrimeRecordManager {
     private void addSkipables(String[] data, CrimeRecord newCrime) {
         try {
             addDateAndTime(newCrime, data[1]);
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
             //Do nothing and leave the field(s) empty.
         }
         /*
@@ -378,12 +380,13 @@ public class CrimeRecordManager {
      * @param crime The crime to be removed.
      */
     public void removeRecord(CrimeRecord crime) {
-        localCopy.remove(crime);
-        if (containedRecords.contains((crime.getCaseNum()))) {
-            decrementFreqs(crime);
+        if (crime != null) {
+            localCopy.remove(crime);
+            if (containedRecords.contains((crime.getCaseNum()))) {
+                decrementFreqs(crime);
+            }
+            containedRecords.remove(crime.getCaseNum());
         }
-        containedRecords.remove(crime.getCaseNum());
-
     }
 
     /**
@@ -441,4 +444,36 @@ public class CrimeRecordManager {
 
         return willChange;
     }
+
+    /**
+     * Exports the Crime Record entries of this manager
+     * into a csv at the given filename.
+     *
+     * @param filename The name of the file that is being exported to
+     * @throws IOException When an I/O error occurs when writing to the file
+     * @throws IllegalArgumentException if the filename doesn't end with ".csv"
+     */
+    public void exportFile(String filename) throws IOException {
+        if (!filename.endsWith(".csv")) {
+            //It isn't a CSV file!
+            throw new IllegalArgumentException("This filename doesn't end with .csv!");
+        }
+        //Open up the file for writing
+        FileWriter csvWriter = new FileWriter(filename);
+        //Write the first line of the CSV
+        csvWriter.append("CASE#,DATE  OF OCCURRENCE,BLOCK, IUCR, " +
+                "PRIMARY DESCRIPTION, SECONDARY DESCRIPTION, LOCATION DESCRIPTION," +
+                "ARREST,DOMESTIC,BEAT,WARD,FBI CD,X COORDINATE,Y COORDINATE," +
+                "LATITUDE,LONGITUDE,LOCATION\n");
+        //Now loop through all the records and write their csv values
+        for (CrimeRecord crime : localCopy) {
+            csvWriter.append(crime.toCSV());
+            //Also append a newline character
+            csvWriter.append("\n");
+        }
+        //And then close the file
+        csvWriter.flush();
+        csvWriter.close();
+    }
+
 }

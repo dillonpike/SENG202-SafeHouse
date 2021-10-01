@@ -18,7 +18,7 @@ java -version
 
 Maven must also be installed and can be done by following this guide: https://maven.apache.org/install.html
 
-The project can be downloaded by cloning the repistory by entering the following into Terminal or Command Prompt.
+The project can be downloaded by cloning the repository by entering the following into Terminal or Command Prompt.
 git clone https://eng-git.canterbury.ac.nz/dkp33/seng202-team8.git
 
 
@@ -48,3 +48,7 @@ Then do the following to finish setting up:
 - Mark target as an excluded folder (Create this folder if it doesn't exist)
 - In Settings > Build, Execution, Deployment > Build Tools > Maven, tick "Always update snapshots" and click apply.
   Then run the Maven build scripts from the popup in the bottom right.
+
+## Using SafeHouse
+
+Imported files must be .csv files and follow the structure of testdata.csv in src/main/resources
