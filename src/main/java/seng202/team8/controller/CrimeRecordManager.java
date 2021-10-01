@@ -1,8 +1,7 @@
 package seng202.team8.controller;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.MalformedInputException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -445,4 +444,36 @@ public class CrimeRecordManager {
 
         return willChange;
     }
+
+    /**
+     * Exports the Crime Record entries of this manager
+     * into a csv at the given filename.
+     *
+     * @param filename The name of the file that is being exported to
+     * @throws IOException When an I/O error occurs when writing to the file
+     * @throws IllegalArgumentException if the filename doesn't end with ".csv"
+     */
+    public void exportFile(String filename) throws IOException {
+        if (!filename.endsWith(".csv")) {
+            //It isn't a CSV file!
+            throw new IllegalArgumentException("This filename doesn't end with .csv!");
+        }
+        //Open up the file for writing
+        FileWriter csvWriter = new FileWriter(filename);
+        //Write the first line of the CSV
+        csvWriter.append("CASE#,DATE  OF OCCURRENCE,BLOCK, IUCR, " +
+                "PRIMARY DESCRIPTION, SECONDARY DESCRIPTION, LOCATION DESCRIPTION," +
+                "ARREST,DOMESTIC,BEAT,WARD,FBI CD,X COORDINATE,Y COORDINATE," +
+                "LATITUDE,LONGITUDE,LOCATION\n");
+        //Now loop through all the records and write their csv values
+        for (CrimeRecord crime : localCopy) {
+            csvWriter.append(crime.toCSV());
+            //Also append a newline character
+            csvWriter.append("\n");
+        }
+        //And then close the file
+        csvWriter.flush();
+        csvWriter.close();
+    }
+
 }
