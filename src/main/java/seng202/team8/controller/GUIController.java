@@ -62,6 +62,7 @@ public class GUIController {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/frame.fxml"));
 			root = loader.load();
+			makeDraggable(root, stage);
 			scene = new Scene(root,1280,720);
 			stage.setScene(scene);
 			makeDraggable(root, stage);
