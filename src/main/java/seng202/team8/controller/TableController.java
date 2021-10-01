@@ -290,14 +290,39 @@ public class TableController extends GUIController implements Initializable {
      */
     public void importFile() {
         String filename = openFileLocation();
-        try {
-            getManager().importFile(filename);
-            //Update the screen
-            updateTable();
-        } catch (FileNotFoundException e) {
-            // The file wasn't found!
-            e.printStackTrace();
+        if (filename == null) {
+        	return;
         }
+        Alert importAlert = new Alert(Alert.AlertType.NONE);
+        importAlert.setTitle("Choose dataset for import");
+        ButtonType btnNew = new ButtonType("Create new dataset", ButtonBar.ButtonData.YES);
+        ButtonType btnExisting = new ButtonType("Add to current dataset", ButtonBar.ButtonData.NO);
+        ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        importAlert.getButtonTypes().setAll(btnNew, btnExisting, btnCancel);
+        importAlert.showAndWait().ifPresent(type-> {
+        	if (type == btnNew) {
+        		CrimeRecordManager newDataset = new CrimeRecordManager();
+        		DataManager.addToDatasets(newDataset);
+        		DataManager.setCurrentDataset(newDataset);
+        		try {
+					newDataset.importFile(filename);
+					filterTable();
+				} catch (FileNotFoundException e) {
+					// File not found
+					e.printStackTrace();
+				}
+        	} else if (type == btnExisting) {
+        		try {
+                    getManager().importFile(filename);
+                    //Update the screen
+                    filterTable();
+                } catch (FileNotFoundException e) {
+                    // The file wasn't found!
+                    e.printStackTrace();
+                }
+        	} else {
+        	}
+        });
     }
 
     /**
