@@ -87,6 +87,14 @@ public class CrimeRecordManager {
         return beatFreq.getOrDefault(key, 0);
     }
 
+    public boolean isEmpty() {
+    	if (containedRecords.isEmpty()) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
     /**
      * Goes through the file and adds each line to the localCopy as a CrimeRecord object
      * @param filename The name/filepath of the file to be imported

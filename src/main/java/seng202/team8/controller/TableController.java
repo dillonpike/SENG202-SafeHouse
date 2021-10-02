@@ -251,6 +251,8 @@ public class TableController extends GUIController implements Initializable {
     @FXML
     private Pane dragBar;
 
+    @FXML
+    private ChoiceBox<String> cbDataset;
 
 
     /**
@@ -292,37 +294,54 @@ public class TableController extends GUIController implements Initializable {
         String filename = openFileLocation();
         if (filename == null) {
         	return;
+        } else if (DataManager.getCurrentDataset().isEmpty()) {
+        	try {
+				getManager().importFile(filename);
+			} catch (FileNotFoundException e) {
+				// File not found
+				e.printStackTrace();
+			}
+        	cbDataset.getItems().add("Dataset 1");
+        	cbDataset.getSelectionModel().select(0);
+        	cbDataset.setOnAction(event -> {
+        		DataManager.setCurrentDataset(DataManager.getDatasets().get(cbDataset.getSelectionModel().getSelectedIndex()));
+        		filterTable();
+        	});
+        	filterTable();
+        } else {
+		    Alert importAlert = new Alert(Alert.AlertType.NONE);
+		    importAlert.setTitle("Choose dataset for import");
+		    ButtonType btnNew = new ButtonType("Create new dataset", ButtonBar.ButtonData.YES);
+		    ButtonType btnExisting = new ButtonType("Add to current dataset", ButtonBar.ButtonData.NO);
+		    ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+		    importAlert.getButtonTypes().setAll(btnNew, btnExisting, btnCancel);
+		    importAlert.showAndWait().ifPresent(type-> {
+		    	if (type == btnNew) {
+		    		CrimeRecordManager newDataset = new CrimeRecordManager();
+		    		DataManager.addToDatasets(newDataset);
+		    		DataManager.setCurrentDataset(newDataset);
+		    		try {
+						newDataset.importFile(filename);
+						filterTable();
+						cbDataset.getItems().add("Dataset " + DataManager.getDatasets().size());
+						cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
+					} catch (FileNotFoundException e) {
+						// File not found
+						e.printStackTrace();
+					}
+		    	} else if (type == btnExisting) {
+		    		try {
+		                getManager().importFile(filename);
+		                //Update the screen
+		                filterTable();
+		            } catch (FileNotFoundException e) {
+		                // The file wasn't found!
+		                e.printStackTrace();
+		            }
+		    	} else {
+		    	}
+		    });
         }
-        Alert importAlert = new Alert(Alert.AlertType.NONE);
-        importAlert.setTitle("Choose dataset for import");
-        ButtonType btnNew = new ButtonType("Create new dataset", ButtonBar.ButtonData.YES);
-        ButtonType btnExisting = new ButtonType("Add to current dataset", ButtonBar.ButtonData.NO);
-        ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        importAlert.getButtonTypes().setAll(btnNew, btnExisting, btnCancel);
-        importAlert.showAndWait().ifPresent(type-> {
-        	if (type == btnNew) {
-        		CrimeRecordManager newDataset = new CrimeRecordManager();
-        		DataManager.addToDatasets(newDataset);
-        		DataManager.setCurrentDataset(newDataset);
-        		try {
-					newDataset.importFile(filename);
-					filterTable();
-				} catch (FileNotFoundException e) {
-					// File not found
-					e.printStackTrace();
-				}
-        	} else if (type == btnExisting) {
-        		try {
-                    getManager().importFile(filename);
-                    //Update the screen
-                    filterTable();
-                } catch (FileNotFoundException e) {
-                    // The file wasn't found!
-                    e.printStackTrace();
-                }
-        	} else {
-        	}
-        });
     }
 
     /**
