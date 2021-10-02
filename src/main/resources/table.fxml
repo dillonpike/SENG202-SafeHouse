@@ -37,27 +37,32 @@
             </TableView>
             <HBox layoutY="512.0" prefHeight="45.0" prefWidth="880.0" spacing="5.0">
                <children>
-                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#addRecord" prefHeight="44.0" prefWidth="150.0" text="Add">
+                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#addRecord" prefHeight="44.0" prefWidth="125.0" text="Add">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnImport" mnemonicParsing="false" onAction="#importFile" prefHeight="44.0" prefWidth="150.0" text="Import Data">
+                  <Button fx:id="btnImport" mnemonicParsing="false" onAction="#importFile" prefHeight="44.0" prefWidth="125.0" text="Import">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#editRecord" prefHeight="44.0" prefWidth="150.0" text="Edit">
+                  <Button fx:id="btnExport" layoutX="165.0" layoutY="10.0" mnemonicParsing="false" onAction="#exportFile" prefHeight="44.0" prefWidth="125.0" text="Export">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteRecord" prefHeight="44.0" prefWidth="150.0" text="Delete">
+                  <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#editRecord" prefHeight="44.0" prefWidth="125.0" text="Edit">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button layoutX="475.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="44.0" prefWidth="150.0" text="Refresh">
+                  <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteRecord" prefHeight="44.0" prefWidth="125.0" text="Delete">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="475.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="44.0" prefWidth="125.0" text="Refresh">
                      <font>
                         <Font size="20.0" />
                      </font>

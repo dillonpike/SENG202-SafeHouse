@@ -6,6 +6,7 @@ import java.io.IOException;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -176,6 +177,19 @@ public class GUIController {
 		String path = null;
 		try {
 			path = toImport.getAbsolutePath();
+		} catch (NullPointerException e) {
+
+		}
+		return path;
+	}
+	
+	public String openDirectoryLocation() {
+		DirectoryChooser openFolder = new DirectoryChooser();
+		openFolder.setTitle("Select folder for export");
+		File selectedFolder = openFolder.showDialog(stage);
+		String path = null;
+		try {
+			path = selectedFolder.getAbsolutePath();
 		} catch (NullPointerException e) {
 
 		}

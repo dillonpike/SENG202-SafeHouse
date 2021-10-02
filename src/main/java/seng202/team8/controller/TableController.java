@@ -10,8 +10,11 @@ import javafx.scene.text.Text;
 import seng202.team8.model.CrimeRecord;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -342,6 +345,18 @@ public class TableController extends GUIController implements Initializable {
 		    	}
 		    });
         }
+    }
+    
+    public void exportFile() {
+    	String targetLocation = openDirectoryLocation();
+    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd-HH.mm.ss");  
+    	LocalDateTime now = LocalDateTime.now();
+    	try {
+			DataManager.getCurrentDataset().exportFile(targetLocation + "/" + dtf.format(now) + ".csv");
+		} catch (IOException e) {
+			// Bad directory
+			e.printStackTrace();
+		}
     }
 
     /**
