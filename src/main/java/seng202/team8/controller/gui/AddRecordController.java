@@ -1,4 +1,4 @@
-package seng202.team8.controller;
+package seng202.team8.controller.gui;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -15,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import seng202.team8.controller.DataManager;
+import seng202.team8.controller.ValidateCrime;
 import seng202.team8.model.CrimeRecord;
 import javafx.fxml.Initializable;
 

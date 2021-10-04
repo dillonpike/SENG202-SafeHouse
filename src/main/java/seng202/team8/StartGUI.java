@@ -1,8 +1,8 @@
-package seng202.team8.view;
+package seng202.team8;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seng202.team8.controller.GUIController;
+import seng202.team8.controller.gui.GUIController;
 import seng202.team8.controller.DataManager;
 
 

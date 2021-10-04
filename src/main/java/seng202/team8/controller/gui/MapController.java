@@ -1,4 +1,4 @@
-package seng202.team8.controller;
+package seng202.team8.controller.gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,10 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import seng202.team8.controller.SearchCrimeData;
 import seng202.team8.model.CrimeRecord;
 
 import java.net.URL;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -134,97 +134,16 @@ public class MapController extends GUIController implements Initializable {
      */
     public void filterMap() {
         records = getManager().getLocalCopy(); // Reset records to complete dataset
-        filterDates();
+        records = GUIFiltering.filterDates(records, startDatePicker, endDatePicker, startDateText, endDateText);
         records = SearchCrimeData.filterByPrimaryDesc(records, primaryDescField.getText());
         records = SearchCrimeData.filterByCrimeLocation(records, locationField.getText());
-        filterBeats();
-        filterWards();
+        records = GUIFiltering.filterBeats(records, startBeatField, endBeatField, startBeatText, endBeatText);
+        records = GUIFiltering.filterWards(records, startWardField, endWardField, startWardText, endWardText);
         if (!arrestComboBox.getValue().equals("Don't filter")) {
             records = SearchCrimeData.filterByArrest(records, arrestComboBox.getValue().equals("Yes"));
         }
         if (!domesticComboBox.getValue().equals("Don't filter")) {
             records = SearchCrimeData.filterByDomesticViolence(records, domesticComboBox.getValue().equals("Yes"));
-        }
-    }
-
-    /**
-     * Filters the module's records ArrayList by removing crime record's that didn't occur between the dates provided
-     * in the GUI's date pickers. Displays an error message for the date pickers if they contain invalid dates.
-     */
-    private void filterDates() {
-        String startDate = startDatePicker.getEditor().getText();
-        String endDate = endDatePicker.getEditor().getText();
-        try {
-            records = SearchCrimeData.filterByDate(records, startDate, endDate);
-            startDateText.setText("");
-            endDateText.setText("");
-        } catch (ParseException e) { // Display error messages for appropriate date pickers
-            if (!startDate.equals("") && !SearchCrimeData.isValidDate(startDate)) {
-                startDateText.setText("Invalid Date");
-            } else {
-                startDateText.setText("");
-            }
-            if (!endDate.equals("") && !SearchCrimeData.isValidDate(endDate)) {
-                endDateText.setText("Invalid Date");
-            } else {
-                endDateText.setText("");
-            }
-        }
-    }
-
-    /**
-     * Filters the module's records by removing records that do not occur
-     * within the beat range provided in the beat entry fields
-     *
-     * Displays an error message if the entry fields contain invalid beats
-     */
-    private void filterBeats() {
-        String startBeatString = startBeatField.getText();
-        String endBeatString = endBeatField.getText();
-        try {
-            records = SearchCrimeData.filterByCrimeLocationBeat(records,
-                    Integer.parseInt(startBeatString), Integer.parseInt(endBeatString));
-            startBeatText.setText("");
-            endBeatText.setText("");
-        } catch (NumberFormatException e) { // Display error messages for appropriate beat fields
-            if (!startBeatString.equals("") && !isInteger(startBeatString)) {
-                startBeatText.setText("Invalid Beat");
-            } else {
-                startBeatText.setText("");
-            }
-            if (!endBeatString.equals("") && !isInteger(endBeatString)) {
-                endBeatText.setText("Invalid Beat");
-            } else {
-                endBeatText.setText("");
-            }
-        }
-    }
-
-    /**
-     * Filters the module's records by removing records that do not occur
-     * within the ward range provided in the ward entry fields
-     *
-     * Displays an error message if the entry fields contain invalid ward
-     */
-    private void filterWards() {
-        String startWardString = startWardField.getText();
-        String endWardString = endWardField.getText();
-        try {
-            records = SearchCrimeData.filterByCrimeWard(records,
-                    Integer.parseInt(startWardString), Integer.parseInt(endWardString));
-            startWardText.setText("");
-            endWardText.setText("");
-        } catch (NumberFormatException e) { // Display error messages for appropriate ward fields
-            if (!startWardString.equals("") && !isInteger(startWardString)) {
-                startWardText.setText("Invalid Ward");
-            } else {
-                startWardText.setText("");
-            }
-            if (!endWardString.equals("") && !isInteger(endWardString)) {
-                endWardText.setText("Invalid Ward");
-            } else {
-                endWardText.setText("");
-            }
         }
     }
 
