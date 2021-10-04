@@ -1,4 +1,4 @@
-package seng202.team8.controller;
+package seng202.team8.controller.gui;
 
 
 import java.io.File;
@@ -11,7 +11,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import seng202.team8.view.StartGUI;
+import seng202.team8.controller.CrimeRecordManager;
+import seng202.team8.controller.DataManager;
+import seng202.team8.StartGUI;
 
 /**
  *  Contains controller methods and attributes used across multiple scenes of the GUI.
@@ -227,21 +229,6 @@ public class GUIController {
             s.setY(mouseEvent.getScreenY() - yOffset);
         });
     }
-
-	/**
-	 * Returns true if string can be converted to an integer, otherwise false.
-	 * @param string string that is checked
-	 * @return true if string can be converted to an integer, otherwise false
-	 */
-	public boolean isInteger(String string) {
-		try {
-			Integer.parseInt(string);
-			return true;
-		}
-		catch (NumberFormatException e) {
-			return false;
-		}
-	}
 
 	/**
 	 * Returns the controller's crime record manager.
