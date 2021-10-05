@@ -99,6 +99,15 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- The dependency for running cucumber with JUnit -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>6.11.0</version>
+      <scope>test</scope>
+    </dependency>
+
+
   </dependencies>
 
   <build>
