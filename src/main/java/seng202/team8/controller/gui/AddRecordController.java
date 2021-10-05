@@ -6,7 +6,9 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -398,6 +400,15 @@ public class AddRecordController extends GUIController implements Initializable 
 			fldHour.setEditable(true);
 			fldMinute.setEditable(true);
 		
+	}
+
+	/**
+	 * Closes the add record popup window
+	 * @param e Node to collect the attached stage from
+	 */
+	public void closeAddRecord(ActionEvent e) {
+		Stage addRecordPopup = (Stage)((Node)e.getSource()).getScene().getWindow();
+		addRecordPopup.close();
 	}
 
 }

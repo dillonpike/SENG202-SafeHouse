@@ -23,12 +23,7 @@ import java.util.ResourceBundle;
 /**
  * Contains attributes and methods for the table page in the application's GUI.
  */
-public class TableController extends GUIController implements Initializable {
-
-    /**
-     * Crime records displayed in recordTable.
-     */
-    private ArrayList<CrimeRecord> records;
+public class TableController extends RecordController implements Initializable {
 
     /**
      * Table that displays crime records.
@@ -49,28 +44,10 @@ public class TableController extends GUIController implements Initializable {
     private TableColumn<CrimeRecord, String> clmDate;
 
     /**
-     * Column for a crime record's block.
-     */
-    @FXML
-    private TableColumn<CrimeRecord, String> clmBlock;
-
-    /**
-     * Column for a crime record's IUCR (Illinois Uniform Crime Reporting code).
-     */
-    @FXML
-    private TableColumn<CrimeRecord, String> clmIUCR;
-
-    /**
      * Column for a crime record's primary description.
      */
     @FXML
     private TableColumn<CrimeRecord, String> clmPrimaryDesc;
-
-    /**
-     * Column for a crime record's IUCR (Illinois Uniform Crime Reporting code).
-     */
-    @FXML
-    private TableColumn<CrimeRecord, String> clmSecondaryDesc;
 
     /**
      * Column for a crime record's location.
@@ -102,115 +79,6 @@ public class TableController extends GUIController implements Initializable {
     @FXML
     private TableColumn<CrimeRecord, String> clmWard;
 
-    /**
-     * Column for a crime record's ward (election precinct).
-     */
-    @FXML
-    private TableColumn<CrimeRecord, String> clmFBI;
-
-    /**
-     * Column for a crime record's latitude.
-     */
-    @FXML
-    private TableColumn<CrimeRecord, Double> clmLat;
-
-    /**
-     * Column for a crime record's longitude.
-     */
-    @FXML
-    private TableColumn<CrimeRecord, Double> clmLon;
-
-    /**
-     * Date picker that the user uses to select a start date for filtering records.
-     */
-    @FXML
-    private DatePicker startDatePicker;
-
-    /**
-     * Date picker that the user uses to select an end date for filtering records.
-     */
-    @FXML
-    private DatePicker endDatePicker;
-
-    /**
-     * Text corresponding to startDatePicker.
-     */
-    @FXML
-    private Text startDateText;
-
-    /**
-     * Text corresponding to endDatePicker.
-     */
-    @FXML
-    private Text endDateText;
-
-    /**
-     * Text field that the user types a primary description into for filtering records.
-     */
-    @FXML
-    private TextField primaryDescField;
-
-    /**
-     * Text field that the user types a location description into for filtering records.
-     */
-    @FXML
-    private TextField locationField;
-
-    /**
-     *
-     */
-    @FXML
-    private TextField startBeatField;
-
-    /**
-     *
-     */
-    @FXML
-    private TextField endBeatField;
-
-    /**
-     *
-     */
-    @FXML
-    private Text startBeatText;
-
-    /**
-     *
-     */
-    @FXML
-    private Text endBeatText;
-
-
-    /**
-     *
-     */
-    @FXML
-    private TextField startWardField;
-
-    /**
-     *
-     */
-    @FXML
-    private TextField endWardField;
-
-    /**
-     *
-     */
-    @FXML
-    private Text startWardText;
-
-    /**
-     *
-     */
-    @FXML
-    private Text endWardText;
-
-    @FXML
-    private ComboBox<String> arrestComboBox;
-
-    @FXML
-    private ComboBox<String> domesticComboBox;
-    
     @FXML
     private Label lblDate;
 
@@ -252,9 +120,6 @@ public class TableController extends GUIController implements Initializable {
 
     @FXML
     private Label lblLon;
-    
-    @FXML
-    private Pane dragBar;
 
     @FXML
     private ChoiceBox<String> cbDataset;
@@ -274,21 +139,7 @@ public class TableController extends GUIController implements Initializable {
         clmBeat.setCellValueFactory(new PropertyValueFactory<>("beat"));
         clmWard.setCellValueFactory(new PropertyValueFactory<>("ward"));
 
-        // Filter text fields
-        startDateText.setText("");
-        endDateText.setText("");
-        startBeatText.setText("");
-        endBeatText.setText("");
-        startWardText.setText("");
-        endWardText.setText("");
-
-        // Combo box initialization
-        arrestComboBox.getItems().addAll("Don't filter", "Yes", "No");
-        domesticComboBox.getItems().addAll("Don't filter", "Yes", "No");
-        arrestComboBox.getSelectionModel().select("Don't filter");
-        domesticComboBox.getSelectionModel().select("Don't filter");
-
-        records = getManager().getLocalCopy();
+        initializeAttributes();
         updateTable();
         if (DataManager.getDatasets().size() > 1 || DataManager.getCurrentDataset().isEmpty() == false) {
         	for (int i=1; i <= DataManager.getDatasets().size(); i++) {
@@ -379,18 +230,7 @@ public class TableController extends GUIController implements Initializable {
      * Applies filters to the list of records displayed in recordTable.
      */
     public void filterTable() {
-        records = getManager().getLocalCopy(); // Reset records to complete dataset
-        records = GUIFiltering.filterDates(records, startDatePicker, endDatePicker, startDateText, endDateText);
-        records = SearchCrimeData.filterByPrimaryDesc(records, primaryDescField.getText());
-        records = SearchCrimeData.filterByCrimeLocation(records, locationField.getText());
-        records = GUIFiltering.filterBeats(records, startBeatField, endBeatField, startBeatText, endBeatText);
-        records = GUIFiltering.filterWards(records, startWardField, endWardField, startWardText, endWardText);
-        if (!arrestComboBox.getValue().equals("Don't filter")) {
-            records = SearchCrimeData.filterByArrest(records, arrestComboBox.getValue().equals("Yes"));
-        }
-        if (!domesticComboBox.getValue().equals("Don't filter")) {
-            records = SearchCrimeData.filterByDomesticViolence(records, domesticComboBox.getValue().equals("Yes"));
-        }
+        filterRecords();
         updateTable();
     }
 
@@ -427,7 +267,6 @@ public class TableController extends GUIController implements Initializable {
     public void addRecord() {
     	AddRecordController addController = openAddRecord();
     	addController.currentTable = this;
-    	
     }
     
     public void updateExtendedInfo() {
