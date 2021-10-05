@@ -16,56 +16,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class MapController extends GUIController implements Initializable {
-
-
-    @FXML
-    public TextField startBeatField;
-
-    @FXML
-    public DatePicker startDatePicker;
-
-    @FXML
-    public DatePicker endDatePicker;
-
-    @FXML
-    public Text startDateText;
-
-    @FXML
-    public Text endDateText;
-
-    @FXML
-    public TextField primaryDescField;
-
-    @FXML
-    public TextField locationField;
-
-    @FXML
-    public TextField endBeatField;
-
-    @FXML
-    public Text startBeatText;
-
-    @FXML
-    public Text endBeatText;
-
-    @FXML
-    public TextField startWardField;
-
-    @FXML
-    public TextField endWardField;
-
-    @FXML
-    public Text startWardText;
-
-    @FXML
-    public Text endWardText;
-
-    @FXML
-    public ComboBox<String> arrestComboBox;
-
-    @FXML
-    public ComboBox<String> domesticComboBox;
+public class MapController extends RecordController implements Initializable {
 
     @FXML
     public TextField markNumberField;
@@ -78,31 +29,11 @@ public class MapController extends GUIController implements Initializable {
     
     private WebEngine webEngine;
 
-    private ArrayList<CrimeRecord> records = getManager().getLocalCopy();
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initMap();
-    }
-
-    private void initMap() {
-    	webEngine = mapView.getEngine();
+        webEngine = mapView.getEngine();
         webEngine.load(Objects.requireNonNull(getClass().getResource("/map.html")).toExternalForm());
-
-        // Filter text fields
-        startDateText.setText("");
-        endDateText.setText("");
-        startBeatText.setText("");
-        endBeatText.setText("");
-        startWardText.setText("");
-        endWardText.setText("");
-
-        // Combo box initialization
-        arrestComboBox.getItems().addAll("Don't filter", "Yes", "No");
-        domesticComboBox.getItems().addAll("Don't filter", "Yes", "No");
-        arrestComboBox.getSelectionModel().select("Don't filter");
-        domesticComboBox.getSelectionModel().select("Don't filter");
+        initializeAttributes();
     }
 
     /**
@@ -133,18 +64,7 @@ public class MapController extends GUIController implements Initializable {
      * Which determines what it mapped
      */
     public void filterMap() {
-        records = getManager().getLocalCopy(); // Reset records to complete dataset
-        records = GUIFiltering.filterDates(records, startDatePicker, endDatePicker, startDateText, endDateText);
-        records = SearchCrimeData.filterByPrimaryDesc(records, primaryDescField.getText());
-        records = SearchCrimeData.filterByCrimeLocation(records, locationField.getText());
-        records = GUIFiltering.filterBeats(records, startBeatField, endBeatField, startBeatText, endBeatText);
-        records = GUIFiltering.filterWards(records, startWardField, endWardField, startWardText, endWardText);
-        if (!arrestComboBox.getValue().equals("Don't filter")) {
-            records = SearchCrimeData.filterByArrest(records, arrestComboBox.getValue().equals("Yes"));
-        }
-        if (!domesticComboBox.getValue().equals("Don't filter")) {
-            records = SearchCrimeData.filterByDomesticViolence(records, domesticComboBox.getValue().equals("Yes"));
-        }
+        filterRecords();
     }
 
     /**

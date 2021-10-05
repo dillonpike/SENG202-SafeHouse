@@ -23,7 +23,7 @@ public class GUIController {
 	/**
 	 * Stage for the main window of the application.
 	 */
-	private Stage stage;
+	protected Stage stage;
 
 	/**
 	 * Scene graph containing the elements currently being displayed and their layout.
@@ -33,7 +33,7 @@ public class GUIController {
 	/**
 	 * Stage of a popup window for adding crime records.
 	 */
-	private Stage addRecordPopup;
+	protected Stage addRecordPopup;
 
 	/**
 	 * Root node of scene graph.
@@ -130,72 +130,6 @@ public class GUIController {
 		}
 		stage.getScene().setRoot(root);
 		makeDraggable(root, stage);
-	}
-
-	/**
-	 * Opens a popup window for adding a new record
-	 */
-	public AddRecordController openAddRecord() {
-		AddRecordController newController = null;
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/addRecord.fxml"));
-			Parent root;
-			root = loader.load();
-			addRecordPopup = new Stage();
-			addRecordPopup.initStyle(StageStyle.UNDECORATED);
-			makeDraggable(root, addRecordPopup);
-			addRecordPopup.initModality(Modality.APPLICATION_MODAL);
-			Scene popup = new Scene(root, 400, 600);
-			addRecordPopup.setScene(popup);
-			addRecordPopup.show();
-			newController = loader.getController(); 
-			return newController;
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		return newController;
-		
-	}
-	
-	/**
-	 * Closes the add record popup window
-	 * @param e Node to collect the attached stage from
-	 */
-	public void closeAddRecord(ActionEvent e) {
-		addRecordPopup = (Stage)((Node)e.getSource()).getScene().getWindow();
-		addRecordPopup.close();
-	}
-	
-	/**
-	 * 
-	 * Gets the path of a file selected by the file browser as a string
-	 * @return file path of selected file as a string
-	 */
-	public String openFileLocation()  {
-		FileChooser openRecords = new FileChooser();
-		openRecords.setTitle("Import Crime Data");
-		File toImport = openRecords.showOpenDialog(stage);
-		String path = null;
-		try {
-			path = toImport.getAbsolutePath();
-		} catch (NullPointerException e) {
-
-		}
-		return path;
-	}
-	
-	public String openDirectoryLocation() {
-		DirectoryChooser openFolder = new DirectoryChooser();
-		openFolder.setTitle("Select folder for export");
-		File selectedFolder = openFolder.showDialog(stage);
-		String path = null;
-		try {
-			path = selectedFolder.getAbsolutePath();
-		} catch (NullPointerException e) {
-
-		}
-		return path;
 	}
 	
 	/**
