@@ -141,6 +141,17 @@ public class TableController extends RecordController implements Initializable {
 
         initializeAttributes();
         updateTable();
+        if (DataManager.getDatasets().size() > 1 || DataManager.getCurrentDataset().isEmpty() == false) {
+        	for (int i=1; i <= DataManager.getDatasets().size(); i++) {
+            	cbDataset.getItems().add("Dataset " + i);
+            }
+        	cbDataset.getSelectionModel().select(DataManager.getDatasets().indexOf(DataManager.getCurrentDataset()));
+        }
+        cbDataset.setOnAction(event -> {
+    		DataManager.setCurrentDataset(DataManager.getDatasets().get(cbDataset.getSelectionModel().getSelectedIndex()));
+    		filterTable();
+    	});
+        
     }
 
     /**
@@ -159,10 +170,6 @@ public class TableController extends RecordController implements Initializable {
 			}
         	cbDataset.getItems().add("Dataset 1");
         	cbDataset.getSelectionModel().select(0);
-        	cbDataset.setOnAction(event -> {
-        		DataManager.setCurrentDataset(DataManager.getDatasets().get(cbDataset.getSelectionModel().getSelectedIndex()));
-        		filterTable();
-        	});
         	filterTable();
         } else {
 		    Alert importAlert = new Alert(Alert.AlertType.NONE);
