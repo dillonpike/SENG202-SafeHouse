@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -119,6 +120,9 @@ public class RecordController extends GUIController {
     @FXML
     protected ComboBox<String> domesticComboBox;
 
+    @FXML
+    protected CheckBox realTimeCheckBox;
+
     /**
      *
      */
@@ -197,7 +201,6 @@ public class RecordController extends GUIController {
         }
         return path;
     }
-
 
     public String openDirectoryLocation() {
         DirectoryChooser openFolder = new DirectoryChooser();

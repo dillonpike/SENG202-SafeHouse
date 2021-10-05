@@ -64,7 +64,9 @@ public class MapController extends RecordController implements Initializable {
      * Which determines what it mapped
      */
     public void filterMap() {
-        filterRecords();
+        if (realTimeCheckBox.isSelected()) {
+            mapRecords();
+        }
     }
 
     /**
@@ -74,6 +76,7 @@ public class MapController extends RecordController implements Initializable {
      *
      */
     public void mapRecords() {
+        filterRecords();
         try {
             String input = markNumberField.getText();
             int quantity = Integer.parseInt(input);

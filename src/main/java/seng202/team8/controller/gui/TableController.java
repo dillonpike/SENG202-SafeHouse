@@ -149,7 +149,7 @@ public class TableController extends RecordController implements Initializable {
         }
         cbDataset.setOnAction(event -> {
     		DataManager.setCurrentDataset(DataManager.getDatasets().get(cbDataset.getSelectionModel().getSelectedIndex()));
-    		filterTable();
+            updateTable();
     	});
         
     }
@@ -170,7 +170,7 @@ public class TableController extends RecordController implements Initializable {
 			}
         	cbDataset.getItems().add("Dataset 1");
         	cbDataset.getSelectionModel().select(0);
-        	filterTable();
+            updateTable();
         } else {
 		    Alert importAlert = new Alert(Alert.AlertType.NONE);
 		    importAlert.setTitle("Choose dataset for import");
@@ -185,7 +185,7 @@ public class TableController extends RecordController implements Initializable {
 		    		DataManager.setCurrentDataset(newDataset);
 		    		try {
 						newDataset.importFile(filename);
-						filterTable();
+						updateTable();
 						cbDataset.getItems().add("Dataset " + DataManager.getDatasets().size());
 						cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
 					} catch (FileNotFoundException e) {
@@ -196,7 +196,7 @@ public class TableController extends RecordController implements Initializable {
 		    		try {
 		                getManager().importFile(filename);
 		                //Update the screen
-		                filterTable();
+                        updateTable();
 		            } catch (FileNotFoundException e) {
 		                // The file wasn't found!
 		                e.printStackTrace();
@@ -220,22 +220,26 @@ public class TableController extends RecordController implements Initializable {
     }
 
     /**
-     * Updates the crimes given in recordTable with the module's records ArrayList.
+     * Filters the crimes in the module's records ArrayList and updates recordTable with them.
      */
     public void updateTable() {
+        filterRecords();
     	recordTable.setItems(FXCollections.observableArrayList(records));
     }
 
     /**
-     * Applies filters to the list of records displayed in recordTable.
+     * Applies filters to the list of records displayed in recordTable and updates the table if realTimeCheckBox
+     * is selected.
      */
     public void filterTable() {
-        filterRecords();
-        updateTable();
+        if (realTimeCheckBox.isSelected()) {
+            updateTable();
+        }
     }
 
     /**
-     * Removes a selected record from the local copy of records and updates the table, maintains selected position on the screen.
+     * Removes a selected record from the local copy of records and updates the table, maintains selected position
+     * on the screen.
      */
     public void deleteRecord() {
     	int index = recordTable.getSelectionModel().getSelectedIndex();
@@ -246,8 +250,9 @@ public class TableController extends RecordController implements Initializable {
     }
     
     /**
-     * Calls the method to open the window for adding a new record, then sets the title to EDIT RECORD and passes through the current crime to
-     * the newly created window. The case number field is locked to prevent editing and a flag is set to let the window know it is in edit mode.
+     * Calls the method to open the window for adding a new record, then sets the title to EDIT RECORD and passes
+     * through the current crime tothe newly created window. The case number field is locked to prevent editing and
+     * a flag is set to let the window know it is in edit mode.
      */
     public void editRecord() {
     	if (recordTable.getSelectionModel().getSelectedItem() != null) {
