@@ -124,6 +124,9 @@ public class TableController extends RecordController implements Initializable {
     @FXML
     private ChoiceBox<String> cbDataset;
 
+    @FXML
+    private Label lblTableWarning;
+
 
     /**
      * Links recordTable columns to attributes of CrimeRecord.
@@ -138,7 +141,6 @@ public class TableController extends RecordController implements Initializable {
         clmDomestic.setCellValueFactory(new PropertyValueFactory<>("wasDomestic"));
         clmBeat.setCellValueFactory(new PropertyValueFactory<>("beat"));
         clmWard.setCellValueFactory(new PropertyValueFactory<>("ward"));
-
         initializeAttributes();
         updateTable();
         for (int i=1; i <= DataManager.getDatasets().size(); i++) {
@@ -158,8 +160,12 @@ public class TableController extends RecordController implements Initializable {
     public void importFile() {
         String filename = openFileLocation();
         if (filename == null) {
-            // Don't do anything
+        	return;
+        } else if (filename.endsWith(".csv") == false) {
+        	lblTableWarning.setText("Invalid file type");
+        	lblTableWarning.setStyle("-fx-text-fill: red");
         } else if (DataManager.getCurrentDataset().isEmpty()) {
+        	lblTableWarning.setText("");
         	try {
 				getManager().importFile(filename);
 			} catch (FileNotFoundException e) {
@@ -168,6 +174,7 @@ public class TableController extends RecordController implements Initializable {
 			}
             updateTable();
         } else {
+        	lblTableWarning.setText("");
 		    Alert importAlert = new Alert(Alert.AlertType.NONE);
 		    importAlert.setTitle("Choose dataset for import");
 		    ButtonType btnNew = new ButtonType("Create new dataset", ButtonBar.ButtonData.YES);
@@ -194,11 +201,11 @@ public class TableController extends RecordController implements Initializable {
 		                //Update the screen
                         updateTable();
 		            } catch (FileNotFoundException e) {
-		                // The file wasn't found!
 		                e.printStackTrace();
 		            }
+		    	} else {
 		    	}
-            });
+		    });
         }
     }
     
@@ -218,6 +225,7 @@ public class TableController extends RecordController implements Initializable {
      * Filters the crimes in the module's records ArrayList and updates recordTable with them.
      */
     public void updateTable() {
+    	lblTableWarning.setText("");
         filterRecords();
     	recordTable.setItems(FXCollections.observableArrayList(records));
     }
@@ -250,6 +258,7 @@ public class TableController extends RecordController implements Initializable {
      * a flag is set to let the window know it is in edit mode.
      */
     public void editRecord() {
+    	lblTableWarning.setText("");
     	if (recordTable.getSelectionModel().getSelectedItem() != null) {
     		AddRecordController editController = openAddRecord();
     		editController.lblTitle.setText("EDIT RECORD");
@@ -265,6 +274,7 @@ public class TableController extends RecordController implements Initializable {
      * Calls the method to open the window for adding a new record, then initialises the table controller in the window as this current object.
      */
     public void addRecord() {
+    	lblTableWarning.setText("");
     	AddRecordController addController = openAddRecord();
     	addController.currentTable = this;
     }

@@ -88,6 +88,51 @@ public class AddRecordController extends GUIController implements Initializable 
     public CrimeRecord toEdit = null;
     
     public TableController currentTable;
+
+    @FXML
+    private Label lblCaseWarning;
+
+    @FXML
+    private Label lblDateWarning;
+
+    @FXML
+    private Label lblTimeWarning;
+
+    @FXML
+    private Label lblBlockWarning;
+
+    @FXML
+    private Label lblIUCRWarning;
+
+    @FXML
+    private Label lblPrimaryWarning;
+
+    @FXML
+    private Label lblSecondaryWarning;
+
+    @FXML
+    private Label lblLocationWarning;
+
+    @FXML
+    private Label lblArrestWarning;
+
+    @FXML
+    private Label lblDomesticWarning;
+
+    @FXML
+    private Label lblBeatWarning;
+
+    @FXML
+    private Label lblWardWarning;
+
+    @FXML
+    private Label lblFBIWarning;
+
+    @FXML
+    private Label lblLatWarning;
+
+    @FXML
+    private Label lblLonWarning;
     
     /**
      * Initialises the fields for all values to that of the crime record to be edited.
@@ -178,6 +223,8 @@ public class AddRecordController extends GUIController implements Initializable 
     private boolean checkCaseNum() {
     	if (!ValidateCrime.validateCaseNum(fldCaseNum.getText())) {
     		fldCaseNum.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
+    		lblCaseWarning.setText("Must be two letters followed by numbers.");
+    		lblCaseWarning.setStyle("-fx-text-fill: red");
     		return false;
     	} else {
     		fldCaseNum.setStyle(null);
@@ -193,6 +240,8 @@ public class AddRecordController extends GUIController implements Initializable 
 	private boolean checkDate() {
 		if (fldDate.getValue() == null) {
 			fldDate.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
+			lblDateWarning.setText("Must select a date.");
+			lblDateWarning.setStyle("-fx-text-fill: red");
 			return false;
 		} else {
 			fldDate.setStyle(null);
@@ -207,6 +256,8 @@ public class AddRecordController extends GUIController implements Initializable 
 	private boolean checkFBI() {
     	if (!ValidateCrime.validateFbiCD(fldFBI.getText())) {
     		fldFBI.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
+    		lblFBIWarning.setText("Len not 3, only last char can be letter.");
+    		lblFBIWarning.setStyle("-fx-text-fill: red");
     		return false;
     	} else {
     		fldFBI.setStyle(null);
@@ -221,6 +272,8 @@ public class AddRecordController extends GUIController implements Initializable 
 	private boolean checkIUCR() {
     	if (!ValidateCrime.validateIucr(fldIUCR.getText())) {
     		fldIUCR.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
+    		lblIUCRWarning.setText("Must be 4 characters.");
+    		lblIUCRWarning.setStyle("-fx-text-fill: red");
     		return false;
     	} else {
     		fldIUCR.setStyle(null);
@@ -235,6 +288,8 @@ public class AddRecordController extends GUIController implements Initializable 
 	private boolean checkPrimary() {
     	if (!ValidateCrime.validatePrimary(fldPrimaryDesc.getText())) {
     		fldPrimaryDesc.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
+    		lblPrimaryWarning.setText("Can only include letters A-Z, a-z.");
+    		lblPrimaryWarning.setStyle("-fx-text-fill: red");
     		return false;
     	} else {
     		fldPrimaryDesc.setStyle(null);
@@ -249,6 +304,8 @@ public class AddRecordController extends GUIController implements Initializable 
 	private boolean checkWard() {
     	if (!ValidateCrime.validateInt(fldWard.getText())) {
     		fldWard.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
+    		lblWardWarning.setText("Must be a valid int.");
+    		lblWardWarning.setStyle("-fx-text-fill: red");
     		return false;
     	} else {
     		fldWard.setStyle(null);
@@ -263,6 +320,8 @@ public class AddRecordController extends GUIController implements Initializable 
 	private boolean checkBeat() {
     	if (!ValidateCrime.validateInt(fldBeat.getText())) {
     		fldBeat.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
+    		lblBeatWarning.setText("Must be a valid int.");
+    		lblBeatWarning.setStyle("-fx-text-fill: red");
     		return false;
     	} else {
     		fldBeat.setStyle(null);
@@ -277,6 +336,8 @@ public class AddRecordController extends GUIController implements Initializable 
 	private boolean checkLat() {
     	if (!ValidateCrime.validateDouble(fldLat.getText())) {
     		fldLat.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
+    		lblLatWarning.setText("Must be a valid decimal.");
+    		lblLatWarning.setStyle("-fx-text-fill: red");
     		return false;
     	} else {
     		fldLat.setStyle(null);
@@ -291,6 +352,8 @@ public class AddRecordController extends GUIController implements Initializable 
 	private boolean checkLon() {
     	if (!ValidateCrime.validateDouble(fldLon.getText())) {
     		fldLon.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
+    		lblLonWarning.setText("Must be a valid decimal.");
+    		lblLonWarning.setStyle("-fx-text-fill: red");
     		return false;
     	} else {
     		fldLon.setStyle(null);

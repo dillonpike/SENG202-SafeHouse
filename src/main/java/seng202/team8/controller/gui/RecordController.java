@@ -172,7 +172,7 @@ public class RecordController extends GUIController {
             addRecordPopup.initStyle(StageStyle.UNDECORATED);
             makeDraggable(root, addRecordPopup);
             addRecordPopup.initModality(Modality.APPLICATION_MODAL);
-            Scene popup = new Scene(root, 400, 600);
+            Scene popup = new Scene(root, 400, 700);
             addRecordPopup.setScene(popup);
             addRecordPopup.show();
             newController = loader.getController();
