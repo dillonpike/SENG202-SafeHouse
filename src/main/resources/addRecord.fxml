@@ -13,62 +13,122 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.gui.AddRecordController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.gui.AddRecordController">
    <children>
-      <VBox layoutX="14.0" layoutY="67.0" prefHeight="481.0" prefWidth="110.0" spacing="5.0">
+      <VBox fillWidth="false" layoutX="14.0" layoutY="50.0" prefHeight="600.0" prefWidth="110.0" spacing="15.0">
          <children>
-            <Label prefHeight="25.0" prefWidth="105.0" text="CASE #" />
-            <Label prefHeight="25.0" prefWidth="108.0" text="DATE" />
-            <Label prefHeight="25.0" prefWidth="108.0" text="TIME" />
-            <Label prefHeight="25.0" prefWidth="107.0" text="BLOCK" />
-            <Label prefHeight="25.0" prefWidth="108.0" text="IUCR" />
-            <Label prefHeight="25.0" prefWidth="101.0" text="PRIMARY DESC" />
-            <Label prefHeight="25.0" prefWidth="101.0" text="SECONDARY DESC" />
-            <Label prefHeight="25.0" prefWidth="101.0" text="LOCATION" />
-            <Label prefHeight="25.0" prefWidth="101.0" text="ARREST" />
-            <Label prefHeight="25.0" prefWidth="101.0" text="DOMESTIC" />
-            <Label prefHeight="25.0" prefWidth="101.0" text="BEAT" />
-            <Label prefHeight="25.0" prefWidth="101.0" text="WARD" />
-            <Label prefHeight="25.0" prefWidth="101.0" text="FBI CD" />
-            <Label prefHeight="25.0" prefWidth="101.0" text="LATITUDE" />
-            <Label prefHeight="25.0" prefWidth="101.0" text="LONGITUDE" />
+            <Label prefHeight="25.0" prefWidth="105.0" text="CASE #">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="108.0" text="DATE">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="108.0" text="TIME">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="107.0" text="BLOCK">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="108.0" text="IUCR">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="101.0" text="PRIMARY DESC">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="113.0" text="SECONDARY DESC">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="101.0" text="LOCATION">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="101.0" text="ARREST">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="101.0" text="DOMESTIC">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="101.0" text="BEAT">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="101.0" text="WARD">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="101.0" text="FBI CD">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="101.0" text="LATITUDE">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="25.0" prefWidth="101.0" text="LONGITUDE">
+            	<font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
          </children>
       </VBox>
-      <VBox layoutX="144.0" layoutY="67.0" prefHeight="481.0" prefWidth="241.0" spacing="5.0">
+      <VBox layoutX="144.0" layoutY="50.0" prefHeight="580.0" prefWidth="241.0">
          <children>
             <TextField fx:id="fldCaseNum" prefHeight="25.0" prefWidth="259.0" />
+            <Label fx:id="lblCaseWarning" maxHeight="15.0" minHeight="15.0" prefHeight="15.0" prefWidth="245.0" />
             <DatePicker fx:id="fldDate" prefHeight="25.0" prefWidth="241.0" />
+            <Label fx:id="lblDateWarning" layoutX="10.0" layoutY="35.0" maxHeight="15.0" minHeight="15.0" prefHeight="15.0" prefWidth="245.0" />
             <HBox prefHeight="24.0" prefWidth="241.0" spacing="2.0">
                <children>
                   <Label prefHeight="25.0" prefWidth="39.0" text="HOUR" />
                   <Spinner fx:id="fldHour" max="23" min="0" prefHeight="25.0" prefWidth="80.0" />
-                  <Label prefHeight="24.0" prefWidth="47.0" text="MINUTE" />
+                  <Label prefHeight="25.0" prefWidth="47.0" text="MINUTE" />
                   <Spinner fx:id="fldMinute" max="59" min="0" prefHeight="25.0" prefWidth="80.0" />
                </children>
             </HBox>
-            <TextField fx:id="fldBlock" />
-            <TextField fx:id="fldIUCR" />
-            <TextField fx:id="fldPrimaryDesc" />
-            <TextField fx:id="fldSecondaryDesc" />
-            <ComboBox fx:id="fldLocation" prefHeight="25.0" prefWidth="252.0" />
-            <CheckBox fx:id="fldArrest" mnemonicParsing="false" prefHeight="25.0" prefWidth="16.0" />
-            <CheckBox fx:id="fldDomestic" mnemonicParsing="false" prefHeight="25.0" prefWidth="17.0" />
-            <TextField fx:id="fldBeat" />
-            <TextField fx:id="fldWard" />
-            <TextField fx:id="fldFBI" />
-            <TextField fx:id="fldLat" />
-            <TextField fx:id="fldLon" />
+            <Label fx:id="lblTimeWarning" layoutX="10.0" layoutY="77.0" maxHeight="15.0" minHeight="15.0" prefHeight="15.0" prefWidth="245.0" text="" />
+            <TextField fx:id="fldBlock" prefHeight="25.0" />
+            <Label fx:id="lblBlockWarning" layoutX="10.0" layoutY="419.0" maxHeight="15.0" minHeight="15.0" prefHeight="15.0" prefWidth="245.0" text="" />
+            <TextField fx:id="fldIUCR" prefHeight="25.0" />
+            <Label fx:id="lblIUCRWarning" layoutX="10.0" layoutY="419.0" maxHeight="15.0" minHeight="15.0" prefHeight="15.0" prefWidth="245.0" text="" />
+            <TextField fx:id="fldPrimaryDesc" prefHeight="25.0" />
+            <Label fx:id="lblPrimaryWarning" layoutX="10.0" layoutY="419.0" maxHeight="15.0" minHeight="15.0" prefHeight="15.0" prefWidth="245.0" text="" />
+            <TextField fx:id="fldSecondaryDesc" minHeight="25.0" prefHeight="25.0" />
+            <Label fx:id="lblSecondaryWarning" layoutX="10.0" layoutY="419.0" maxHeight="15.0" minHeight="15.0" prefHeight="15.0" prefWidth="245.0" text="" />
+            <ComboBox fx:id="fldLocation" minHeight="25.0" prefHeight="25.0" prefWidth="252.0" />
+            <Label fx:id="lblLocationWarning" layoutX="10.0" layoutY="419.0" minHeight="15.0" prefHeight="15.0" prefWidth="241.0" text="" />
+            <CheckBox fx:id="fldArrest" minHeight="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="15.0" />
+            <Label fx:id="lblArrestWarning" layoutX="10.0" layoutY="419.0" minHeight="15.0" prefHeight="15.0" prefWidth="245.0" text="" />
+            <CheckBox fx:id="fldDomestic" minHeight="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="15.0" />
+            <Label fx:id="lblDomesticWarning" layoutX="10.0" layoutY="419.0" maxHeight="15.0" minHeight="15.0" prefHeight="15.0" prefWidth="245.0" text="" />
+            <TextField fx:id="fldBeat" prefHeight="25.0" />
+            <Label fx:id="lblBeatWarning" layoutX="10.0" layoutY="419.0" minHeight="15.0" prefHeight="17.0" prefWidth="245.0" text="" />
+            <TextField fx:id="fldWard" prefHeight="25.0" />
+            <Label fx:id="lblWardWarning" layoutX="10.0" layoutY="455.0" minHeight="15.0" prefHeight="17.0" prefWidth="245.0" text="" />
+            <TextField fx:id="fldFBI" prefHeight="25.0" />
+            <Label fx:id="lblFBIWarning" layoutX="10.0" layoutY="455.0" minHeight="15.0" prefHeight="17.0" prefWidth="245.0" text="" />
+            <TextField fx:id="fldLat" prefHeight="25.0" />
+            <Label fx:id="lblLatWarning" layoutX="10.0" layoutY="439.0" minHeight="15.0" prefHeight="17.0" prefWidth="245.0" text="" />
+            <TextField fx:id="fldLon" prefHeight="25.0" />
+            <Label fx:id="lblLonWarning" layoutX="10.0" layoutY="439.0" minHeight="15.0" prefHeight="17.0" prefWidth="245.0" text="" />
          </children>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </VBox>
-      <Button layoutX="138.0" layoutY="554.0" mnemonicParsing="false" onAction="#createRecord" prefHeight="32.0" prefWidth="125.0" text="CONFIRM" />
-      <Label fx:id="lblTitle" alignment="CENTER" layoutX="127.0" layoutY="13.0" prefHeight="32.0" prefWidth="147.0" text="ADD RECORD">
+      <Button layoutX="138.0" layoutY="661.0" mnemonicParsing="false" onAction="#createRecord" prefHeight="32.0" prefWidth="125.0" text="CONFIRM" />
+      <Label fx:id="lblTitle" alignment="CENTER" layoutX="127.0" layoutY="7.0" prefHeight="32.0" prefWidth="147.0" text="ADD RECORD">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnClose" layoutX="355.0" layoutY="18.0" mnemonicParsing="false" onAction="#closeAddRecord" prefHeight="25.0" prefWidth="29.0" text="X" />
+      <Button fx:id="btnClose" layoutX="355.0" layoutY="11.0" mnemonicParsing="false" onAction="#closeAddRecord" prefHeight="25.0" prefWidth="29.0" text="X" />
    </children>
 </AnchorPane>

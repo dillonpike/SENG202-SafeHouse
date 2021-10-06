@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.gui.TableController">
+<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.gui.TableController">
    <center>
       <Pane id="stuff" prefHeight="620.0" prefWidth="780.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
          <children>
@@ -74,6 +74,11 @@
                </opaqueInsets>
             </HBox>
             <ChoiceBox fx:id="cbDataset" layoutY="14.0" prefWidth="150.0" />
+            <Label fx:id="lblTableWarning" alignment="CENTER" layoutX="132.0" layoutY="557.0" prefHeight="30.0" prefWidth="517.0" textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children></Pane>
    </center>
    <top>
