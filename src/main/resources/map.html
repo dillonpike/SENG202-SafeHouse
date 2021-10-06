@@ -20,6 +20,7 @@
 <script>
 	let map;
 	let markers = [];
+	let infoWindow;
 
 	/**
 	 * Function to create the map
@@ -32,6 +33,10 @@
 			streetViewControl : false,
 			fullscreenControl: false
 		});
+
+		infoWindow = new google.maps.InfoWindow({
+			content: "Test",
+	  	});
 	}
 
 	/**
@@ -49,7 +54,24 @@
 			//This optimization stops the non-rendering at the cost of performance
 			optimized: false
 		});
+
+		marker.addListener("click", () => {
+			infoWindow.setContent(name);
+			infoWindow.open({
+		        anchor: marker,
+		        map,
+		        shouldFocus: false,
+		    });
+		});
+
 		markers.push(marker);
+	}
+
+	/**
+	 *
+	 */
+	function displayInfo(marker) {
+
 	}
 
 	/**

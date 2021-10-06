@@ -102,5 +102,4 @@ public class MapController extends RecordController implements Initializable {
         }
 
     }
-
 }
