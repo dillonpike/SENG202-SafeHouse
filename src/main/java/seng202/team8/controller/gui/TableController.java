@@ -158,7 +158,7 @@ public class TableController extends RecordController implements Initializable {
     public void importFile() {
         String filename = openFileLocation();
         if (filename == null) {
-        	return;
+            // Don't do anything
         } else if (DataManager.getCurrentDataset().isEmpty()) {
         	try {
 				getManager().importFile(filename);
@@ -197,9 +197,8 @@ public class TableController extends RecordController implements Initializable {
 		                // The file wasn't found!
 		                e.printStackTrace();
 		            }
-		    	} else {
 		    	}
-		    });
+            });
         }
     }
     
@@ -269,7 +268,11 @@ public class TableController extends RecordController implements Initializable {
     	AddRecordController addController = openAddRecord();
     	addController.currentTable = this;
     }
-    
+
+    /**
+     * Updates the extended information panel with the attributes of the
+     * selected record
+     */
     public void updateExtendedInfo() {
         try {
             CrimeRecord selectedRecord = recordTable.getSelectionModel().getSelectedItem();
@@ -285,14 +288,17 @@ public class TableController extends RecordController implements Initializable {
             lblBeat.setText(String.valueOf(selectedRecord.getBeat()));
             lblWard.setText(String.valueOf(selectedRecord.getWard()));
             lblFbi.setText(selectedRecord.getFbiCD());
-            lblLat.setText(String.valueOf(selectedRecord.getLatitude()));
-            lblLon.setText(String.valueOf(selectedRecord.getLongitude()));
+            lblLat.setText(String.valueOf(String.format("%.4f", selectedRecord.getLatitude())));
+            lblLon.setText(String.valueOf(String.format("%.4f", selectedRecord.getLongitude())));
         } catch (NullPointerException e) {
             // Do nothing if the table was clicked in an empty spot
         }
     }
-    
-    
+
+    /**
+     * Gets the TableView object that contains the records
+     * @return The TableView object storing CrimeRecords
+     */
     public TableView<CrimeRecord> getTable() {
     	return recordTable;
     }

@@ -52,9 +52,16 @@ public class MapController extends RecordController implements Initializable {
         //Go through a for loop a set number of times
         for (int i = 0; i < number; i++) {
             CrimeRecord crime = records.get(i);
+            /*
+            Creates the following string:
+            The values in <> are replaced with their actual values
+            But note that the double-quotes are actually in the string
+            placeMarker(<latitude>, <longitude>, "<caseNum>", "<crime.toString>");
+             */
             String scriptToExecute = "placeMarker(" + crime.getLatitude() + ", " +
                     crime.getLongitude() + ", \"" +
-                    crime.getCaseNum() + "\");";
+                    crime.getCaseNum() + "\"" + ", \"" +
+                    crime.toScript() + "\"" + ");";
             webEngine.executeScript(scriptToExecute);
         }
     }

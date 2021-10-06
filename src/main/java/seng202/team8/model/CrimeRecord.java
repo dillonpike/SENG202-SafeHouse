@@ -228,9 +228,7 @@ public class CrimeRecord {
      * Gets the date
      * @return Returns LocalDate object of the crime's date
      */
-    public LocalDate getDate() {
-        return date;
-    }
+    public LocalDate getDate() { return date; }
 
     /**
      * Gets the date
@@ -541,15 +539,24 @@ public class CrimeRecord {
         setLatitude(lat);
         setLongitude(lon);
     }
-    
-    public String toString() {
-    	return ("Case Number: " + caseNum + "\nDate: " + date.getMonthValue() + "/" + date.getDayOfMonth() + "/"
-                + date.getYear() + "\nTime: " + time.toString() + "\nBlock: " + block + "\nIUCR: " + iucr +
-                "\nPrimary Description: " + primary + "\nSecondary Description: " + secondary + "\nLocation: " +
-                locDescription + "\nArrest Made: " + wasArrest + "\nDomestic: " + wasDomestic + "\nBeat: " +
-    			beat + "\nWard: " + ward + "\nFBI CD: " + fbiCD + "\nX Coord: " + xCoord + "\nY Coord: " + yCoord + 
-    			"\nLatitude: " + latitude + "\nLongitude: " + longitude);
+
+    /**
+     * Returns a formatted string version of the record's information,
+     * primarily for use in javascript/html functions.
+     * Here it is used for map information display.
+     * @return A formatted string summary of the record's information
+     */
+    public String toScript() {
+        return ("Case Number: " + caseNum + "<br>Date: " + date.getMonthValue() + "/" + date.getDayOfMonth() + "/"
+                + date.getYear() + "<br>Time: " + time.toString() + "<br>Block: " + block + "<br>IUCR: " + iucr +
+                "<br>Primary Description: " + primary + "<br>Secondary Description: " + secondary + "<br>Location: " +
+                locDescription + "<br>Arrest Made: " + getWasArrest() + "<br>Domestic: " + getWasDomestic()
+                + "<br>Beat: " + beat + "<br>Ward: " + ward + "<br>FBI CD: " + fbiCD
+                + "<br>X Coord: " + xCoord + "<br>Y Coord: " + yCoord +
+                "<br>Latitude: " + String.format("%.4f", latitude)
+                + "<br>Longitude: " + String.format("%.4f", longitude));
     }
+
 
     /**
      * Returns a version of this crime record in an appropriate csv-format
@@ -577,7 +584,7 @@ public class CrimeRecord {
 
     /**
      * Helper function that turns a wasArrest or wasDomestic value into a Y, N or X.
-     * Used for string conversion.
+     * Used for string conversion, particularly to a CSV format.
      * @param wasValue The wasArrest or wasDomestic value being converted
      * @return Y if there was an arrest, N if there was not, and X if unknown.
      */
