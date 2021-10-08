@@ -27,113 +27,173 @@ import javafx.fxml.Initializable;
  */
 public class AddRecordController extends GUIController implements Initializable {
 
+	/**
+     * Text field for the user to input a crime record's case number.
+     */
 	@FXML
     public TextField fldCaseNum;
 
+	/**
+     * Date selector for the user to input a crime record's date of occurrence.
+     */
     @FXML
     private DatePicker fldDate;
 
+    /**
+     * Date selector for the user to input a crime record's date of occurrence.
+     */
     @FXML
     private TextField fldBlock;
 
+    /**
+     * Text field for the user to input a crime record's IUCR.
+     */
     @FXML
     private TextField fldIUCR;
 
+    /**
+     * Text field for the user to input a crime record's primary description.
+     */
     @FXML
     private TextField fldPrimaryDesc;
 
+    /**
+     * Text field for the user to input a crime record's secondary description.
+     */
     @FXML
     private TextField fldSecondaryDesc;
 
+    /**
+     * Text field for the user to input a crime record's secondary description.
+     */
     @FXML
     private ComboBox<String> fldLocation;
 
+    /**
+     * Check box for the user to select if a crime resulted in an arrest.
+     */
     @FXML
     private CheckBox fldArrest;
 
+    /**
+     * Check box for the user to select if a crime was a domestic incident.
+     */
     @FXML
     private CheckBox fldDomestic;
 
+    /**
+     * Text field for the user to input a crime record's beat.
+     */
     @FXML
     private TextField fldBeat;
 
+    /**
+     * Text field for the user to input a crime record's ward.
+     */
     @FXML
     private TextField fldWard;
 
+    /**
+     * Text field for the user to input a crime record's FBICD.
+     */
     @FXML
     private TextField fldFBI;
 
-    @FXML
-    private TextField fldX;
-
-    @FXML
-    private TextField fldY;
-
+    /**
+     * Text field for the user to input a crime record's latitude.
+     */
     @FXML
     private TextField fldLat;
 
+    /**
+     * Text field for the user to input a crime record's longitude.
+     */
     @FXML
     private TextField fldLon;
-
-    @FXML
-    private Button btnClose;
     
+    /**
+     * Spinner for the user to select the hour a crime occurred.
+     */
     @FXML
     private Spinner<Integer> fldHour;
     
+    /**
+     * Spinner for the user to select the minute a crime occurred.
+     */
     @FXML private Spinner<Integer> fldMinute;
     
+    /**
+     * Title at the top of the add record pop up, is conditionally "ADD RECORD" or "EDIT RECORD".
+     */
     @FXML
     public Label lblTitle;
     
+    /**
+     * Boolean to let functions know is the user is editing a crime or adding a new one, true if editing, false if adding.
+     */
     public boolean editing = false;
     
+    /**
+     * The selected crime record to be edited.
+     */
     public CrimeRecord toEdit = null;
     
+    /**
+     * The current TableController window, used to notify the table something has changed.
+     */
     public TableController currentTable;
 
+    /**
+     * Warning message shown to the user in the event they input invalid data for case#.
+     */
     @FXML
     private Label lblCaseWarning;
 
+    /**
+     * Warning message shown to the user in the event they input no data for date.
+     */
     @FXML
     private Label lblDateWarning;
 
-    @FXML
-    private Label lblTimeWarning;
-
-    @FXML
-    private Label lblBlockWarning;
-
+    /**
+     * Warning message shown to the user in the event they input invalid data for IUCR.
+     */
     @FXML
     private Label lblIUCRWarning;
 
+    /**
+     * Warning message shown to the user in the event they input invalid data for the primary description.
+     */
     @FXML
     private Label lblPrimaryWarning;
 
-    @FXML
-    private Label lblSecondaryWarning;
-
-    @FXML
-    private Label lblLocationWarning;
-
-    @FXML
-    private Label lblArrestWarning;
-
-    @FXML
-    private Label lblDomesticWarning;
-
+    /**
+     * Warning message shown to the user in the event they input invalid data for beat.
+     */
     @FXML
     private Label lblBeatWarning;
 
+    /**
+     * Warning message shown to the user in the event they input invalid data for ward.
+     */
     @FXML
     private Label lblWardWarning;
 
+    /**
+     * Warning message shown to the user in the event they input invalid data for FBICD.
+     */
     @FXML
     private Label lblFBIWarning;
 
+    /**
+     * Warning message shown to the user in the event they input invalid data for latitude.
+     */
     @FXML
     private Label lblLatWarning;
 
+    /**
+     * Warning message shown to the user in the event they input invalid data for longitude.
+     */
     @FXML
     private Label lblLonWarning;
     
