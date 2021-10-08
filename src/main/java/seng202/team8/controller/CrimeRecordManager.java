@@ -268,6 +268,13 @@ public class CrimeRecordManager {
         crime.setTime(stringToLocalTime((dateAndTime[1] + " " + dateAndTime[2])));
     }
 
+    /**
+     * Helper method for importing that converts
+     * a string of times into a LocalTime object
+     * @param timeString The string to be converted
+     *                   Should be in the format HH:MM:SS
+     * @return A LocalTime object of the given time string
+     */
     private LocalTime stringToLocalTime(String timeString) {
         String[] timeStrings = timeString.split(":");
         int hour = Integer.parseInt(timeStrings[0]);
