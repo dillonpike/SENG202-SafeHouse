@@ -22,6 +22,9 @@ import seng202.team8.controller.ValidateCrime;
 import seng202.team8.model.CrimeRecord;
 import javafx.fxml.Initializable;
 
+/**
+ *
+ */
 public class AddRecordController extends GUIController implements Initializable {
 
 	@FXML

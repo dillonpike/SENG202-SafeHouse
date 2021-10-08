@@ -1,6 +1,5 @@
 package seng202.team8.controller;
 
-
 import java.util.ArrayList;
 
 /**
@@ -20,7 +19,6 @@ public class DataManager {
      * Effectively which dataset we are using
      */
     private static CrimeRecordManager currentDataset = new CrimeRecordManager();
-
 
     /**
      * gets which dataset is currently in use
@@ -51,6 +49,4 @@ public class DataManager {
     public static void addToDatasets(CrimeRecordManager dataset) {
         datasets.add(dataset);
     }
-
-
 }

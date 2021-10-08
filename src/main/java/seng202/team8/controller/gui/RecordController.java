@@ -1,10 +1,7 @@
 package seng202.team8.controller.gui;
 
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
@@ -21,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
+ * Parent class for GUI controllers that can display, filter, and manipulate records.
  */
 public class RecordController extends GUIController {
 
@@ -43,13 +40,13 @@ public class RecordController extends GUIController {
     protected DatePicker endDatePicker;
 
     /**
-     * Text corresponding to startDatePicker.
+     * Text corresponding to startDatePicker used to display user feedback.
      */
     @FXML
     protected Text startDateText;
 
     /**
-     * Text corresponding to endDatePicker.
+     * Text corresponding to endDatePicker used to display user feedback.
      */
     @FXML
     protected Text endDateText;
@@ -73,58 +70,67 @@ public class RecordController extends GUIController {
     protected TextField startBeatField;
 
     /**
-     * Text field that the user uses to write a end beat for filtering records.
+     * Text field that the user uses to write an end beat for filtering records.
      */
     @FXML
     protected TextField endBeatField;
 
     /**
-     *  Text field that the user uses to write a start beat for filtering records.
+     * Text corresponding to startBeatField used to display user feedback.
      */
     @FXML
     protected Text startBeatText;
 
     /**
-     *
+     * Text corresponding to endBeatField used to display user feedback.
      */
     @FXML
     protected Text endBeatText;
 
     /**
-     *
+     * Text field that the user uses to write a start ward for filtering records.
      */
     @FXML
     protected TextField startWardField;
 
     /**
-     *
+     * Text field that the user uses to write an end ward for filtering records.
      */
     @FXML
     protected TextField endWardField;
 
     /**
-     *
+     * Text corresponding to startWardText used to display user feedback.
      */
     @FXML
     protected Text startWardText;
 
     /**
-     *
+     * Text corresponding to endWardText used to display user feedback.
      */
     @FXML
     protected Text endWardText;
 
+    /**
+     * ComboBox that allows the user to select options to filter by arrest.
+     */
     @FXML
     protected ComboBox<String> arrestComboBox;
 
+    /**
+     * ComboBox that allows the user to select options to filter by domestic.
+     */
     @FXML
     protected ComboBox<String> domesticComboBox;
 
+    /**
+     * CheckBox that determines whether filtering is done in real-time (as the user types/selects).
+     */
     @FXML
     protected CheckBox realTimeCheckBox;
 
     /**
-     *
+     * Initializes the attributes of the GUI screen.
      */
     protected void initializeAttributes() {
         // Filter text fields
@@ -144,6 +150,10 @@ public class RecordController extends GUIController {
         records = getManager().getLocalCopy();
     }
 
+    /**
+     * Resets the list of records stored in the controller to the full dataset and then applies filters based on
+     * the user's input in the GUI's attributes.
+     */
     protected void filterRecords() {
         records = getManager().getLocalCopy(); // Reset records to complete dataset
         records = GUIFiltering.filterDates(records, startDatePicker, endDatePicker, startDateText, endDateText);
@@ -159,34 +169,32 @@ public class RecordController extends GUIController {
         }
     }
 
+
     /**
-     * Opens a popup window for adding a new record
+     * Opens a popup window for adding a new record.
+     * @return controller of the popup window
      */
     public AddRecordController openAddRecord() {
-        AddRecordController newController = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/addRecord.fxml"));
+        Parent root;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/addRecord.fxml"));
-            Parent root;
             root = loader.load();
-            addRecordPopup = new Stage();
-            addRecordPopup.initStyle(StageStyle.UNDECORATED);
-            makeDraggable(root, addRecordPopup);
-            addRecordPopup.initModality(Modality.APPLICATION_MODAL);
-            Scene popup = new Scene(root, 400, 700);
-            addRecordPopup.setScene(popup);
-            addRecordPopup.show();
-            newController = loader.getController();
-            return newController;
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+        } catch (IOException e) {
+            return null;
         }
-        return newController;
+        addRecordPopup = new Stage();
+        addRecordPopup.initStyle(StageStyle.UNDECORATED);
+        makeDraggable(root, addRecordPopup);
+        addRecordPopup.initModality(Modality.APPLICATION_MODAL);
+        Scene popup = new Scene(root, 400, 700);
+        addRecordPopup.setScene(popup);
+        addRecordPopup.show();
+        return loader.getController();
     }
 
     /**
-     *
-     * Gets the path of a file selected by the file browser as a string
+     * Opens the file browser for the user to choose a file, then returns the file path as a string.
+     * Returns null if the user exited without selecting a file, or the file could not be accessed.
      * @return file path of selected file as a string
      */
     public String openFileLocation()  {
@@ -197,20 +205,29 @@ public class RecordController extends GUIController {
         try {
             path = toImport.getAbsolutePath();
         } catch (NullPointerException e) {
-
+            // TODO add popup for not being able to access file (maybe in caller method?)
+        } catch (SecurityException e){
+            // TODO add popup for not being able to access file (maybe in caller method?)
         }
         return path;
     }
 
+    /**
+     * Opens the file browser for the user to choose a location and name for the export.
+     * Returns null if the user exited without selecting a file, or the file could not be accessed.
+     * @return file path chosen by the user
+     */
     public String openDirectoryLocation() {
         DirectoryChooser openFolder = new DirectoryChooser();
-        openFolder.setTitle("Select folder for export");
+        openFolder.setTitle("Select Folder for Export");
         File selectedFolder = openFolder.showDialog(stage);
         String path = null;
         try {
             path = selectedFolder.getAbsolutePath();
         } catch (NullPointerException e) {
-
+            // TODO add popup for not being able to access file (maybe in caller method?)
+        } catch (SecurityException e){
+            // TODO add popup for not being able to access file (maybe in caller method?)
         }
         return path;
     }

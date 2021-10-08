@@ -1,14 +1,8 @@
 package seng202.team8.controller.gui;
 
-
-import java.io.File;
 import java.io.IOException;
-import javafx.event.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seng202.team8.controller.CrimeRecordManager;
@@ -16,7 +10,7 @@ import seng202.team8.controller.DataManager;
 import seng202.team8.StartGUI;
 
 /**
- *  Contains controller methods and attributes used across multiple scenes of the GUI.
+ * Contains controller methods and attributes used across all scenes of the GUI.
  */
 public class GUIController {
 
@@ -55,12 +49,12 @@ public class GUIController {
 	}
 	
 	/**
-	 * Starts the UI and loads the home page, sets the style of the stage to undecorated
-	 * @param s stage passed by the main function to open
+	 * Starts the UI and loads the home page, sets the style of the stage to undecorated.
+	 * @param stage stage passed by the main function to open
 	 */
-	public void start(Stage s) {
+	public void start(Stage stage) {
 		try {
-			stage = s;
+			this.stage = stage;
 			stage.initStyle(StageStyle.UNDECORATED);
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/frame.fxml"));
@@ -77,7 +71,7 @@ public class GUIController {
 	}
 	
 	/**
-	 * Changes the displayed page of the UI to the home page
+	 * Changes the displayed page of the UI to the home page.
 	 */
 	public void home()  {
 		try {
@@ -91,7 +85,7 @@ public class GUIController {
 	}
 
 	/**
-	 * Changes the displayed page of the UI to the map page
+	 * Changes the displayed page of the UI to the map page.
 	 */
 	public void map() {
 		try {
@@ -105,7 +99,7 @@ public class GUIController {
 	}
 
 	/**
-	 * Changes the displayed page of the UI to the table page
+	 * Changes the displayed page of the UI to the table page.
 	 */
 	public void table() {
 		try {
@@ -119,7 +113,7 @@ public class GUIController {
 	}
 	
 	/**
-	 * Changes the displayed page of the UI to the graph page
+	 * Changes the displayed page of the UI to the graph page.
 	 */
 	public void graph()  {
 		try {
@@ -133,21 +127,21 @@ public class GUIController {
 	}
 	
 	/**
-	 * Exits the window
+	 * Exits the window.
 	 */
 	public void exit() {
 		stage.close();
 	}
 	
 	/**
-	 * Minimises the window
+	 * Minimises the window.
 	 */
 	public void minimise() {
 		stage.setIconified(true);
 	}
 
 	/**
-	 * Makes a given node become a draggable anchor for the given stage
+	 * Makes a given node become a draggable anchor for the given stage.
 	 * @param n node to be made draggable
 	 * @param s stage to be made draggable
 	 */

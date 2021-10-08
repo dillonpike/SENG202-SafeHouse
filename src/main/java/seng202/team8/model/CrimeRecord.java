@@ -421,8 +421,8 @@ public class CrimeRecord {
     }
 
     /**
-     * Sets the IUCR
-     * @param iucr the IUCR of the crime
+     * Sets the IUCR code
+     * @param iucr the IUCR code of the crime
      */
     public void setIucr(String iucr) {
         this.iucr = iucr;
@@ -620,6 +620,5 @@ public class CrimeRecord {
         //Now create our output string
         return String.format("%02d:%02d:%02d %s",
                 hour, localTime.getMinute(), localTime.getSecond(), suffix);
-
     }
 }

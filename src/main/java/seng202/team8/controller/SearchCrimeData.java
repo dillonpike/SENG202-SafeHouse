@@ -1,4 +1,4 @@
-    package seng202.team8.controller;
+package seng202.team8.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +14,9 @@ import seng202.team8.model.CrimeRecord;
  */
 public class SearchCrimeData {
 
+    /**
+     * Date format used for comparing dates.
+     */
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
@@ -215,8 +218,7 @@ public class SearchCrimeData {
                         LinkedHashMap::new
                 ));
 
-        Set<Integer> rankedKeySet = sortedRankedMap.keySet();
-        return rankedKeySet;
+        return sortedRankedMap.keySet();
     }
 
     /**
@@ -252,8 +254,7 @@ public class SearchCrimeData {
                         LinkedHashMap::new
                 ));
 
-        Set<String> rankedKeySet = sortedRankedMap.keySet();
-        return rankedKeySet;
+        return sortedRankedMap.keySet();
     }
 
     /**
@@ -300,8 +301,7 @@ public class SearchCrimeData {
             highCrimeRatesWardList = rankedKeyList;
 
             // Creating a new copy, so it doesn't affect the original list
-            List<Integer> copyRankedKeyList = new ArrayList<>(rankedKeyList);
-            lowCrimeRatesWardList = copyRankedKeyList;
+            lowCrimeRatesWardList = new ArrayList<>(rankedKeyList);
             Collections.reverse(lowCrimeRatesWardList);
         } else {
             highCrimeRatesWardList = rankedKeyList.subList(0, 10);
@@ -309,11 +309,10 @@ public class SearchCrimeData {
         }
 
         // Creates a list of list that contains two list of high/low crime rates
-        List<List<Integer>> highAndLowCrimeRatesList = new ArrayList<List<Integer>>();
+        List<List<Integer>> highAndLowCrimeRatesList = new ArrayList<>();
         highAndLowCrimeRatesList.add(highCrimeRatesWardList);
         highAndLowCrimeRatesList.add(lowCrimeRatesWardList);
         return highAndLowCrimeRatesList;
     }
-
 }
 

@@ -5,11 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import seng202.team8.controller.CrimeRecordManager;
 import seng202.team8.controller.DataManager;
-import seng202.team8.controller.SearchCrimeData;
 import seng202.team8.model.CrimeRecord;
 
 import java.io.FileNotFoundException;
@@ -17,7 +14,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -79,57 +75,107 @@ public class TableController extends RecordController implements Initializable {
     @FXML
     private TableColumn<CrimeRecord, String> clmWard;
 
+    /**
+     * Label that displays the selected crime record's date in the crime details panel.
+     */
     @FXML
     private Label lblDate;
 
+    /**
+     * Label that displays the selected crime record's case number in the crime details panel.
+     */
     @FXML
     private Label lblCaseNum;
 
+    /**
+     * Label that displays the selected crime record's block in the crime details panel.
+     */
     @FXML
     private Label lblBlock;
 
+    /**
+     * Label that displays the selected crime record's IUCR code in the crime details panel.
+     */
     @FXML
     private Label lblUCR;
 
+    /**
+     * Label that displays the selected crime record's primary description in the crime details panel.
+     */
     @FXML
     private Label lblPrimary;
 
+    /**
+     * Label that displays the selected crime record's secondary description in the crime details panel.
+     */
     @FXML
     private Label lblSecondary;
 
+    /**
+     * Label that displays the selected crime record's location in the crime details panel.
+     */
     @FXML
     private Label lblLocation;
 
+    /**
+     * Label that displays the selected crime record's arrest stats in the crime details panel.
+     */
     @FXML
     private Label lblArrest;
 
+    /**
+     * Label that displays the selected crime record's domestic status in the crime details panel.
+     */
     @FXML
     private Label lblDomestic;
 
+    /**
+     * Label that displays the selected crime record's beat in the crime details panel.
+     */
     @FXML
     private Label lblBeat;
 
+    /**
+     * Label that displays the selected crime record's ward in the crime details panel.
+     */
     @FXML
     private Label lblWard;
 
+    /**
+     * Label that displays the selected crime record's FBI CD in the crime details panel.
+     */
     @FXML
     private Label lblFbi;
 
+    /**
+     * Label that displays the selected crime record's latitude in the crime details panel.
+     */
     @FXML
     private Label lblLat;
 
+    /**
+     * Label that displays the selected crime record's longitude in the crime details panel.
+     */
     @FXML
     private Label lblLon;
 
+    /**
+     * ChoiceBox for selecting a dataset to view.
+     */
     @FXML
     private ChoiceBox<String> cbDataset;
 
+    /**
+     * Label for displaying user feedback that's not associated with a GUI element.
+     */
     @FXML
     private Label lblTableWarning;
 
-
     /**
      * Links recordTable columns to attributes of CrimeRecord.
+     * Parameter description from JavaFX's Initializable Javadoc.
+     * @param url the location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle the resources used to localize the root object, or null if the root object was not localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -155,57 +201,57 @@ public class TableController extends RecordController implements Initializable {
     }
 
     /**
-     * Calls the method to locate a file through windows explorer then passes it to the CrimeRecordManager for importing. Updates the table after.
+     * Calls the method to locate a file through Windows Explorer then passes it to the CrimeRecordManager
+     * for importing. Updates the table after.
      */
     public void importFile() {
         String filename = openFileLocation();
-        if (filename == null) {
-        	return;
-        } else if (filename.endsWith(".csv") == false) {
-        	lblTableWarning.setText("Invalid file type");
-        	lblTableWarning.setStyle("-fx-text-fill: red");
-        } else if (DataManager.getCurrentDataset().isEmpty()) {
-        	lblTableWarning.setText("");
-        	try {
-				getManager().importFile(filename);
-			} catch (FileNotFoundException e) {
-				// File not found
-				e.printStackTrace();
-			}
-            updateTable();
-        } else {
-        	lblTableWarning.setText("");
-		    Alert importAlert = new Alert(Alert.AlertType.NONE);
-		    importAlert.setTitle("Choose dataset for import");
-		    ButtonType btnNew = new ButtonType("Create new dataset", ButtonBar.ButtonData.YES);
-		    ButtonType btnExisting = new ButtonType("Add to current dataset", ButtonBar.ButtonData.NO);
-		    ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-		    importAlert.getButtonTypes().setAll(btnNew, btnExisting, btnCancel);
-		    importAlert.showAndWait().ifPresent(type-> {
-		    	if (type == btnNew) {
-		    		CrimeRecordManager newDataset = new CrimeRecordManager();
-		    		DataManager.addToDatasets(newDataset);
-		    		DataManager.setCurrentDataset(newDataset);
-		    		try {
-						newDataset.importFile(filename);
-						updateTable();
-						cbDataset.getItems().add("Dataset " + DataManager.getDatasets().size());
-						cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
-					} catch (FileNotFoundException e) {
-						// File not found
-						e.printStackTrace();
-					}
-		    	} else if (type == btnExisting) {
-		    		try {
-		                getManager().importFile(filename);
-		                //Update the screen
-                        updateTable();
-		            } catch (FileNotFoundException e) {
-		                e.printStackTrace();
-		            }
-		    	} else {
-		    	}
-		    });
+        if (filename != null) {
+            if (!filename.endsWith(".csv")) {
+                lblTableWarning.setText("Invalid file type");
+                lblTableWarning.setStyle("-fx-text-fill: red");
+            } else if (DataManager.getCurrentDataset().isEmpty()) {
+                lblTableWarning.setText("");
+                try {
+                    getManager().importFile(filename);
+                } catch (FileNotFoundException e) {
+                    // File not found
+                    e.printStackTrace();
+                }
+                updateTable();
+            } else {
+                lblTableWarning.setText("");
+                Alert importAlert = new Alert(Alert.AlertType.NONE);
+                importAlert.setTitle("Choose dataset for import");
+                ButtonType btnNew = new ButtonType("Create new dataset", ButtonBar.ButtonData.YES);
+                ButtonType btnExisting = new ButtonType("Add to current dataset", ButtonBar.ButtonData.NO);
+                ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                importAlert.getButtonTypes().setAll(btnNew, btnExisting, btnCancel);
+                importAlert.showAndWait().ifPresent(type -> {
+                    if (type == btnNew) {
+                        CrimeRecordManager newDataset = new CrimeRecordManager();
+                        DataManager.addToDatasets(newDataset);
+                        DataManager.setCurrentDataset(newDataset);
+                        try {
+                            newDataset.importFile(filename);
+                            updateTable();
+                            cbDataset.getItems().add("Dataset " + DataManager.getDatasets().size());
+                            cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
+                        } catch (FileNotFoundException e) {
+                            // File not found
+                            e.printStackTrace();
+                        }
+                    } else if (type == btnExisting) {
+                        try {
+                            getManager().importFile(filename);
+                            //Update the screen
+                            updateTable();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
         }
     }
     
@@ -231,8 +277,9 @@ public class TableController extends RecordController implements Initializable {
     }
 
     /**
-     * Applies filters to the list of records displayed in recordTable and updates the table if realTimeCheckBox
-     * is selected.
+     * Resets the list of records stored in the controller to the full dataset, applies filters based on
+     * the user's input in the GUI's attributes, then updates the table.
+     * Only runs if realTimeCheckBox is checked.
      */
     public void filterTable() {
         if (realTimeCheckBox.isSelected()) {

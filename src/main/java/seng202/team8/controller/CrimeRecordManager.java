@@ -1,7 +1,6 @@
 package seng202.team8.controller;
 
 import java.io.*;
-import java.nio.charset.MalformedInputException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,7 +13,7 @@ import com.sun.jdi.AbsentInformationException;
 import seng202.team8.model.CrimeRecord;
 
 /**
- * A class that contains the local copy of the crime records
+ * A class that contains the local copy of the crime records.
  */
 public class CrimeRecordManager {
 
@@ -88,11 +87,7 @@ public class CrimeRecordManager {
     }
 
     public boolean isEmpty() {
-    	if (containedRecords.isEmpty()) {
-    		return true;
-    	} else {
-    		return false;
-    	}
+        return containedRecords.isEmpty();
     }
     
     /**

@@ -17,17 +17,17 @@ public class GUIFiltering {
     /**
      * Text displayed when user types an invalid date.
      */
-    private static String INVALID_DATE_TEXT = "Invalid Date";
+    private static final String INVALID_DATE_TEXT = "Invalid Date";
 
     /**
      * Text displayed when user types an invalid beat.
      */
-    private static String INVALID_BEAT_TEXT = "Invalid Beat";
+    private static final String INVALID_BEAT_TEXT = "Invalid Beat";
 
     /**
      * Text displayed when user types an invalid ward.
      */
-    private static String INVALID_WARD_TEXT = "Invalid Ward";
+    private static final String INVALID_WARD_TEXT = "Invalid Ward";
 
     /**
      * Filters records ArrayList by removing crime records that didn't occur between the dates provided

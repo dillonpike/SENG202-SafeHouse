@@ -3,30 +3,42 @@ package seng202.team8;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seng202.team8.controller.gui.GUIController;
-import seng202.team8.controller.DataManager;
 
-
+/**
+ * Initializes and loads the main window of the application.
+ */
 public class StartGUI extends Application {
-	public static Stage primaryStage;
-	public static GUIController control;
-	public static javafx.scene.layout.BorderPane root; 
-	
-	
-	@Override
-	public void start(Stage s) {
-		try {
-			primaryStage = s;
-			control = new GUIController();
-			DataManager.addToDatasets(DataManager.getCurrentDataset());
-			control.start(primaryStage);
 
+	/**
+	 * Stage of the application's main window.
+	 */
+	public static Stage primaryStage;
+
+	/**
+	 * Controller of the main window.
+	 */
+	public static GUIController controller;
+
+	/**
+	 * Starts the application by instantiating the controller for the initial screen and starting it with primaryStage.
+	 * @param primaryStage stage of the application's main window.
+	 */
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			StartGUI.primaryStage = primaryStage;
+			controller = new GUIController();
+			controller.start(primaryStage);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Launches a standalone application (From JavaFX's Application Javadoc).
+	 * @param args arguments given when starting the application
+	 */
 	public static void main(String[] args) {
-		
 		launch(args);
 	}
 	
