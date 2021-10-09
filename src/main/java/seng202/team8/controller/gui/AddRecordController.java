@@ -404,7 +404,7 @@ public class AddRecordController extends GUIController implements Initializable 
      * @return true if the value is accepted, false otherwise.
      */
 	private boolean checkLat() {
-    	if (!ValidateCrime.validateDouble(fldLat.getText())) {
+    	if (!ValidateCrime.validateLat(fldLat.getText())) {
     		fldLat.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
     		lblLatWarning.setText("Must be a valid decimal.");
     		lblLatWarning.setStyle("-fx-text-fill: red");
@@ -421,7 +421,7 @@ public class AddRecordController extends GUIController implements Initializable 
      * @return true if the value is accepted, false otherwise.
      */
 	private boolean checkLon() {
-    	if (!ValidateCrime.validateDouble(fldLon.getText())) {
+    	if (!ValidateCrime.validateLon(fldLon.getText())) {
     		fldLon.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
     		lblLonWarning.setText("Must be a valid decimal.");
     		lblLonWarning.setStyle("-fx-text-fill: red");

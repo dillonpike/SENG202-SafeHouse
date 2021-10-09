@@ -216,7 +216,7 @@ public class TableController extends RecordController implements Initializable {
                     getManager().importFile(filename);
                 } catch (FileNotFoundException e) {
                     // File not found
-                    e.printStackTrace();
+                    lblTableWarning.setText("File not found");
                 }
                 updateTable();
             } else {
@@ -239,7 +239,7 @@ public class TableController extends RecordController implements Initializable {
                             cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
                         } catch (FileNotFoundException e) {
                             // File not found
-                            e.printStackTrace();
+                        	lblTableWarning.setText("File not found");
                         }
                     } else if (type == btnExisting) {
                         try {
@@ -247,7 +247,8 @@ public class TableController extends RecordController implements Initializable {
                             //Update the screen
                             updateTable();
                         } catch (FileNotFoundException e) {
-                            e.printStackTrace();
+                        	// File not found
+                        	lblTableWarning.setText("File not found");
                         }
                     }
                 });
@@ -260,10 +261,11 @@ public class TableController extends RecordController implements Initializable {
     	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd-HH.mm.ss");  
     	LocalDateTime now = LocalDateTime.now();
     	try {
+    		lblTableWarning.setText("");
 			DataManager.getCurrentDataset().exportFile(targetLocation + "/" + dtf.format(now) + ".csv");
 		} catch (IOException e) {
 			// Bad directory
-			e.printStackTrace();
+			lblTableWarning.setText("Invalid directory for export");
 		}
     }
 

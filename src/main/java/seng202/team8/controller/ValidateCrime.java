@@ -84,18 +84,42 @@ public class ValidateCrime {
     }
 
     /**
-     * Validates if a string can be read as a double
-     * This is for latitude and longitude fields
-     * Any valid double is considered a valid lat/lon
+     * Validates if a string can be read as a double, then checks if 
+     * it is within the acceptable range for latitude.
      * @param candidate The string to be validated
      * @return True if valid, false otherwise
      */
-    public static boolean validateDouble (String candidate) {
+    public static boolean validateLat (String candidate) {
+    	double lat = 100;
         try {
-            Double.parseDouble(candidate);
-            return true;
+            lat = Double.parseDouble(candidate);            
         } catch (NumberFormatException e) {
             return false;
+        }
+        if (-90 < lat && lat < 90) {
+        	return true;
+        } else {
+        	return false;
+        }
+    }
+    
+    /**
+     * Validates if a string can be read as a double, then checks if 
+     * it is within the acceptable range for longitude.
+     * @param candidate The string to be validated
+     * @return True if valid, false otherwise
+     */
+    public static boolean validateLon (String candidate) {
+    	double lon = 200;
+        try {
+            lon = Double.parseDouble(candidate);            
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        if (-90 < lon && lon < 180) {
+        	return true;
+        } else {
+        	return false;
         }
     }
 
