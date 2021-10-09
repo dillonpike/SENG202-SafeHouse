@@ -321,7 +321,7 @@ public class AddRecordController extends GUIController implements Initializable 
 	private boolean checkFBI() {
     	if (!ValidateCrime.validateFbiCD(fldFBI.getText())) {
     		fldFBI.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
-    		lblFBIWarning.setText("Len not 3, only last char can be letter.");
+    		lblFBIWarning.setText("Length not 3, only last char can be letter.");
     		lblFBIWarning.setStyle("-fx-text-fill: red");
     		return false;
     	} else {
