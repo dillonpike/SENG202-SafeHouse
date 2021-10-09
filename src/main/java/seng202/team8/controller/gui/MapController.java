@@ -149,8 +149,10 @@ public class MapController extends RecordController implements Initializable {
             placeNumMarkers(records, quantity);
 
         } catch (NumberFormatException e) {
-            // Display the text
-            markNumberText.setText("Please enter a number between 1 and 1000");
+            // Display error message if user input invalid number
+            if (!markNumberField.getText().equals("")) {
+                markNumberText.setText("Please enter a number between 1 and 1000");
+            }
         }
     }
 
