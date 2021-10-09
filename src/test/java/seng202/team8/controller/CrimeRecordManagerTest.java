@@ -1,11 +1,13 @@
 package seng202.team8.controller;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import com.opencsv.exceptions.CsvValidationException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import seng202.team8.model.CrimeRecord;
@@ -37,16 +39,19 @@ class CrimeRecordManagerTest {
      */
     @BeforeAll
     static void setUp() {
-        //Initialise testManager and import test data
+        // Initialise testManager and import test data
         testManager = new CrimeRecordManager();
         try {
             testManager.importFile("src/main/resources/testdata.csv");
         } catch (FileNotFoundException ex) {
             System.out.println("Test data filename/filepath is incorrect and/or missing!");
             ex.printStackTrace();
+        } catch (IOException | CsvValidationException ex) {
+            // We've had an error with importing, that's not related to the filename
+            ex.printStackTrace();
         }
 
-        //Create similar records used in tests with different case numbers
+        // Create similar records used in tests with different case numbers
         testRecord1 = new CrimeRecord("JE266628", 6, 15, 2021,
                 LocalTime.of(9,30), "080XX S DREXEL AVE" , "0820",
                 "OTHER OFFENSE", "LOITERING", "STREET",
@@ -70,8 +75,10 @@ class CrimeRecordManagerTest {
         } catch (FileNotFoundException ex) {
             System.out.println("Import test's filename/filepath is incorrect and/or missing!");
             ex.printStackTrace();
+        } catch (IOException | CsvValidationException ex) {
+            // We've had an error with importing, that's not related to the filename
         }
-        //The number is somewhat arbitrary, this is just making sure stuff is in it
+        // The number is somewhat arbitrary, this is just making sure stuff is in it
         assertTrue(manager.getLocalCopy().size() > 10);
     }
 
@@ -81,9 +88,9 @@ class CrimeRecordManagerTest {
     @Test
     void testAdding() {
         CrimeRecordManager manager = new CrimeRecordManager();
-        //Add the record
+        // Add the record
         manager.addRecord(testRecord1);
-        //Check to see if it has been added
+        // Check to see if it has been added
         assertEquals(1, manager.getLocalCopy().size());
     }
 
@@ -94,10 +101,10 @@ class CrimeRecordManagerTest {
      */
     @Test
     void testIucrPadding() {
-        //Check that every single IUCR that was imported is padded correctly
+        // Check that every single IUCR that was imported is padded correctly
         boolean result = false;
         for (CrimeRecord crime: testManager.getLocalCopy()) {
-            //If it's padded correctly, it should be valid
+            // If it's padded correctly, it should be valid
             result = ValidateCrime.validateIucr(crime.getIucr());
         }
         assertTrue(result);
@@ -125,10 +132,10 @@ class CrimeRecordManagerTest {
     @Test
     void testAddingDuplicate() {
         CrimeRecordManager manager = new CrimeRecordManager();
-        //Add the record twice
+        // Add the record twice
         manager.addRecord(testRecord1);
         manager.addRecord(testRecord1);
-        //Check to see if only one has been added
+        // Check to see if only one has been added
         assertEquals(1, manager.getLocalCopy().size());
     }
 
@@ -138,9 +145,9 @@ class CrimeRecordManagerTest {
     @Test
     void testDeletion() {
         CrimeRecordManager manager = new CrimeRecordManager();
-        //Add the record
+        // Add the record
         manager.addRecord(testRecord1);
-        //Remove the same record
+        // Remove the same record
         manager.removeRecord(testRecord1);
         assertEquals(0, manager.getLocalCopy().size());
     }
@@ -152,9 +159,9 @@ class CrimeRecordManagerTest {
     @Test
     void testAbsentDeletion() {
         CrimeRecordManager manager = new CrimeRecordManager();
-        //Add the record
+        // Add the record
         manager.addRecord(testRecord1);
-        //Attempt to remove a different record
+        // Attempt to remove a different record
         manager.removeRecord(testRecord2);
         assertEquals(1, manager.getLocalCopy().size());
     }
@@ -165,17 +172,17 @@ class CrimeRecordManagerTest {
     @Test
     void testEdit() {
         CrimeRecordManager manager = new CrimeRecordManager();
-        //Add the record
+        // Add the record
         manager.addRecord(testRecord1);
 
-        //Change the record's location description to "MALL"
+        // Change the record's location description to "MALL"
         manager.changeRecord(testRecord1, testRecord1.getCaseNum(), 6, 15, 2021,
                 testRecord1.getTime(), testRecord1.getBlock(), testRecord1.getIucr(),
                 testRecord1.getPrimary(), testRecord1.getSecondary(), "MALL",
                 0, 0, testRecord1.getBeat(), testRecord1.getWard(), testRecord1.getFbiCD(),
                 testRecord1.getLatitude(), testRecord1.getLongitude());
 
-        //Check that the location description has changed
+        // Check that the location description has changed
         assertEquals("MALL", testRecord1.getLocDescription());
     }
 
@@ -185,16 +192,16 @@ class CrimeRecordManagerTest {
     @Test
     void testAbsentEdit() {
         CrimeRecordManager manager = new CrimeRecordManager();
-        //Add the record
+        // Add the record
         manager.addRecord(testRecord1);
 
-        //Attempt to edit record that doesn't exist in the manager
+        // Attempt to edit record that doesn't exist in the manager
         boolean result = manager.changeRecord(testRecord2, testRecord1.getCaseNum(), 6, 15, 2021,
                 testRecord1.getTime(), testRecord1.getBlock(), testRecord1.getIucr(),
                 testRecord1.getPrimary(), testRecord1.getSecondary(), "MALL",
                 0, 0, testRecord1.getBeat(), testRecord1.getWard(), testRecord1.getFbiCD(),
                 testRecord1.getLatitude(), testRecord1.getLongitude());
-        //Check that changeRecord returned false
+        // Check that changeRecord returned false
         assertFalse(result);
     }
 
@@ -205,19 +212,19 @@ class CrimeRecordManagerTest {
     @Test
     void testEditVacantCaseNum() {
         CrimeRecordManager manager = new CrimeRecordManager();
-        //Add the record
+        // Add the record
         manager.addRecord(testRecord1);
 
         String newCaseNum = "JD364770";
 
-        //Change the record's case number to a vacant one
+        // Change the record's case number to a vacant one
         manager.changeRecord(testRecord1, newCaseNum, 6, 15, 2021,
                 testRecord1.getTime(), testRecord1.getBlock(), testRecord1.getIucr(),
                 testRecord1.getPrimary(), testRecord1.getSecondary(), testRecord1.getLocDescription(),
                 0, 0, testRecord1.getBeat(), testRecord1.getWard(), testRecord1.getFbiCD(),
                 testRecord1.getLatitude(), testRecord1.getLongitude());
 
-        //Check that the case number has changed
+        // Check that the case number has changed
         assertEquals(newCaseNum, testRecord1.getCaseNum());
     }
 
@@ -228,21 +235,21 @@ class CrimeRecordManagerTest {
     @Test
     void testEditUsedCaseNum() {
         CrimeRecordManager manager = new CrimeRecordManager();
-        //Add the record
+        // Add the record
         manager.addRecord(testRecord1);
         manager.addRecord(testRecord2);
 
-        //Store the original case number
+        // Store the original case number
         String caseNum = testRecord1.getCaseNum();
 
-        //Attempt to change the record's case number to a testRecord2's case number
+        // Attempt to change the record's case number to a testRecord2's case number
         manager.changeRecord(testRecord1, testRecord2.getCaseNum(), 6, 15, 2021,
                 testRecord1.getTime(), testRecord1.getBlock(), testRecord1.getIucr(),
                 testRecord1.getPrimary(), testRecord1.getSecondary(), testRecord1.getLocDescription(),
                 0, 0, testRecord1.getBeat(), testRecord1.getWard(), testRecord1.getFbiCD(),
                 testRecord1.getLatitude(), testRecord1.getLongitude());
 
-        //Check that the case number has not changed
+        // Check that the case number has not changed
         assertEquals(caseNum, testRecord1.getCaseNum());
     }
 
@@ -252,10 +259,10 @@ class CrimeRecordManagerTest {
     @Test
     void testFreqAdding() {
         CrimeRecordManager manager = new CrimeRecordManager();
-        //Add the record
+        // Add the record
         manager.addRecord(testRecord1);
 
-        //Get the frequency of crime records with primary description: "OTHER OFFENSE" and check that it's equal to 1
+        // Get the frequency of crime records with primary description: "OTHER OFFENSE" and check that it's equal to 1
         int actual = manager.getPrimaryFreq("OTHER OFFENSE");
         assertEquals(1, actual);
     }
@@ -267,12 +274,12 @@ class CrimeRecordManagerTest {
     @Test
     void testFreqRemoving() {
         CrimeRecordManager manager = new CrimeRecordManager();
-        //Add the record
+        // Add the record
         manager.addRecord(testRecord1);
-        //Remove the record
+        // Remove the record
         manager.removeRecord(testRecord1);
 
-        //Get the frequency of crime records with primary description: "OTHER OFFENSE" and check that it's equal to 0
+        // Get the frequency of crime records with primary description: "OTHER OFFENSE" and check that it's equal to 0
         int actual = manager.getPrimaryFreq("OTHER OFFENSE");
         assertEquals(0, actual);
     }

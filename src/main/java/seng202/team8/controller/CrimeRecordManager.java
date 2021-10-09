@@ -2,10 +2,7 @@ package seng202.team8.controller;
 
 import java.io.*;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Hashtable;
+import java.util.*;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
@@ -86,6 +83,10 @@ public class CrimeRecordManager {
         return beatFreq.getOrDefault(key, 0);
     }
 
+    /**
+     * Returns whether the record list is empty
+     * @return True if this manager has no records
+     */
     public boolean isEmpty() {
         return containedRecords.isEmpty();
     }
@@ -97,60 +98,57 @@ public class CrimeRecordManager {
      * This should prompt the user to try again, so it will not be handled in this method
      * @return Returns an ArrayList of all lines that contain errors/could not be imported
      */
-    public ArrayList<Integer> importFile(String filename) throws FileNotFoundException {
+    public ArrayList<Integer> importFile(String filename) throws IOException, CsvValidationException {
         if (filename == null) {
             return new ArrayList<>();
         } else if (!filename.endsWith(".csv")) {
-            //This is done so we can be sure the filename isn't null
+            // This is done so we can be sure the filename isn't null
             return new ArrayList<>();
         }
         CSVReader csvReader = new CSVReader(new FileReader(filename));
         String[] row;
         ArrayList<Integer> linesWithErrors = new ArrayList<>();
         int counter = 1;
-        try {
-            //Skip the first line since it's just header info
-            csvReader.readNext();
-            while ((row = csvReader.readNext()) != null) {
-                //Each data array should be 17 entries long
-                CrimeRecord newCrime = new CrimeRecord();
-                /*
-                Try to add the essential stuff to the record
-                */
-                if (!(addEssentials(row, newCrime))) {
-                    /*If we couldn't, skip this iteration
-                    and add this line to the lines with errors
-                     */
-                    linesWithErrors.add(counter);
-                    continue;
-                }
-                //Check if the crime is already in there.
-                if (containedRecords.contains(newCrime.getCaseNum())) {
-                    //The crime is already in here, so don't add it
-                    continue;
-                } else {
-                    containedRecords.add(newCrime.getCaseNum());
-                }
-                //Add the non-essential stuff
-                addSkipables(row, newCrime);
 
-                //Increment the tables
-                incrementFreqs(newCrime);
-
+        // Skip the first line since it's just header info
+        csvReader.readNext();
+        while ((row = csvReader.readNext()) != null) {
+            // Each data array should be 17 entries long
+            CrimeRecord newCrime = new CrimeRecord();
+            // Try to add the essential stuff to the record
+            if (!(addEssentials(row, newCrime))) {
                 /*
-                And that's all the information for the row!
-                There was one final entry, data[16], the location
-                but, as we derive that from lat and lon
-                We don't need to access it
-                - Olly
+                If we couldn't, skip this iteration
+                and add this line to the lines with errors
                  */
-                counter++;
-                localCopy.add(newCrime);
+                linesWithErrors.add(counter);
+                continue;
             }
-            csvReader.close();
-        } catch (IOException | CsvValidationException ex) {
-            ex.printStackTrace();
+            // Check if the crime is already in there.
+            if (containedRecords.contains(newCrime.getCaseNum())) {
+                //The crime is already in here, so don't add it
+                continue;
+            } else {
+                containedRecords.add(newCrime.getCaseNum());
+            }
+            // Add the non-essential stuff
+            addSkipables(row, newCrime);
+
+            // Increment the tables
+            incrementFreqs(newCrime);
+
+            /*
+            And that's all the information for the row!
+            There was one final entry, data[16], the location
+            but, as we derive that from lat and lon
+            We don't need to access it
+            - Olly
+             */
+            counter++;
+            localCopy.add(newCrime);
         }
+        csvReader.close();
+
         return linesWithErrors;
     }
 
@@ -172,6 +170,10 @@ public class CrimeRecordManager {
             newCrime.setLongitude(Double.parseDouble(data[15]));
             return true;
         } catch (Exception ex) {
+            /*
+            We couldn't add essential data
+            So return false and skip this record
+             */
             return false;
         }
     }
@@ -188,14 +190,14 @@ public class CrimeRecordManager {
      * @param iucr The iucr to be padded
      */
     private String padIUCR(String iucr) throws AbsentInformationException {
-        //The stringbuilder is a mutable string
+        // The stringbuilder is a mutable string
         if (iucr.length() == 0) {
-            //String is empty, so should be rejected
+            // String is empty, so should be rejected
             throw new AbsentInformationException("Empty IUCR!");
         }
         StringBuilder paddedIucr = new StringBuilder(iucr);
         while (paddedIucr.length() < 4) {
-            //add a '0' to the front
+            // add a '0' to the front
             paddedIucr.insert(0, '0');
         }
         return paddedIucr.toString();
@@ -211,7 +213,7 @@ public class CrimeRecordManager {
         try {
             addDateAndTime(newCrime, data[1]);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
-            //Do nothing and leave the field(s) empty.
+            // Do nothing and leave the field(s) empty.
         }
         /*
         These are formatted as/from strings, so
@@ -227,12 +229,12 @@ public class CrimeRecordManager {
             newCrime.setWard(Integer.parseInt(data[10]));
         }
         catch (NumberFormatException ex) {
-            //Leave the ward with no value
+            // Leave the ward with no value
         }
         try {
             newCrime.setBeat(Integer.parseInt(data[9]));
         } catch (NumberFormatException ex) {
-            //Leave the beat with no value
+            // Leave the beat with no value
         }
         newCrime.setFbiCD(data[11]);
         try {
@@ -240,9 +242,9 @@ public class CrimeRecordManager {
             newCrime.setYCoord(Integer.parseInt(data[13]));
         }
         catch (NumberFormatException ex) {
-            //Do nothing and leave the two fields blank.
+            // Do nothing and leave the two fields blank.
         } catch (ArrayIndexOutOfBoundsException ex) {
-            //These values don't seem to exist!
+            // These values don't seem to exist!
             /*
             This hopefully shouldn't happen thanks to the limit settings
             of the split method.
@@ -258,7 +260,7 @@ public class CrimeRecordManager {
      * @param date The date and Time string (should be data[1]) containing the date and time
      */
     private void addDateAndTime(CrimeRecord crime, String date) {
-        //Should split entries into [0] Date, [1] Time [2] AM/PM
+        // Should split entries into [0] Date, [1] Time [2] AM/PM
         String[] dateAndTime = date.split(" ");
         String[] dateNums = dateAndTime[0].split("/");
         int month = Integer.parseInt(dateNums[0]);
@@ -309,7 +311,7 @@ public class CrimeRecordManager {
      * @param crime The crime which is being added to the copy
      */
     private void incrementFreqs(CrimeRecord crime) {
-        //Add the hashtable values
+        // Add the hashtable values
         if (primaryFreq.containsKey(crime.getPrimary())) {
             int oldfreq = primaryFreq.get(crime.getPrimary());
             primaryFreq.put(crime.getPrimary(), (oldfreq + 1));
@@ -441,7 +443,7 @@ public class CrimeRecordManager {
                              String secondary, String locdesc, int arrest, int domestic,
                              int beat, int ward, String fbiCD, double lat, double lon) {
 
-        //True if the new case number isn't being used, or if the case number is not going to be changed
+        // True if the new case number isn't being used, or if the case number is not going to be changed
         boolean willChange = !(containedRecords.contains(caseNum)) || (Objects.equals(crime.getCaseNum(), caseNum));
 
         if (willChange) {
@@ -465,23 +467,23 @@ public class CrimeRecordManager {
      */
     public void exportFile(String filename) throws IOException {
         if (!filename.endsWith(".csv")) {
-            //It isn't a CSV file!
+            // It isn't a CSV file!
             throw new IllegalArgumentException("This filename doesn't end with .csv!");
         }
-        //Open up the file for writing
+        // Open up the file for writing
         FileWriter csvWriter = new FileWriter(filename);
-        //Write the first line of the CSV
+        // Write the first line of the CSV
         csvWriter.append("CASE#,DATE  OF OCCURRENCE,BLOCK, IUCR, " +
                 "PRIMARY DESCRIPTION, SECONDARY DESCRIPTION, LOCATION DESCRIPTION," +
                 "ARREST,DOMESTIC,BEAT,WARD,FBI CD,X COORDINATE,Y COORDINATE," +
                 "LATITUDE,LONGITUDE,LOCATION\n");
-        //Now loop through all the records and write their csv values
+        // Now loop through all the records and write their csv values
         for (CrimeRecord crime : localCopy) {
             csvWriter.append(crime.toCSV());
             //Also append a newline character
             csvWriter.append("\n");
         }
-        //And then close the file
+        // And then close the file
         csvWriter.flush();
         csvWriter.close();
     }

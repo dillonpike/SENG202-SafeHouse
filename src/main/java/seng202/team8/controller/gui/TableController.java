@@ -1,5 +1,6 @@
 package seng202.team8.controller.gui;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -217,6 +218,9 @@ public class TableController extends RecordController implements Initializable {
                 } catch (FileNotFoundException e) {
                     // File not found
                     lblTableWarning.setText("File not found");
+                } catch (IOException | CsvValidationException ex) {
+                    // An error occured with importing
+                    lblTableWarning.setText("An error has occurred with importing");
                 }
                 updateTable();
             } else {
@@ -228,29 +232,29 @@ public class TableController extends RecordController implements Initializable {
                 ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
                 importAlert.getButtonTypes().setAll(btnNew, btnExisting, btnCancel);
                 importAlert.showAndWait().ifPresent(type -> {
+                    try {
                     if (type == btnNew) {
                         CrimeRecordManager newDataset = new CrimeRecordManager();
                         DataManager.addToDatasets(newDataset);
                         DataManager.setCurrentDataset(newDataset);
-                        try {
-                            newDataset.importFile(filename);
-                            updateTable();
-                            cbDataset.getItems().add("Dataset " + DataManager.getDatasets().size());
-                            cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
-                        } catch (FileNotFoundException e) {
-                            // File not found
-                        	lblTableWarning.setText("File not found");
-                        }
+
+                        newDataset.importFile(filename);
+                        updateTable();
+                        cbDataset.getItems().add("Dataset " + DataManager.getDatasets().size());
+                        cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
+
                     } else if (type == btnExisting) {
-                        try {
-                            getManager().importFile(filename);
-                            //Update the screen
-                            updateTable();
-                        } catch (FileNotFoundException e) {
-                        	// File not found
-                        	lblTableWarning.setText("File not found");
-                        }
+                        getManager().importFile(filename);
+                        //Update the screen
+                        updateTable();
                     }
+                } catch (FileNotFoundException e) {
+                    // File not found
+                    lblTableWarning.setText("File not found");
+                } catch (IOException | CsvValidationException ex) {
+                    // An error occured with importing
+                    lblTableWarning.setText("An error has occurred with importing");
+                }
                 });
             }
         }
