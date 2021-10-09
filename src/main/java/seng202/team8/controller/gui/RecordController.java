@@ -293,7 +293,7 @@ public abstract class RecordController extends GUIController {
     }
 
     /**
-     * Calls the method to locate a file through Windows Explorer then passes it to the CrimeRecordManager
+     * Calls the method to locate a file through the file browser then passes it to the CrimeRecordManager
      * for importing. Updates the table after.
      */
     public void importFile() {
@@ -356,6 +356,10 @@ public abstract class RecordController extends GUIController {
         }
     }
 
+    /**
+     * Allows the user to select a folder through the file browser then exports the current dataset to the chosen
+     * folder.
+     */
     public void exportFile() {
         String targetLocation = openDirectoryLocation();
         if (targetLocation != null) {
