@@ -35,20 +35,6 @@ public class CrimeRecordManager {
     private Hashtable<String, Integer> primaryFreq = new Hashtable<>();
 
     /**
-     * A hashtable, with the Ward of a crime as the key,
-     * and the value being the number of crimes in the local copy
-     * with that ward
-     */
-    private Hashtable<Integer, Integer> wardFreq = new Hashtable<>();
-
-    /**
-     * A hashtable, with the beat of a crime as the key,
-     * and the value being the number of crimes in the local copy
-     * with that beat
-     */
-    private Hashtable<Integer, Integer> beatFreq = new Hashtable<>();
-
-    /**
      * Gets the local copy of crime records
      * @return The local copy of CrimeRecord objects, in the form of an ArrayList
      */
@@ -64,26 +50,6 @@ public class CrimeRecordManager {
      */
     public Integer getPrimaryFreq(String key) {
         return primaryFreq.getOrDefault(key, 0);
-    }
-
-    /**
-     * Gets the number of crimes in the local copy
-     * with the given ward
-     * @param key The ward
-     * @return The number of crimes with that ward
-     */
-    public Integer getWardFreq(Integer key) {
-        return wardFreq.getOrDefault(key, 0);
-    }
-
-    /**
-     * Gets the number of crimes in the local copy
-     * with the given beat
-     * @param key The beat
-     * @return The number of crimes with that beat
-     */
-    public Integer getBeatFreq(Integer key) {
-        return beatFreq.getOrDefault(key, 0);
     }
 
     /**
@@ -338,20 +304,6 @@ public class CrimeRecordManager {
         } else {
             primaryFreq.put(crime.getPrimary(), 1);
         }
-
-        if (wardFreq.containsKey(crime.getWard())) {
-            int oldfreq = wardFreq.get(crime.getWard());
-            wardFreq.put(crime.getWard(), (oldfreq + 1));
-        } else {
-            wardFreq.put(crime.getWard(), 1);
-        }
-
-        if (beatFreq.containsKey(crime.getBeat())) {
-            int oldfreq = beatFreq.get(crime.getBeat());
-            beatFreq.put(crime.getBeat(), (oldfreq + 1));
-        } else {
-            beatFreq.put(crime.getBeat(), 1);
-        }
     }
 
     /**
@@ -366,17 +318,6 @@ public class CrimeRecordManager {
             int oldfreq = primaryFreq.get(crime.getPrimary());
             primaryFreq.put(crime.getPrimary(), (oldfreq - 1));
         }
-
-        if (wardFreq.containsKey(crime.getWard())) {
-            int oldfreq = wardFreq.get(crime.getWard());
-            wardFreq.put(crime.getWard(), (oldfreq - 1));
-        }
-
-        if (beatFreq.containsKey(crime.getBeat())) {
-            int oldfreq = beatFreq.get(crime.getBeat());
-            beatFreq.put(crime.getBeat(), (oldfreq - 1));
-        }
-
     }
 
     /**

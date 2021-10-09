@@ -5,13 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * A class that calculates the distance between two crimes and the time difference between
+ * A class of methods that calculates the distance between two crimes and the time difference between
  * two crime timestamps
  */
 public class CrimeDataCalculator {
-
-    public CrimeDataCalculator() {
-    }
 
     /**
      * Gets the two locations containing its latitude (x-axis) and longitude (y-axis). Using the
