@@ -12,15 +12,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
- * Step definitions for the Importing and Exporting cucumber tests
- * Although separate feature files, Exporting needs to use
- * some importing functionality, so it can test stuff
- * Hence, they use the same step definition class
+ * Step definitions for the manipulating a CrimeRecordManager
+ * This includes operations such as
+ * Importing, Exporting, and manual addition/deletion/editing of records
  */
-public class ImportExportStepDefs {
+public class RecordManagerStepDefs {
 
     /**
      * A manager/dataset, which we will use for importing.
@@ -117,5 +117,62 @@ public class ImportExportStepDefs {
         for (int i = 0; i < crimes.size(); i++) {
             Assert.assertEquals(manager.getLocalCopy().get(0), crimes.get(0));
         }
+    }
+
+    /**
+     * Adds a pre-made record to the dataset
+     * This is pre-made because there are a lot of fields for
+     * creating a crime record, so much that it would
+     * make the cucumber tests very hard to read
+     * Which defeats the point of cucumber
+     */
+    @When("I add an arbitrary valid record")
+    public void iAddAnArbitraryValidRecord() {
+        // Make an arbitrary, but valid, test record
+        CrimeRecord testRecord = new CrimeRecord("JE266628", 6, 15, 2021,
+                LocalTime.of(9,30), "080XX S DREXEL AVE" , "0820",
+                "OTHER OFFENSE", "LOITERING", "STREET",
+                0, 0, 631, 8, "06",
+                41.748486365f, (float) -87.602675062);
+        manager.addRecord(testRecord);
+    }
+
+    /**
+     * Deletes the last record in the dataset
+     */
+    @When("I delete the last record from the dataset")
+    public void iDeleteTheLastRecordFromTheDataset() {
+        int last_Index = manager.getLocalCopy().size() - 1;
+        manager.removeRecord(manager.getLocalCopy().get(last_Index));
+    }
+
+    /**
+     * Changes the primary description of the 'place'-th record in the list
+     * (that's the item at index: place - 1)
+     * to the given description
+     * @param place The place of the record in the list to be edited - NOT its index
+     * @param primary The primary description it is being changed to
+     */
+    @When("I change the {int} th record's primary description to {string}")
+    public void iChangeTheThRecordSPrimaryDescriptionTo(int place, String primary) {
+        CrimeRecord crime = manager.getLocalCopy().get(place - 1);
+        manager.changeRecord(crime, crime.getCaseNum(), crime.getDate().getMonthValue(),
+                crime.getDate().getDayOfMonth(), crime.getDate().getYear(), crime.getTime(),
+                crime.getBlock(), crime.getIucr(), primary, crime.getSecondary(), crime.getLocDescription(),
+                crime.getWasArrestValue(), crime.getWasDomesticValue(), crime.getBeat(), crime.getWard(),
+                crime.getFbiCD(), crime.getLatitude(), crime.getLongitude());
+    }
+
+    /**
+     * Checks the primary description of the 'place'-th record in the list
+     * (that's the item at index place: - 1)
+     * against the expected description
+     * @param place The place of the record in the list to be checked - NOT its index
+     * @param expected The primary description it is being checked against
+     */
+    @Then("The primary description of the {int} th record is {string}")
+    public void thePrimaryDescriptionOfTheThRecordIs(int place, String expected) {
+        CrimeRecord crime = manager.getLocalCopy().get(place - 1);
+        Assert.assertEquals(expected, crime.getPrimary());
     }
 }
