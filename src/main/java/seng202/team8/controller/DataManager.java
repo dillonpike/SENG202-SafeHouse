@@ -1,6 +1,7 @@
 package seng202.team8.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Static class that stores the data of the application
@@ -8,17 +9,19 @@ import java.util.ArrayList;
 public class DataManager {
 
     /**
-     * An ArrayList of all the different Managers that the application uses
-     * Since each CrimeRecordManager acts as a dataset
-     * This allows us to store multiple datasets
-     */
-    private static ArrayList<CrimeRecordManager> datasets = new ArrayList<>();
-
-    /**
      * The current CrimeRecordManager object in use
      * Effectively which dataset we are using
      */
     private static CrimeRecordManager currentDataset = new CrimeRecordManager();
+
+    /**
+     * An ArrayList of all the different Managers that the application uses
+     * Since each CrimeRecordManager acts as a dataset
+     * This allows us to store multiple datasets
+     *
+     * Make sure that we have our current dataset in here as well!
+     */
+    private static ArrayList<CrimeRecordManager> datasets = new ArrayList<>(List.of(currentDataset));
 
     /**
      * gets which dataset is currently in use
