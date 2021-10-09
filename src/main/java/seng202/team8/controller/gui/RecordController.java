@@ -299,24 +299,22 @@ public abstract class RecordController extends GUIController {
     public void importFile() {
         String filename = openFileLocation();
         if (filename != null) {
+            lblFeedback.setStyle("-fx-text-fill: black");
             if (!filename.endsWith(".csv")) { // If the filetype is not csv displays an error message
-                lblFeedback.setText("Invalid file type");
-                lblFeedback.setStyle("-fx-text-fill: red");
+                setErrorFeedback("Invalid file type. Please choose a .csv file.");
             } else if (DataManager.getCurrentDataset().isEmpty()) { // If the current dataset is empty, automatically appends to it
                 lblFeedback.setText("");
                 try {
-                    int errorCount = getManager().importFile(filename).size();
-                    if (errorCount > 0) {
-                        lblFeedback.setText("File imported with " + errorCount + " errors.");
-                    }
+                    int invalidCount = getManager().importFile(filename).size();
+                    updateRecordDisplay();
+                    importFeedback(getManager().getLocalCopy().size(), invalidCount);
                 } catch (FileNotFoundException e) {
                     // File not found
-                    lblFeedback.setText("File not found");
+                    setErrorFeedback("File not found");
                 } catch (IOException | CsvValidationException ex) {
                     // An error occured with importing
-                    lblFeedback.setText("An error has occurred with importing");
+                    setErrorFeedback("An error has occurred with importing");
                 }
-                updateRecordDisplay();
             } else { // Else displays an alert asking the user if they want to append to dataset or make a new one, then does that
                 lblFeedback.setText("");
                 Alert importAlert = new Alert(Alert.AlertType.NONE);
@@ -331,29 +329,54 @@ public abstract class RecordController extends GUIController {
                             CrimeRecordManager newDataset = new CrimeRecordManager();
                             DataManager.addToDatasets(newDataset);
                             DataManager.setCurrentDataset(newDataset);
-                            int errorCount = newDataset.importFile(filename).size();
-                            if (errorCount > 0) {
-                                lblFeedback.setText("File imported with " + errorCount + " errors.");
-                            }
+                            int invalidCount = newDataset.importFile(filename).size();
                             updateRecordDisplay();
                             cbDataset.getItems().add("Dataset " + DataManager.getDatasets().size());
                             cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
+                            importFeedback(getManager().getLocalCopy().size(), invalidCount);
 
                         } else if (type == btnExisting) {
-                            getManager().importFile(filename);
-                            //Update the screen
+                            int previousSize = getManager().getLocalCopy().size();
+                            int invalidCount = getManager().importFile(filename).size();
+                            int newRecordCount = getManager().getLocalCopy().size() - previousSize;
+                            // Update the screen
                             updateRecordDisplay();
+                            importFeedback(newRecordCount, invalidCount);
                         }
                     } catch (FileNotFoundException e) {
                         // File not found
-                        lblFeedback.setText("File not found");
+                        setErrorFeedback("File not found");
                     } catch (IOException | CsvValidationException ex) {
-                        // An error occured with importing
-                        lblFeedback.setText("An error has occurred with importing");
+                        // An error occurred with importing
+                        setErrorFeedback("An error has occurred with importing");
                     }
                 });
             }
         }
+    }
+
+    /**
+     * Sets the feedback label to display how many records were imported, and how many records were skipped due to
+     * being invalid.
+     * @param newRecordCount records added
+     * @param invalidCount invalid records skipped
+     */
+    private void importFeedback(int newRecordCount, int invalidCount) {
+        if (invalidCount > 0) {
+            lblFeedback.setText("Imported " + (newRecordCount) + " new records. Skipped " + invalidCount +
+                    " invalid records.");
+        } else {
+            lblFeedback.setText("Imported " + (newRecordCount) + " new records.");
+        }
+    }
+
+    /**
+     * Sets lblFeedback to display an error message and makes the text red.
+     * @param message message to be displayed
+     */
+    private void setErrorFeedback(String message) {
+        lblFeedback.setText(message);
+        lblFeedback.setStyle("-fx-text-fill: red");
     }
 
     /**
