@@ -214,7 +214,10 @@ public class TableController extends RecordController implements Initializable {
             } else if (DataManager.getCurrentDataset().isEmpty()) { // If the current dataset is empty, automatically appends to it
                 lblTableWarning.setText("");
                 try {
-                    getManager().importFile(filename);
+                    int errorCount = getManager().importFile(filename).size();
+                    if (errorCount > 0) {
+                    	lblTableWarning.setText("File imported with " + errorCount + " errors.");
+                    }
                 } catch (FileNotFoundException e) {
                     // File not found
                     lblTableWarning.setText("File not found");
@@ -237,8 +240,10 @@ public class TableController extends RecordController implements Initializable {
                         CrimeRecordManager newDataset = new CrimeRecordManager();
                         DataManager.addToDatasets(newDataset);
                         DataManager.setCurrentDataset(newDataset);
-
-                        newDataset.importFile(filename);
+                        int errorCount = newDataset.importFile(filename).size();
+                        if (errorCount > 0) {
+                        	lblTableWarning.setText("File imported with " + errorCount + " errors.");
+                        }
                         updateTable();
                         cbDataset.getItems().add("Dataset " + DataManager.getDatasets().size());
                         cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
@@ -262,15 +267,17 @@ public class TableController extends RecordController implements Initializable {
     
     public void exportFile() {
     	String targetLocation = openDirectoryLocation();
-    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd-HH.mm.ss");  
-    	LocalDateTime now = LocalDateTime.now();
-    	try {
-    		lblTableWarning.setText("");
-			DataManager.getCurrentDataset().exportFile(targetLocation + "/" + dtf.format(now) + ".csv");
-		} catch (IOException e) {
-			// Bad directory
-			lblTableWarning.setText("Invalid directory for export");
-		}
+    	if (targetLocation != null) {
+	    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd-HH.mm.ss");  
+	    	LocalDateTime now = LocalDateTime.now();
+	    	try {
+	    		lblTableWarning.setText("");
+				DataManager.getCurrentDataset().exportFile(targetLocation + "/" + dtf.format(now) + ".csv");
+			} catch (IOException e) {
+				// Bad directory
+				lblTableWarning.setText("Invalid directory for export");
+			}
+    	}
     }
 
     /**
