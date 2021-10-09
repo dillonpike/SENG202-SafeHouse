@@ -9,7 +9,8 @@ import java.util.stream.Collectors;
 import seng202.team8.model.CrimeRecord;
 
 /**
- * A class that contains methods to filter the crime data list based on the command given.
+ * A class of static methods that filters the various type of crimes, such as date of crime, crime primary
+ * description, crime location, etc.
  * TODO add param javadocs for crimeRecordData
  */
 public class SearchCrimeData {
