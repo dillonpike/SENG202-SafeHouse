@@ -208,10 +208,10 @@ public class TableController extends RecordController implements Initializable {
     public void importFile() {
         String filename = openFileLocation();
         if (filename != null) {
-            if (!filename.endsWith(".csv")) {
+            if (!filename.endsWith(".csv")) { // If the filetype is not csv displays an error message
                 lblTableWarning.setText("Invalid file type");
                 lblTableWarning.setStyle("-fx-text-fill: red");
-            } else if (DataManager.getCurrentDataset().isEmpty()) {
+            } else if (DataManager.getCurrentDataset().isEmpty()) { // If the current dataset is empty, automatically appends to it
                 lblTableWarning.setText("");
                 try {
                     getManager().importFile(filename);
@@ -223,7 +223,7 @@ public class TableController extends RecordController implements Initializable {
                     lblTableWarning.setText("An error has occurred with importing");
                 }
                 updateTable();
-            } else {
+            } else { // Else displays an alert asking the user if they want to append to dataset or make a new one, then does that
                 lblTableWarning.setText("");
                 Alert importAlert = new Alert(Alert.AlertType.NONE);
                 importAlert.setTitle("Choose dataset for import");
@@ -232,8 +232,8 @@ public class TableController extends RecordController implements Initializable {
                 ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
                 importAlert.getButtonTypes().setAll(btnNew, btnExisting, btnCancel);
                 importAlert.showAndWait().ifPresent(type -> {
-                    try {
-                    if (type == btnNew) {
+                try {
+                	if (type == btnNew) {
                         CrimeRecordManager newDataset = new CrimeRecordManager();
                         DataManager.addToDatasets(newDataset);
                         DataManager.setCurrentDataset(newDataset);

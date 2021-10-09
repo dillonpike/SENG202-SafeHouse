@@ -113,20 +113,6 @@ public class GUIController {
 	}
 	
 	/**
-	 * Changes the displayed page of the UI to the graph page.
-	 */
-	public void graph()  {
-		try {
-			root = FXMLLoader.load(getClass().getResource("/graph.fxml"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		stage.getScene().setRoot(root);
-		makeDraggable(root, stage);
-	}
-	
-	/**
 	 * Exits the window.
 	 */
 	public void exit() {
