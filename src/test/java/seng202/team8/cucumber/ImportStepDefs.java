@@ -1,5 +1,6 @@
 package seng202.team8.cucumber;
 
+import com.opencsv.exceptions.CsvValidationException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -7,6 +8,7 @@ import org.junit.Assert;
 import seng202.team8.controller.CrimeRecordManager;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Step definitions for the Importing.feature Cucumber file.
@@ -37,6 +39,9 @@ public class ImportStepDefs {
             manager.importFile(filename);
         } catch (FileNotFoundException ex) {
             System.out.println("The file wasn't found!");
+            ex.printStackTrace();
+        } catch (IOException | CsvValidationException ex) {
+            System.out.println("The file couldn't be imported!");
             ex.printStackTrace();
         }
     }

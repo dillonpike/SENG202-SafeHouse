@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * A controller for GUI elements of the map screen
+ * Contains attributes and methods for controlling the map screen
+ * of the GUI
+ */
 public class MapController extends RecordController implements Initializable {
 
     /**

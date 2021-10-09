@@ -1,5 +1,6 @@
 package seng202.team8.controller.gui;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -207,19 +208,22 @@ public class TableController extends RecordController implements Initializable {
     public void importFile() {
         String filename = openFileLocation();
         if (filename != null) {
-            if (!filename.endsWith(".csv")) {
+            if (!filename.endsWith(".csv")) { // If the filetype is not csv displays an error message
                 lblTableWarning.setText("Invalid file type");
                 lblTableWarning.setStyle("-fx-text-fill: red");
-            } else if (DataManager.getCurrentDataset().isEmpty()) {
+            } else if (DataManager.getCurrentDataset().isEmpty()) { // If the current dataset is empty, automatically appends to it
                 lblTableWarning.setText("");
                 try {
                     getManager().importFile(filename);
                 } catch (FileNotFoundException e) {
                     // File not found
-                    e.printStackTrace();
+                    lblTableWarning.setText("File not found");
+                } catch (IOException | CsvValidationException ex) {
+                    // An error occured with importing
+                    lblTableWarning.setText("An error has occurred with importing");
                 }
                 updateTable();
-            } else {
+            } else { // Else displays an alert asking the user if they want to append to dataset or make a new one, then does that
                 lblTableWarning.setText("");
                 Alert importAlert = new Alert(Alert.AlertType.NONE);
                 importAlert.setTitle("Choose dataset for import");
@@ -228,28 +232,29 @@ public class TableController extends RecordController implements Initializable {
                 ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
                 importAlert.getButtonTypes().setAll(btnNew, btnExisting, btnCancel);
                 importAlert.showAndWait().ifPresent(type -> {
-                    if (type == btnNew) {
+                try {
+                	if (type == btnNew) {
                         CrimeRecordManager newDataset = new CrimeRecordManager();
                         DataManager.addToDatasets(newDataset);
                         DataManager.setCurrentDataset(newDataset);
-                        try {
-                            newDataset.importFile(filename);
-                            updateTable();
-                            cbDataset.getItems().add("Dataset " + DataManager.getDatasets().size());
-                            cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
-                        } catch (FileNotFoundException e) {
-                            // File not found
-                            e.printStackTrace();
-                        }
+
+                        newDataset.importFile(filename);
+                        updateTable();
+                        cbDataset.getItems().add("Dataset " + DataManager.getDatasets().size());
+                        cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
+
                     } else if (type == btnExisting) {
-                        try {
-                            getManager().importFile(filename);
-                            //Update the screen
-                            updateTable();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
+                        getManager().importFile(filename);
+                        //Update the screen
+                        updateTable();
                     }
+                } catch (FileNotFoundException e) {
+                    // File not found
+                    lblTableWarning.setText("File not found");
+                } catch (IOException | CsvValidationException ex) {
+                    // An error occured with importing
+                    lblTableWarning.setText("An error has occurred with importing");
+                }
                 });
             }
         }
@@ -260,10 +265,11 @@ public class TableController extends RecordController implements Initializable {
     	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd-HH.mm.ss");  
     	LocalDateTime now = LocalDateTime.now();
     	try {
+    		lblTableWarning.setText("");
 			DataManager.getCurrentDataset().exportFile(targetLocation + "/" + dtf.format(now) + ".csv");
 		} catch (IOException e) {
 			// Bad directory
-			e.printStackTrace();
+			lblTableWarning.setText("Invalid directory for export");
 		}
     }
 

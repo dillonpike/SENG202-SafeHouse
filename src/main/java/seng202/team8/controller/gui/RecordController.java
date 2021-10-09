@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -202,13 +204,7 @@ public class RecordController extends GUIController {
         openRecords.setTitle("Import Crime Data");
         File toImport = openRecords.showOpenDialog(stage);
         String path = null;
-        try {
-            path = toImport.getAbsolutePath();
-        } catch (NullPointerException e) {
-            // TODO add popup for not being able to access file (maybe in caller method?)
-        } catch (SecurityException e){
-            // TODO add popup for not being able to access file (maybe in caller method?)
-        }
+        path = toImport.getAbsolutePath();
         return path;
     }
 
@@ -222,13 +218,7 @@ public class RecordController extends GUIController {
         openFolder.setTitle("Select Folder for Export");
         File selectedFolder = openFolder.showDialog(stage);
         String path = null;
-        try {
-            path = selectedFolder.getAbsolutePath();
-        } catch (NullPointerException e) {
-            // TODO add popup for not being able to access file (maybe in caller method?)
-        } catch (SecurityException e){
-            // TODO add popup for not being able to access file (maybe in caller method?)
-        }
+        path = selectedFolder.getAbsolutePath();
         return path;
     }
 }
