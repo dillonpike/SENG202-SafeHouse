@@ -153,8 +153,8 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <DatePicker fx:id="startDatePicker" layoutX="13.0" layoutY="76.0" onAction="#filterTable" onKeyTyped="#filterTable" promptText="Start Date" />
-            <DatePicker fx:id="endDatePicker" layoutX="13.0" layoutY="107.0" onAction="#filterTable" onKeyTyped="#filterTable" promptText="End Date" />
+            <DatePicker fx:id="startDatePicker" layoutX="13.0" layoutY="76.0" onAction="#filterTable" onKeyReleased="#filterTable" promptText="Start Date" />
+            <DatePicker fx:id="endDatePicker" layoutX="13.0" layoutY="107.0" onAction="#filterTable" onKeyReleased="#filterTable" promptText="End Date" />
             <Text fx:id="startDateText" fill="RED" layoutX="94.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
             <Text fx:id="endDateText" fill="RED" layoutX="94.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
             <Text layoutX="39.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Description">

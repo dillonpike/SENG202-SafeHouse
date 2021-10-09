@@ -110,18 +110,17 @@ public class MapController extends RecordController implements Initializable {
                  */
                 throw new NumberFormatException("Wrong Size!");
             }
-            //Clear the text
+            // Clear the text
             markNumberText.setText("");
-            //Clear any current markers
+            // Clear any current markers
             String scriptToExecute = "deleteMarkers();";
             webEngine.executeScript(scriptToExecute);
-            //Map them
+            // Map them
             placeNumMarkers(records, quantity);
 
         } catch (NumberFormatException e) {
-            //Display the text
+            // Display the text
             markNumberText.setText("Please enter a number between 1 and 1000");
         }
-
     }
 }

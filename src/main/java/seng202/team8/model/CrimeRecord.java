@@ -5,8 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
- * A basic crime record class, currently consisting of only attributes
- * as well as getters and setters
+ * Models a crime record. Contains attributes, getters and setters, and conversion methods.
  */
 public class CrimeRecord {
 
@@ -21,7 +20,7 @@ public class CrimeRecord {
     private LocalDate date;
 
     /**
-     * Time of the crime
+     * Time of the crime.
      */
     private LocalTime time;
 
