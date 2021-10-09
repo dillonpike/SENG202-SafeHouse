@@ -204,7 +204,9 @@ public class RecordController extends GUIController {
         openRecords.setTitle("Import Crime Data");
         File toImport = openRecords.showOpenDialog(stage);
         String path = null;
-        path = toImport.getAbsolutePath();
+        if (toImport != null) {
+        	path = toImport.getAbsolutePath();
+        }
         return path;
     }
 
@@ -218,7 +220,9 @@ public class RecordController extends GUIController {
         openFolder.setTitle("Select Folder for Export");
         File selectedFolder = openFolder.showDialog(stage);
         String path = null;
-        path = selectedFolder.getAbsolutePath();
+        if (selectedFolder != null) {
+        	path = selectedFolder.getAbsolutePath();
+        }
         return path;
     }
 }
