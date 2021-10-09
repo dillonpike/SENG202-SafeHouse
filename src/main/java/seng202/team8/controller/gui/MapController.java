@@ -1,5 +1,6 @@
 package seng202.team8.controller.gui;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -57,6 +58,17 @@ public class MapController extends RecordController implements Initializable {
     }
 
     /**
+     * Resets and filters list of records stored in the controller then updates the screen's record display (map
+     * in this case) with them.
+     */
+    @Override
+    public void updateRecordDisplay() {
+        lblFeedback.setText("");
+        filterRecords();
+        mapRecords();
+    }
+
+    /**
      * Places a marker on the map for the first 'number' crime records in the given ArrayList.
      * Performance drops quite low when 1000 or so markers are placed.
      * @param records ArrayList of CrimeRecords to be marked on the map
@@ -90,16 +102,14 @@ public class MapController extends RecordController implements Initializable {
      */
     public void filterMap() {
         if (realTimeCheckBox.isSelected()) {
-            mapRecords();
+            updateRecordDisplay();
         }
     }
 
     /**
-     * Resets the list of records stored in the controller to the full dataset, applies filters based on
-     * the user's input in the GUI's attributes, then updates the map by placing a marker for each record.
+     * Places a marker for each record stored in the controller.
      */
     public void mapRecords() {
-        filterRecords();
         try {
             String input = markNumberField.getText();
             int quantity = Integer.parseInt(input);
@@ -123,4 +133,5 @@ public class MapController extends RecordController implements Initializable {
             markNumberText.setText("Please enter a number between 1 and 1000");
         }
     }
+
 }

@@ -1,28 +1,29 @@
 package seng202.team8.controller.gui;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.*;
+import seng202.team8.controller.CrimeRecordManager;
+import seng202.team8.controller.DataManager;
 import seng202.team8.controller.SearchCrimeData;
 import seng202.team8.model.CrimeRecord;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
  * Parent class for GUI controllers that can display, filter, and manipulate records.
  */
-public class RecordController extends GUIController {
+public abstract class RecordController extends GUIController {
 
     /**
      * Crime records displayed in recordTable.
@@ -132,6 +133,18 @@ public class RecordController extends GUIController {
     protected CheckBox realTimeCheckBox;
 
     /**
+     * ChoiceBox for selecting a dataset to view.
+     */
+    @FXML
+    protected ChoiceBox<String> cbDataset;
+
+    /**
+     * Label for displaying user feedback that's not associated with a GUI element.
+     */
+    @FXML
+    protected Label lblFeedback;
+
+    /**
      * Initializes the attributes of the GUI screen.
      */
     protected void initializeAttributes() {
@@ -143,14 +156,29 @@ public class RecordController extends GUIController {
         startWardText.setText("");
         endWardText.setText("");
 
-        // Combo box initialization
+        // Filter combo box
         arrestComboBox.getItems().addAll("Don't filter", "Yes", "No");
         domesticComboBox.getItems().addAll("Don't filter", "Yes", "No");
         arrestComboBox.getSelectionModel().select("Don't filter");
         domesticComboBox.getSelectionModel().select("Don't filter");
 
         records = getManager().getLocalCopy();
+
+        for (int i=1; i <= DataManager.getDatasets().size(); i++) {
+            cbDataset.getItems().add("Dataset " + i);
+        }
+        cbDataset.getSelectionModel().select(DataManager.getDatasets().indexOf(DataManager.getCurrentDataset()));
+        cbDataset.setOnAction(event -> {
+            DataManager.setCurrentDataset(DataManager.getDatasets().get(cbDataset.getSelectionModel().getSelectedIndex()));
+            updateRecordDisplay();
+        });
     }
+
+    /**
+     * Resets and filters the current list of records stored in the controller then updates the screen's record
+     * display with them.
+     */
+    public abstract void updateRecordDisplay();
 
     /**
      * Resets the list of records stored in the controller to the full dataset and then applies filters based on
@@ -171,6 +199,15 @@ public class RecordController extends GUIController {
         }
     }
 
+    /**
+     * Calls the method to open the window for adding a new record, then initialises the table controller in the
+     * window as this current object.
+     */
+    public void addRecord() {
+        lblFeedback.setText("");
+        AddRecordController addController = openAddRecord();
+        addController.currentController = this;
+    }
 
     /**
      * Opens a popup window for adding a new record.
@@ -224,5 +261,84 @@ public class RecordController extends GUIController {
         	path = selectedFolder.getAbsolutePath();
         }
         return path;
+    }
+
+    /**
+     * Calls the method to locate a file through Windows Explorer then passes it to the CrimeRecordManager
+     * for importing. Updates the table after.
+     */
+    public void importFile() {
+        String filename = openFileLocation();
+        if (filename != null) {
+            if (!filename.endsWith(".csv")) { // If the filetype is not csv displays an error message
+                lblFeedback.setText("Invalid file type");
+                lblFeedback.setStyle("-fx-text-fill: red");
+            } else if (DataManager.getCurrentDataset().isEmpty()) { // If the current dataset is empty, automatically appends to it
+                lblFeedback.setText("");
+                try {
+                    int errorCount = getManager().importFile(filename).size();
+                    if (errorCount > 0) {
+                        lblFeedback.setText("File imported with " + errorCount + " errors.");
+                    }
+                } catch (FileNotFoundException e) {
+                    // File not found
+                    lblFeedback.setText("File not found");
+                } catch (IOException | CsvValidationException ex) {
+                    // An error occured with importing
+                    lblFeedback.setText("An error has occurred with importing");
+                }
+                updateRecordDisplay();
+            } else { // Else displays an alert asking the user if they want to append to dataset or make a new one, then does that
+                lblFeedback.setText("");
+                Alert importAlert = new Alert(Alert.AlertType.NONE);
+                importAlert.setTitle("Choose dataset for import");
+                ButtonType btnNew = new ButtonType("Create new dataset", ButtonBar.ButtonData.YES);
+                ButtonType btnExisting = new ButtonType("Add to current dataset", ButtonBar.ButtonData.NO);
+                ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                importAlert.getButtonTypes().setAll(btnNew, btnExisting, btnCancel);
+                importAlert.showAndWait().ifPresent(type -> {
+                    try {
+                        if (type == btnNew) {
+                            CrimeRecordManager newDataset = new CrimeRecordManager();
+                            DataManager.addToDatasets(newDataset);
+                            DataManager.setCurrentDataset(newDataset);
+                            int errorCount = newDataset.importFile(filename).size();
+                            if (errorCount > 0) {
+                                lblFeedback.setText("File imported with " + errorCount + " errors.");
+                            }
+                            updateRecordDisplay();
+                            cbDataset.getItems().add("Dataset " + DataManager.getDatasets().size());
+                            cbDataset.getSelectionModel().select(DataManager.getDatasets().size() - 1);
+
+                        } else if (type == btnExisting) {
+                            getManager().importFile(filename);
+                            //Update the screen
+                            updateRecordDisplay();
+                        }
+                    } catch (FileNotFoundException e) {
+                        // File not found
+                        lblFeedback.setText("File not found");
+                    } catch (IOException | CsvValidationException ex) {
+                        // An error occured with importing
+                        lblFeedback.setText("An error has occurred with importing");
+                    }
+                });
+            }
+        }
+    }
+
+    public void exportFile() {
+        String targetLocation = openDirectoryLocation();
+        if (targetLocation != null) {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd-HH.mm.ss");
+            LocalDateTime now = LocalDateTime.now();
+            try {
+                lblFeedback.setText("");
+                DataManager.getCurrentDataset().exportFile(targetLocation + "/" + dtf.format(now) + ".csv");
+            } catch (IOException e) {
+                // Bad directory
+                lblFeedback.setText("Invalid directory for export");
+            }
+        }
     }
 }

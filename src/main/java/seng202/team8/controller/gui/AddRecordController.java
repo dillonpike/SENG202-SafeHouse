@@ -139,9 +139,9 @@ public class AddRecordController extends GUIController implements Initializable 
     public CrimeRecord toEdit = null;
     
     /**
-     * The current TableController window, used to notify the table something has changed.
+     * The controller of the current window, used to notify the table something has changed.
      */
-    public TableController currentTable;
+    public RecordController currentController;
 
     /**
      * Warning message shown to the user in the event they input invalid data for case#.
@@ -244,8 +244,7 @@ public class AddRecordController extends GUIController implements Initializable 
     		Stage addRecordPopup = (Stage) fldArrest.getScene().getWindow();
     		addRecordPopup.close();
 
-			currentTable.filterTable();
-			currentTable.updateTable();
+			currentController.updateRecordDisplay();
     	}
     }
     

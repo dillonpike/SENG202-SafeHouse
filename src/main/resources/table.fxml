@@ -63,7 +63,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button layoutX="475.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="44.0" prefWidth="125.0" text="Refresh">
+                  <Button layoutX="475.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateRecordDisplay" prefHeight="44.0" prefWidth="125.0" text="Refresh">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -74,7 +74,7 @@
                </opaqueInsets>
             </HBox>
             <ChoiceBox fx:id="cbDataset" layoutY="14.0" prefWidth="150.0" />
-            <Label fx:id="lblTableWarning" alignment="CENTER" layoutX="132.0" layoutY="557.0" prefHeight="30.0" prefWidth="517.0" textAlignment="CENTER">
+            <Label fx:id="lblFeedback" alignment="CENTER" layoutX="132.0" layoutY="557.0" prefHeight="30.0" prefWidth="517.0" textAlignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
@@ -199,7 +199,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <CheckBox fx:id="realTimeCheckBox" layoutX="23.0" layoutY="515.0" mnemonicParsing="false" onAction="#updateTable" selected="true" text="Real-time Updating">
+            <CheckBox fx:id="realTimeCheckBox" layoutX="23.0" layoutY="515.0" mnemonicParsing="false" onAction="#updateRecordDisplay" selected="true" text="Real-time Updating">
                <font>
                   <Font size="14.0" />
                </font>

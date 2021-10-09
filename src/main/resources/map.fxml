@@ -4,8 +4,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
@@ -17,74 +19,45 @@
 
 <BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.gui.MapController">
    <center>
-      <Pane prefHeight="620.0" prefWidth="1280.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="620.0" prefWidth="1080.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
          <children>
-            <WebView fx:id="mapView" layoutX="209.0" layoutY="10.0" prefWidth="1031.0" />
-            <Pane prefHeight="200.0" prefWidth="200.0">
+            <WebView fx:id="mapView" layoutY="60.0" prefHeight="446.0" prefWidth="1068.0" />
+            <ChoiceBox fx:id="cbDataset" layoutY="14.0" prefWidth="150.0" />
+            <HBox layoutY="512.0" prefHeight="45.0" prefWidth="537.0" spacing="5.0">
                <children>
-                  <Text layoutX="57.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtering">
+                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#addRecord" prefHeight="44.0" prefWidth="125.0" text="Add">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="20.0" />
                      </font>
-                  </Text>
-                  <Text layoutX="64.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Range">
+                  </Button>
+                  <Button fx:id="btnImport" mnemonicParsing="false" onAction="#importFile" prefHeight="44.0" prefWidth="125.0" text="Import">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="20.0" />
                      </font>
-                  </Text>
-                  <DatePicker fx:id="startDatePicker" layoutX="13.0" layoutY="76.0" onAction="#filterMap" onKeyReleased="#filterMap" promptText="Start Date" />
-                  <DatePicker fx:id="endDatePicker" layoutX="13.0" layoutY="107.0" onAction="#filterMap" onKeyReleased="#filterMap" promptText="End Date" />
-                  <Text fx:id="startDateText" fill="RED" layoutX="94.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
-                  <Text fx:id="endDateText" fill="RED" layoutX="94.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
-                  <Text layoutX="39.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Description">
+                  </Button>
+                  <Button fx:id="btnExport" layoutX="165.0" layoutY="10.0" mnemonicParsing="false" onAction="#exportFile" prefHeight="44.0" prefWidth="125.0" text="Export">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="20.0" />
                      </font>
-                  </Text>
-                  <TextField fx:id="primaryDescField" layoutX="25.0" layoutY="160.0" onKeyTyped="#filterMap" />
-                  <Text layoutX="73.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#updateRecordDisplay" prefHeight="48.0" prefWidth="143.0" text="Map It!">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="20.0" />
                      </font>
-                  </Text>
-                  <TextField fx:id="locationField" layoutX="25.0" layoutY="211.0" onKeyTyped="#filterMap" />
-                  <Text layoutX="64.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beat Range">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="startBeatField" layoutX="26.0" layoutY="262.0" onKeyTyped="#filterMap" promptText="Start Beat" />
-                  <TextField fx:id="endBeatField" layoutX="26.0" layoutY="293.0" onKeyTyped="#filterMap" promptText="End Beat" />
-                  <Text fx:id="startBeatText" fill="RED" layoutX="105.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
-                  <Text fx:id="endBeatText" fill="RED" layoutX="105.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
-                  <Text layoutX="64.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ward Range">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="startWardField" layoutX="26.0" layoutY="344.0" onKeyTyped="#filterMap" promptText="Start Ward" />
-                  <TextField fx:id="endWardField" layoutX="26.0" layoutY="375.0" onKeyTyped="#filterMap" promptText="End Ward" />
-                  <Text fx:id="startWardText" fill="RED" layoutX="101.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
-                  <Text fx:id="endWardText" fill="RED" layoutX="101.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
-                  <ComboBox fx:id="arrestComboBox" layoutX="24.0" layoutY="426.0" onAction="#filterMap" prefWidth="150.0" visibleRowCount="3" />
-                  <ComboBox fx:id="domesticComboBox" layoutX="24.0" layoutY="477.0" onAction="#filterMap" prefWidth="150.0" />
-                  <Text layoutX="82.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrest">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="72.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Domestic">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
+                  </Button>
                </children>
-            </Pane>
-            <CheckBox fx:id="realTimeCheckBox" layoutX="23.0" layoutY="515.0" mnemonicParsing="false" onAction="#mapRecords" selected="true" text="Real-time Updating">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+            <TextField fx:id="markNumberField" layoutX="579.0" layoutY="531.0" onAction="#filterMap" onKeyTyped="#filterMap" />
+            <Text layoutX="540.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How many records would you like to mark:" />
+            <Text fx:id="markNumberText" fill="RED" layoutX="538.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter a number between 1 and 1000" />
+            <Label fx:id="lblFeedback" alignment="CENTER" layoutX="10.0" layoutY="558.0" prefHeight="30.0" prefWidth="517.0" textAlignment="CENTER">
                <font>
-                  <Font size="14.0" />
+                  <Font size="20.0" />
                </font>
-            </CheckBox>
+            </Label>
          </children></Pane>
    </center>
    <top>
@@ -139,20 +112,77 @@
          </padding>
          <children>
             <ToolBar prefHeight="40.0" prefWidth="420.0" style="-fx-background-color: D6D6D6;" />
-            <Pane prefHeight="50.0" prefWidth="420.0">
-               <children>
-                  <Button layoutX="6.0" layoutY="-1.0" mnemonicParsing="false" onAction="#mapRecords" prefHeight="48.0" prefWidth="143.0" text="Map It!">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-                  <TextField fx:id="markNumberField" layoutX="197.0" layoutY="24.0" onAction="#filterMap" onKeyTyped="#filterMap" />
-                  <Text layoutX="158.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How many records would you like to mark:" />
-                  <Text fx:id="markNumberText" fill="RED" layoutX="157.0" layoutY="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter a number between 1 and 1000" />
-               </children></Pane>
+            <Pane prefHeight="50.0" prefWidth="420.0" />
          </children></HBox>
    </bottom>
    <stylesheets>
  <URL value="@application.css" />
  </stylesheets>
+   <left>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="57.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtering">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text layoutX="64.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Range">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="startDatePicker" layoutX="13.0" layoutY="76.0" onAction="#filterMap" onKeyReleased="#filterMap" promptText="Start Date" />
+            <DatePicker fx:id="endDatePicker" layoutX="13.0" layoutY="107.0" onAction="#filterMap" onKeyReleased="#filterMap" promptText="End Date" />
+            <Text fx:id="startDateText" fill="RED" layoutX="94.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
+            <Text fx:id="endDateText" fill="RED" layoutX="94.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
+            <Text layoutX="39.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Description">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="primaryDescField" layoutX="25.0" layoutY="160.0" onKeyTyped="#filterMap" />
+            <Text layoutX="73.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="locationField" layoutX="25.0" layoutY="211.0" onKeyTyped="#filterMap" />
+            <Text layoutX="64.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beat Range">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="startBeatField" layoutX="26.0" layoutY="262.0" onKeyTyped="#filterMap" promptText="Start Beat" />
+            <TextField fx:id="endBeatField" layoutX="26.0" layoutY="293.0" onKeyTyped="#filterMap" promptText="End Beat" />
+            <Text fx:id="startBeatText" fill="RED" layoutX="105.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
+            <Text fx:id="endBeatText" fill="RED" layoutX="105.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
+            <Text layoutX="64.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ward Range">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="startWardField" layoutX="26.0" layoutY="344.0" onKeyTyped="#filterMap" promptText="Start Ward" />
+            <TextField fx:id="endWardField" layoutX="26.0" layoutY="375.0" onKeyTyped="#filterMap" promptText="End Ward" />
+            <Text fx:id="startWardText" fill="RED" layoutX="101.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
+            <Text fx:id="endWardText" fill="RED" layoutX="101.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
+            <ComboBox fx:id="arrestComboBox" layoutX="24.0" layoutY="426.0" onAction="#filterMap" prefWidth="150.0" visibleRowCount="3" />
+            <ComboBox fx:id="domesticComboBox" layoutX="24.0" layoutY="477.0" onAction="#filterMap" prefWidth="150.0" />
+            <Text layoutX="82.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrest">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="72.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Domestic">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <CheckBox fx:id="realTimeCheckBox" layoutX="23.0" layoutY="515.0" mnemonicParsing="false" onAction="#updateRecordDisplay" selected="true" text="Real-time Updating">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </Pane>
+   </left>
 </BorderPane>
