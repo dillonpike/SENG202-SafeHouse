@@ -7,7 +7,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = {"src/test/resources/features/Importing.feature"},
+        features = {"src/test/resources/features/Importing.feature",
+        "src/test/resources/features/Exporting.feature",
+        "src/test/resources/features/Filtering.feature",
+        "src/test/resources/features/RecordManipulation.feature"},
         /*
         We must reference our step definitions - our glue - like a class
         Hence the periods instead of slashes.
