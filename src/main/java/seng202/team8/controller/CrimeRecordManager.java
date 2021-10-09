@@ -171,6 +171,19 @@ public class CrimeRecordManager {
             newCrime.setPrimary(data[4]);
             newCrime.setLatitude(Double.parseDouble(data[14]));
             newCrime.setLongitude(Double.parseDouble(data[15]));
+            /*
+            Because we want to skip the record if any of these
+            attributes are invalid, we can just check them
+            all at once
+             */
+            if (!(ValidateCrime.validateCaseNum(data[0])
+            && ValidateCrime.validateIucr(newCrime.getIucr())
+            && ValidateCrime.validatePrimary(data[4])
+            && ValidateCrime.validateLatitude(data[14])
+            && ValidateCrime.validateLongitude(data[15]))
+            ) {
+                throw new Exception("Something's wrong!");
+            }
             return true;
         } catch (Exception ex) {
             /*
@@ -239,7 +252,9 @@ public class CrimeRecordManager {
         } catch (NumberFormatException ex) {
             // Leave the beat with no value
         }
-        newCrime.setFbiCD(data[11]);
+        if (ValidateCrime.validateFbiCD(data[11])) {
+            newCrime.setFbiCD(data[11]);
+        }
         try {
             newCrime.setXCoord(Integer.parseInt(data[12]));
             newCrime.setYCoord(Integer.parseInt(data[13]));
@@ -247,11 +262,13 @@ public class CrimeRecordManager {
         catch (NumberFormatException ex) {
             // Do nothing and leave the two fields blank.
         } catch (ArrayIndexOutOfBoundsException ex) {
-            // These values don't seem to exist!
             /*
+            These values don't seem to exist!
             This hopefully shouldn't happen thanks to the limit settings
             of the split method.
-            */
+
+            Regardless, we should not add these values.
+             */
         }
 
     }
