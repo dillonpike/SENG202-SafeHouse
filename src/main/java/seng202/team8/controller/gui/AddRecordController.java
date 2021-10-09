@@ -23,7 +23,7 @@ import seng202.team8.model.CrimeRecord;
 import javafx.fxml.Initializable;
 
 /**
- *
+ * A pop up window to collect user input for editing or adding a new crime record, functionality is shared between the two and determined by a toEdit boolean.
  */
 public class AddRecordController extends GUIController implements Initializable {
 
