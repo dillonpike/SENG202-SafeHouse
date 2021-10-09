@@ -337,9 +337,10 @@ public class AddRecordController extends GUIController implements Initializable 
      * @return true if the value is accepted, false otherwise.
      */
 	private boolean checkLat() {
-    	if (!ValidateCrime.validateDouble(fldLat.getText())) {
+    	if (!ValidateCrime.validateLatitude(fldLat.getText())) {
     		fldLat.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
-    		lblLatWarning.setText("Must be a valid decimal.");
+    		lblLatWarning.setText("Must be decimal between " + ValidateCrime.MIN_LATITUDE + " and " +
+								  ValidateCrime.MAX_LATITUDE + ".");
     		lblLatWarning.setStyle("-fx-text-fill: red");
     		return false;
     	} else {
@@ -353,9 +354,10 @@ public class AddRecordController extends GUIController implements Initializable 
      * @return true if the value is accepted, false otherwise.
      */
 	private boolean checkLon() {
-    	if (!ValidateCrime.validateDouble(fldLon.getText())) {
+    	if (!ValidateCrime.validateLongitude(fldLon.getText())) {
     		fldLon.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
-    		lblLonWarning.setText("Must be a valid decimal.");
+			lblLonWarning.setText("Must be a decimal between " + ValidateCrime.MIN_LONGITUDE + " and " +
+								  ValidateCrime.MAX_LONGITUDE + ".");
     		lblLonWarning.setStyle("-fx-text-fill: red");
     		return false;
     	} else {

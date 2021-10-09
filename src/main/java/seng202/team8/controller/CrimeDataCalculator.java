@@ -39,8 +39,7 @@ public class CrimeDataCalculator {
         // Converting the crime distance to string to 2 decimal places and then converting
         // float and returning it
         String stringCrimeDistance = String.format("%.2f", (c * radiusOfEarth));
-        double crimeDistance = Double.parseDouble(stringCrimeDistance);
-        return crimeDistance;
+        return Double.parseDouble(stringCrimeDistance);
     }
 
     /**
@@ -65,10 +64,9 @@ public class CrimeDataCalculator {
         long differenceYears = (differenceTime / (1000L * 60 * 60 * 24 * 365));
         long differenceDays = (differenceTime / (1000 * 60 * 60 * 24)) % 365;
 
-        String date_Time_Difference = differenceYears + " years, " +
+        return differenceYears + " years, " +
                 differenceDays + " days, " + differenceHours + " hours, " +
                 differenceMinutes + " minutes and " + differenceSeconds + " seconds";
-        return date_Time_Difference;
     }
 
 }

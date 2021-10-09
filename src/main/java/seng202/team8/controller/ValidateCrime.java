@@ -13,20 +13,40 @@ package seng202.team8.controller;
 public class ValidateCrime {
 
     /**
+     * Minimum latitude value.
+     */
+     public static final int MIN_LATITUDE = -90;
+
+    /**
+     * Maximum latitude value.
+     */
+    public static final int MAX_LATITUDE = 90;
+
+    /**
+     * Minimum longitude value.
+     */
+    public static final int MIN_LONGITUDE = -180;
+
+    /**
+     * Maximum longitude value.
+     */
+    public static final int MAX_LONGITUDE = 180;
+
+    /**
      * Checks if a case number is valid or not
      * The first two characters should be letters
      * And the rest should be numbers
      * @param caseNum The string to be validated
      * @return True if the case number is valid, false otherwise
      */
-    public static boolean validateCaseNum (String caseNum) {
+    public static boolean validateCaseNum(String caseNum) {
         try {
             boolean letters = caseNum.substring(0, 2).matches("[a-zA-Z]+");
             boolean numbers = caseNum.substring(2).matches("[0-9]+");
 
             return (letters && numbers);
         } catch(StringIndexOutOfBoundsException e) {
-            //The string is not long enough to be valid
+            // The string is not long enough to be valid
             return false;
         }
     }
@@ -39,7 +59,7 @@ public class ValidateCrime {
      * @param candidate The string to be validated
      * @return True if valid, false otherwise
      */
-    public static boolean validateIucr (String candidate) {
+    public static boolean validateIucr(String candidate) {
         return (candidate.length() == 4);
     }
 
@@ -60,8 +80,8 @@ public class ValidateCrime {
      * @param primary The string to be validated
      * @return True if valid, false otherwise
      */
-    public static boolean validatePrimary (String primary) {
-        //Is valid if it conforms to the regex and isn't empty
+    public static boolean validatePrimary(String primary) {
+        // Is valid if it conforms to the regex and isn't empty
         boolean format = primary.matches("[a-zA-Z\\s]+");
         boolean onlyWhitespace = primary.matches("[\\s]+");
         return format && !(onlyWhitespace);
@@ -74,7 +94,7 @@ public class ValidateCrime {
      * @param candidate The string to be validated
      * @return True if valid, false otherwise
      */
-    public static boolean validateInt (String candidate) {
+    public static boolean validateInt(String candidate) {
         try {
             Integer.parseInt(candidate);
             return true;
@@ -84,13 +104,40 @@ public class ValidateCrime {
     }
 
     /**
+     * Returns true if latitudeString can be converted to a double and is a valid latitude value,
+     * otherwise returns false.
+     * @param latitudeString latitude as a string
+     * @return true if latitudeString is valid, otherwise false
+     */
+    public static boolean validateLatitude(String latitudeString) {
+        if (validateDouble(latitudeString)) {
+            double latitude = Double.parseDouble(latitudeString);
+            return MIN_LATITUDE <= latitude && latitude <= MAX_LATITUDE;
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if longitudeString can be converted to a double and is a valid longitude value,
+     * otherwise returns false.
+     * @param longitudeString longitude as a string
+     * @return true if longitudeString is valid, otherwise false
+     */
+    public static boolean validateLongitude(String longitudeString) {
+        if (validateDouble(longitudeString)) {
+            double longitude = Double.parseDouble(longitudeString);
+            return MIN_LONGITUDE <= longitude && longitude <= MAX_LONGITUDE;
+        }
+        return false;
+    }
+
+    /**
      * Validates if a string can be read as a double
-     * This is for latitude and longitude fields
-     * Any valid double is considered a valid lat/lon
+     * This is for latitude and longitude fields.
      * @param candidate The string to be validated
      * @return True if valid, false otherwise
      */
-    public static boolean validateDouble (String candidate) {
+    private static boolean validateDouble(String candidate) {
         try {
             Double.parseDouble(candidate);
             return true;
@@ -110,10 +157,10 @@ public class ValidateCrime {
      * @param candidate the String to be validated
      * @return True if valid, false if not
      */
-    public static boolean validateFbiCD (String candidate) {
+    public static boolean validateFbiCD(String candidate) {
         try {
             int length = candidate.length();
-            //The final character of the candidate
+            // The final character of the candidate
             boolean suffix = candidate.substring(length - 1).matches("[a-zA-Z0-9]");
             boolean prefix = candidate.substring(0, length - 1).matches("[0-9]+");
 

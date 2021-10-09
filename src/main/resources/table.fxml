@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.gui.TableController">
+<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.gui.TableController">
    <center>
       <Pane id="stuff" prefHeight="620.0" prefWidth="780.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
          <children>
@@ -158,8 +158,8 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <DatePicker fx:id="startDatePicker" layoutX="13.0" layoutY="76.0" onAction="#filterTable" onKeyTyped="#filterTable" promptText="Start Date" />
-            <DatePicker fx:id="endDatePicker" layoutX="13.0" layoutY="107.0" onAction="#filterTable" onKeyTyped="#filterTable" promptText="End Date" />
+            <DatePicker fx:id="startDatePicker" layoutX="13.0" layoutY="76.0" onAction="#filterTable" onKeyReleased="#filterTable" promptText="Start Date" />
+            <DatePicker fx:id="endDatePicker" layoutX="13.0" layoutY="107.0" onAction="#filterTable" onKeyReleased="#filterTable" promptText="End Date" />
             <Text fx:id="startDateText" fill="RED" layoutX="94.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
             <Text fx:id="endDateText" fill="RED" layoutX="94.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
             <Text layoutX="39.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Description">
