@@ -1,20 +1,13 @@
 package seng202.team8.controller.gui;
 
-import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import seng202.team8.controller.CrimeRecordManager;
-import seng202.team8.controller.DataManager;
 import seng202.team8.model.CrimeRecord;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
@@ -178,6 +171,14 @@ public class TableController extends RecordController implements Initializable {
         clmWard.setCellValueFactory(new PropertyValueFactory<>("ward"));
         initializeAttributes();
         updateRecordDisplay();
+    }
+
+    /**
+     * Stores nothing because it has no information to store that's unique to RecordController.
+     */
+    @Override
+    protected void storeUniqueInfo() {
+        // Do nothing
     }
 
     /**

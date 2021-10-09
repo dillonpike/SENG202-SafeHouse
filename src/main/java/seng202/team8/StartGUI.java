@@ -2,7 +2,7 @@ package seng202.team8;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seng202.team8.controller.gui.GUIController;
+import seng202.team8.controller.gui.BasicController;
 
 /**
  * Initializes and loads the main window of the application.
@@ -17,7 +17,7 @@ public class StartGUI extends Application {
 	/**
 	 * Controller of the main window.
 	 */
-	public static GUIController controller;
+	public static BasicController controller;
 
 	/**
 	 * Starts the application by instantiating the controller for the initial screen and starting it with primaryStage.
@@ -27,7 +27,7 @@ public class StartGUI extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			StartGUI.primaryStage = primaryStage;
-			controller = new GUIController();
+			controller = new BasicController();
 			controller.start(primaryStage);
 		} catch(Exception e) {
 			e.printStackTrace();

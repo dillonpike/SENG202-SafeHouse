@@ -23,8 +23,8 @@
 	let infoWindow;
 
 	/**
-	 * Function to create the map
-	 * Positions the map in Chigaco by default
+	 * Function to create the map.
+	 * Positions the map in Chicago by default.
 	 */
 	function initMap() {
 		map = new google.maps.Map(document.getElementById('map'), {
@@ -40,7 +40,7 @@
 	}
 
 	/**
-	 * Function to create a marker at the specified location
+	 * Function to create a marker at the specified location.
 	 * @param latitude The latitude of the marker (preferably in double form)
 	 * @param longitude The longitude of the marker (preferably on double form)
 	 * @param name The name of the marker (Should be the case number) in string form
@@ -79,7 +79,7 @@
 	 * Sets the map on all markers in the array
 	 * @param map The map that the markers are set to
 	 * For our purposes map is showing them
-	 * and null is hiding them
+	 * and null is hiding them.
 	 */
 	function setMapOnAll(map) {
 		for (let i = 0; i < markers.length; i++) {
@@ -88,14 +88,14 @@
 	}
 
 	/**
-	 * Hides all the markers on the map
+	 * Hides all the markers on the map.
 	 */
 	function hideMarkers() {
 		setMapOnAll(null);
 	}
 
 	/**
-	 * Deletes all the markers in the array by removing the references to them
+	 * Deletes all the markers in the array by removing the references to them.
 	 *
 	 * Hides them and then resets the array
 	 */

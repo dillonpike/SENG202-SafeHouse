@@ -12,7 +12,7 @@ import seng202.team8.StartGUI;
 /**
  * Contains controller methods and attributes used across all scenes of the GUI.
  */
-public class GUIController {
+public abstract class GUIController {
 
 	/**
 	 * Stage for the main window of the application.
@@ -43,16 +43,25 @@ public class GUIController {
 	 * Window's y-coordinate offset from centre.
 	 */
 	private double yOffset;
-	
+
+	/**
+	 * Constructs the GUIController by setting the stage to StartGUI's primary stage.
+	 */
 	public GUIController() {
 		stage = StartGUI.primaryStage;
 	}
+
+	/**
+	 * Allows children classes to store information in DataManager when swapping to another GUI screen.
+	 */
+	protected abstract void storeInfo();
 	
 	/**
 	 * Starts the UI and loads the home page, sets the style of the stage to undecorated.
 	 * @param stage stage passed by the main function to open
 	 */
 	public void start(Stage stage) {
+		storeInfo();
 		try {
 			this.stage = stage;
 			stage.initStyle(StageStyle.UNDECORATED);
@@ -74,6 +83,7 @@ public class GUIController {
 	 * Changes the displayed page of the UI to the home page.
 	 */
 	public void home()  {
+		storeInfo();
 		try {
 			root = FXMLLoader.load(getClass().getResource("/frame.fxml"));
 		} catch (IOException e) {
@@ -88,6 +98,7 @@ public class GUIController {
 	 * Changes the displayed page of the UI to the map page.
 	 */
 	public void map() {
+		storeInfo();
 		try {
 			root = FXMLLoader.load(getClass().getResource("/map.fxml"));
 		} catch (IOException e) {
@@ -102,6 +113,7 @@ public class GUIController {
 	 * Changes the displayed page of the UI to the table page.
 	 */
 	public void table() {
+		storeInfo();
 		try {
 			root = FXMLLoader.load(getClass().getResource("/table.fxml"));
 		} catch (IOException e) {
@@ -132,7 +144,6 @@ public class GUIController {
 	 * @param s stage to be made draggable
 	 */
 	public void makeDraggable(Node n, Stage s){
-
         n.setOnMousePressed(mouseEvent -> {
             xOffset = mouseEvent.getSceneX();
             yOffset = mouseEvent.getSceneY();

@@ -1,12 +1,13 @@
 package seng202.team8.controller.gui;
 
-import javafx.collections.FXCollections;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import seng202.team8.controller.DataManager;
 import seng202.team8.model.CrimeRecord;
 
 import java.net.URL;
@@ -25,13 +26,13 @@ public class MapController extends RecordController implements Initializable {
      * TextField where the user enters how many map markers to display.
      */
     @FXML
-    public TextField markNumberField;
+    private TextField markNumberField;
 
     /**
      * Text corresponding to markNumberField used to display user feedback
      */
     @FXML
-    public Text markNumberText;
+    private Text markNumberText;
 
     /**
      * GUI object that contains the map.
@@ -52,9 +53,28 @@ public class MapController extends RecordController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        markNumberText.setText("");
         webEngine = mapView.getEngine();
         webEngine.load(Objects.requireNonNull(getClass().getResource("/map.html")).toExternalForm());
+
+        // Maps the records once the web engine has loaded
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                mapRecords();
+            }
+        });
+
         initializeAttributes();
+        filterRecords();
+        markNumberField.setText(DataManager.getMarkNumber());
+    }
+
+    /**
+     * Stores the contents of markNumberField in DataManager.
+     */
+    @Override
+    protected void storeUniqueInfo() {
+        DataManager.setMarkNumber(markNumberField.getText());
     }
 
     /**

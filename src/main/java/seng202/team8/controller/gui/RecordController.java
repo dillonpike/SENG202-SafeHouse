@@ -148,22 +148,26 @@ public abstract class RecordController extends GUIController {
      * Initializes the attributes of the GUI screen.
      */
     protected void initializeAttributes() {
-        // Filter text fields
-        startDateText.setText("");
-        endDateText.setText("");
-        startBeatText.setText("");
-        endBeatText.setText("");
-        startWardText.setText("");
-        endWardText.setText("");
-
-        // Filter combo box
+        // Adds filtering combo box options
         arrestComboBox.getItems().addAll("Don't filter", "Yes", "No");
         domesticComboBox.getItems().addAll("Don't filter", "Yes", "No");
-        arrestComboBox.getSelectionModel().select("Don't filter");
-        domesticComboBox.getSelectionModel().select("Don't filter");
+
+        // Enters stored information into filtering widgets
+        startDatePicker.getEditor().setText(DataManager.getStartDate());
+        endDatePicker.getEditor().setText(DataManager.getEndDate());
+        primaryDescField.setText(DataManager.getPrimaryDesc());
+        locationField.setText(DataManager.getLocation());
+        startBeatField.setText(DataManager.getStartBeat());
+        endBeatField.setText(DataManager.getEndBeat());
+        startWardField.setText(DataManager.getStartWard());
+        endWardField.setText(DataManager.getEndWard());
+        arrestComboBox.getSelectionModel().select(DataManager.getArrest());
+        domesticComboBox.getSelectionModel().select(DataManager.getDomestic());
+        realTimeCheckBox.setSelected(DataManager.getRealTime());
 
         records = getManager().getLocalCopy();
 
+        // Initialises stored dataset selection
         for (int i=1; i <= DataManager.getDatasets().size(); i++) {
             cbDataset.getItems().add("Dataset " + i);
         }
@@ -173,6 +177,31 @@ public abstract class RecordController extends GUIController {
             updateRecordDisplay();
         });
     }
+
+    /**
+     * Stores the information in the filtering widgets that the user has entered/selected as well as any information
+     * unique to children classes.
+     */
+    @Override
+    protected void storeInfo() {
+        DataManager.setStartDate(startDatePicker.getEditor().getText());
+        DataManager.setEndDate(endDatePicker.getEditor().getText());
+        DataManager.setPrimaryDesc(primaryDescField.getText());
+        DataManager.setLocation(locationField.getText());
+        DataManager.setStartBeat(startBeatField.getText());
+        DataManager.setEndBeat(endBeatField.getText());
+        DataManager.setStartWard(startWardField.getText());
+        DataManager.setEndWard(endWardField.getText());
+        DataManager.setArrest(arrestComboBox.getSelectionModel().getSelectedIndex());
+        DataManager.setDomestic(domesticComboBox.getSelectionModel().getSelectedIndex());
+        DataManager.setRealTime(realTimeCheckBox.isSelected());
+        storeUniqueInfo();
+    }
+
+    /**
+     * Abstract method that allows children classes to store information when swapping to another GUI screen.
+     */
+    protected abstract void storeUniqueInfo();
 
     /**
      * Resets and filters the current list of records stored in the controller then updates the screen's record

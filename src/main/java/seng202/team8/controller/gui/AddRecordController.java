@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -196,6 +195,14 @@ public class AddRecordController extends GUIController implements Initializable 
      */
     @FXML
     private Label lblLonWarning;
+
+	/**
+	 * Stores no info because the add record controller has no information to store.
+	 */
+	@Override
+	protected void storeInfo() {
+		// Do nothing
+	}
     
     /**
      * Initialises the fields for all values to that of the crime record to be edited.
@@ -546,5 +553,4 @@ public class AddRecordController extends GUIController implements Initializable 
 		Stage addRecordPopup = (Stage)((Node)e.getSource()).getScene().getWindow();
 		addRecordPopup.close();
 	}
-
 }
