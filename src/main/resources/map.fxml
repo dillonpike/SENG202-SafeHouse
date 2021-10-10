@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -137,24 +138,24 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Pane maxWidth="175.0">
+                  <StackPane maxWidth="175.0">
                      <children>
-                        <DatePicker fx:id="startDatePicker" onAction="#filterTable" onKeyReleased="#filterTable" promptText="Start Date" />
-                        <Text fx:id="startDateText" fill="RED" layoutX="80.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
+                        <DatePicker fx:id="startDatePicker" maxWidth="175.0" onAction="#filterTable" onKeyReleased="#filterTable" prefWidth="175.0" promptText="Start Date" />
+                        <Text fx:id="startDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" translateX="20.0" translateY="-1.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
-                  </Pane>
-                  <Pane maxWidth="175.0">
+                  </StackPane>
+                  <StackPane maxWidth="175.0">
                      <children>
-                        <DatePicker fx:id="endDatePicker" onAction="#filterTable" onKeyReleased="#filterTable" promptText="End Date" />
-                        <Text fx:id="endDateText" fill="RED" layoutX="80.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
+                        <DatePicker fx:id="endDatePicker" maxWidth="175.0" onAction="#filterTable" onKeyReleased="#filterTable" prefWidth="175.0" promptText="End Date" />
+                        <Text fx:id="endDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" translateX="20.0" translateY="-1.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
-                  </Pane>
+                  </StackPane>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Description">
                      <font>
                         <Font size="14.0" />
@@ -180,47 +181,47 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Pane maxWidth="175.0">
+                  <StackPane maxWidth="175.0">
                      <children>
                         <TextField fx:id="startBeatField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="Start Beat" />
-                        <Text fx:id="startBeatText" fill="RED" layoutX="107.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
+                        <Text fx:id="startBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" translateX="45.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
-                  </Pane>
-                  <Pane maxWidth="175.0">
+                  </StackPane>
+                  <StackPane maxWidth="175.0">
                      <children>
                         <TextField fx:id="endBeatField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="End Beat" />
-                        <Text fx:id="endBeatText" fill="RED" layoutX="107.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
+                        <Text fx:id="endBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" translateX="45.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
-                  </Pane>
+                  </StackPane>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ward Range">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Pane maxWidth="175.0">
+                  <StackPane maxWidth="175.0">
                      <children>
                         <TextField fx:id="startWardField" maxWidth="175.0" onKeyTyped="#filterTable" prefHeight="25.0" prefWidth="175.0" promptText="Start Ward" />
-                        <Text fx:id="startWardText" fill="RED" layoutX="102.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
+                        <Text fx:id="startWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" translateX="45.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
-                  </Pane>
-                  <Pane maxWidth="175.0">
+                  </StackPane>
+                  <StackPane maxWidth="175.0">
                      <children>
                         <TextField fx:id="endWardField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="End Ward" />
-                        <Text fx:id="endWardText" fill="RED" layoutX="102.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
+                        <Text fx:id="endWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" translateX="45.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
-                  </Pane>
+                  </StackPane>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Arrest">
                      <font>
                         <Font size="14.0" />
