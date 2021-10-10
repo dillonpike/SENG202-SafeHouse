@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.gui.TableController">
+<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.gui.TableController">
    <center>
       <Pane id="stuff" prefHeight="620.0" prefWidth="780.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
          <children>
@@ -163,7 +163,7 @@
                   <StackPane maxWidth="175.0">
                      <children>
                         <DatePicker fx:id="startDatePicker" maxWidth="175.0" onAction="#filterTable" onKeyReleased="#filterTable" prefWidth="175.0" promptText="Start Date" />
-                        <Text fx:id="startDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" translateX="20.0" translateY="-1.0" />
+                        <Text fx:id="startDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" translateX="18.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" />
@@ -172,7 +172,7 @@
                   <StackPane maxWidth="175.0">
                      <children>
                         <DatePicker fx:id="endDatePicker" maxWidth="175.0" onAction="#filterTable" onKeyReleased="#filterTable" prefWidth="175.0" promptText="End Date" />
-                        <Text fx:id="endDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" translateX="20.0" translateY="-1.0" />
+                        <Text fx:id="endDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" translateX="18.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -206,7 +206,7 @@
                   <StackPane maxWidth="175.0">
                      <children>
                         <TextField fx:id="startBeatField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="Start Beat" />
-                        <Text fx:id="startBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" translateX="45.0" />
+                        <Text fx:id="startBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" translateX="44.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" />
@@ -215,7 +215,7 @@
                   <StackPane maxWidth="175.0">
                      <children>
                         <TextField fx:id="endBeatField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="End Beat" />
-                        <Text fx:id="endBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" translateX="45.0" />
+                        <Text fx:id="endBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" translateX="44.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -229,7 +229,7 @@
                   <StackPane maxWidth="175.0">
                      <children>
                         <TextField fx:id="startWardField" maxWidth="175.0" onKeyTyped="#filterTable" prefHeight="25.0" prefWidth="175.0" promptText="Start Ward" />
-                        <Text fx:id="startWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" translateX="45.0" />
+                        <Text fx:id="startWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" translateX="42.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" />
@@ -238,7 +238,7 @@
                   <StackPane maxWidth="175.0">
                      <children>
                         <TextField fx:id="endWardField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="End Ward" />
-                        <Text fx:id="endWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" translateX="45.0" />
+                        <Text fx:id="endWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" translateX="42.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -277,7 +277,7 @@
    <right>
       <Pane prefHeight="620.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" layoutX="69.0" layoutY="14.0" prefHeight="35.0" prefWidth="157.0" text="Crime Details">
+            <Label alignment="CENTER" layoutX="69.0" layoutY="14.0" prefHeight="35.0" text="Crime Details">
                <font>
                   <Font size="24.0" />
                </font>

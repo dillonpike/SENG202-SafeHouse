@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.gui.MapController">
+<BorderPane style="-fx-background-color: D6D6D6;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team8.controller.gui.MapController">
    <center>
       <Pane prefHeight="620.0" prefWidth="1080.0" style="-fx-background-color: D6D6D6;" BorderPane.alignment="CENTER">
          <children>
@@ -140,8 +140,8 @@
                   </Text>
                   <StackPane maxWidth="175.0">
                      <children>
-                        <DatePicker fx:id="startDatePicker" maxWidth="175.0" onAction="#filterTable" onKeyReleased="#filterTable" prefWidth="175.0" promptText="Start Date" />
-                        <Text fx:id="startDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" translateX="20.0" translateY="-1.0" />
+                        <DatePicker fx:id="startDatePicker" maxWidth="175.0" onAction="#filterMap" onKeyReleased="#filterMap" prefWidth="175.0" promptText="Start Date" />
+                        <Text fx:id="startDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" translateX="18.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" />
@@ -149,8 +149,8 @@
                   </StackPane>
                   <StackPane maxWidth="175.0">
                      <children>
-                        <DatePicker fx:id="endDatePicker" maxWidth="175.0" onAction="#filterTable" onKeyReleased="#filterTable" prefWidth="175.0" promptText="End Date" />
-                        <Text fx:id="endDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" translateX="20.0" translateY="-1.0" />
+                        <DatePicker fx:id="endDatePicker" maxWidth="175.0" onAction="#filterMap" onKeyReleased="#filterMap" prefWidth="175.0" promptText="End Date" />
+                        <Text fx:id="endDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" translateX="18.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -161,7 +161,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="primaryDescField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0">
+                  <TextField fx:id="primaryDescField" maxWidth="175.0" onKeyTyped="#filterMap" prefWidth="175.0">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -171,7 +171,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="locationField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0">
+                  <TextField fx:id="locationField" maxWidth="175.0" onKeyTyped="#filterMap" prefWidth="175.0">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -183,8 +183,8 @@
                   </Text>
                   <StackPane maxWidth="175.0">
                      <children>
-                        <TextField fx:id="startBeatField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="Start Beat" />
-                        <Text fx:id="startBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" translateX="45.0" />
+                        <TextField fx:id="startBeatField" maxWidth="175.0" onKeyTyped="#filterMap" prefWidth="175.0" promptText="Start Beat" />
+                        <Text fx:id="startBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" translateX="44.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" />
@@ -192,8 +192,8 @@
                   </StackPane>
                   <StackPane maxWidth="175.0">
                      <children>
-                        <TextField fx:id="endBeatField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="End Beat" />
-                        <Text fx:id="endBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" translateX="45.0" />
+                        <TextField fx:id="endBeatField" maxWidth="175.0" onKeyTyped="#filterMap" prefWidth="175.0" promptText="End Beat" />
+                        <Text fx:id="endBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" translateX="44.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -206,8 +206,8 @@
                   </Text>
                   <StackPane maxWidth="175.0">
                      <children>
-                        <TextField fx:id="startWardField" maxWidth="175.0" onKeyTyped="#filterTable" prefHeight="25.0" prefWidth="175.0" promptText="Start Ward" />
-                        <Text fx:id="startWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" translateX="45.0" />
+                        <TextField fx:id="startWardField" maxWidth="175.0" onKeyTyped="#filterMap" prefHeight="25.0" prefWidth="175.0" promptText="Start Ward" />
+                        <Text fx:id="startWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" translateX="42.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" />
@@ -215,8 +215,8 @@
                   </StackPane>
                   <StackPane maxWidth="175.0">
                      <children>
-                        <TextField fx:id="endWardField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="End Ward" />
-                        <Text fx:id="endWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" translateX="45.0" />
+                        <TextField fx:id="endWardField" maxWidth="175.0" onKeyTyped="#filterMap" prefWidth="175.0" promptText="End Ward" />
+                        <Text fx:id="endWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" translateX="42.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -227,7 +227,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="arrestComboBox" onAction="#filterTable" prefWidth="175.0" visibleRowCount="3">
+                  <ComboBox fx:id="arrestComboBox" onAction="#filterMap" prefWidth="175.0" visibleRowCount="3">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -237,12 +237,12 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="domesticComboBox" onAction="#filterTable" prefWidth="175.0">
+                  <ComboBox fx:id="domesticComboBox" onAction="#filterMap" prefWidth="175.0">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <CheckBox fx:id="realTimeCheckBox" mnemonicParsing="false" onAction="#filterTable" selected="true" text="Real-time Updating">
+                  <CheckBox fx:id="realTimeCheckBox" mnemonicParsing="false" onAction="#filterMap" selected="true" text="Real-time Updating">
                      <font>
                         <Font size="14.0" />
                      </font>
