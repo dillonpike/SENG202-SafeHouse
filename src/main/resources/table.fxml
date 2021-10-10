@@ -150,66 +150,119 @@
                      <font>
                         <Font size="24.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="9.0" />
+                     </VBox.margin>
                   </Text>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Range">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <DatePicker fx:id="startDatePicker" onAction="#filterTable" onKeyReleased="#filterTable" promptText="Start Date" />
-                  <DatePicker fx:id="endDatePicker" onAction="#filterTable" onKeyReleased="#filterTable" promptText="End Date" />
-                  <Text fx:id="startDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
-                  <Text fx:id="endDateText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
+                  <Pane maxWidth="175.0">
+                     <children>
+                        <DatePicker fx:id="startDatePicker" onAction="#filterTable" onKeyReleased="#filterTable" promptText="Start Date" />
+                        <Text fx:id="startDateText" fill="RED" layoutX="80.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Pane>
+                  <Pane maxWidth="175.0">
+                     <children>
+                        <DatePicker fx:id="endDatePicker" onAction="#filterTable" onKeyReleased="#filterTable" promptText="End Date" />
+                        <Text fx:id="endDateText" fill="RED" layoutX="80.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Date" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Pane>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Description">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="primaryDescField" onKeyTyped="#filterTable" />
+                  <TextField fx:id="primaryDescField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </TextField>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="locationField" onKeyTyped="#filterTable" />
+                  <TextField fx:id="locationField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </TextField>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Beat Range">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="startBeatField" onKeyTyped="#filterTable" promptText="Start Beat" />
-                  <TextField fx:id="endBeatField" onKeyTyped="#filterTable" promptText="End Beat" />
-                  <Text fx:id="startBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
-                  <Text fx:id="endBeatText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
+                  <Pane maxWidth="175.0">
+                     <children>
+                        <TextField fx:id="startBeatField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="Start Beat" />
+                        <Text fx:id="startBeatText" fill="RED" layoutX="107.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Pane>
+                  <Pane maxWidth="175.0">
+                     <children>
+                        <TextField fx:id="endBeatField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="End Beat" />
+                        <Text fx:id="endBeatText" fill="RED" layoutX="107.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Beat" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Pane>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ward Range">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="startWardField" maxWidth="150.0" minWidth="150.0" onKeyTyped="#filterTable" prefWidth="150.0" promptText="Start Ward">
+                  <Pane maxWidth="175.0">
+                     <children>
+                        <TextField fx:id="startWardField" maxWidth="175.0" onKeyTyped="#filterTable" prefHeight="25.0" prefWidth="175.0" promptText="Start Ward" />
+                        <Text fx:id="startWardText" fill="RED" layoutX="102.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
+                     </children>
                      <VBox.margin>
-                        <Insets />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="endWardField" onKeyTyped="#filterTable" promptText="End Ward">
+                  </Pane>
+                  <Pane maxWidth="175.0">
+                     <children>
+                        <TextField fx:id="endWardField" maxWidth="175.0" onKeyTyped="#filterTable" prefWidth="175.0" promptText="End Ward" />
+                        <Text fx:id="endWardText" fill="RED" layoutX="102.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
+                     </children>
                      <VBox.margin>
-                        <Insets left="20.0" right="20.0" />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
-                  </TextField>
-                  <Text fx:id="startWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
-                  <Text fx:id="endWardText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Ward" />
+                  </Pane>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Arrest">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="arrestComboBox" onAction="#filterTable" prefWidth="150.0" visibleRowCount="3" />
+                  <ComboBox fx:id="arrestComboBox" onAction="#filterTable" prefWidth="175.0" visibleRowCount="3">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </ComboBox>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Domestic">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="domesticComboBox" onAction="#filterTable" prefWidth="150.0" />
+                  <ComboBox fx:id="domesticComboBox" onAction="#filterTable" prefWidth="175.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </ComboBox>
                   <CheckBox fx:id="realTimeCheckBox" mnemonicParsing="false" onAction="#filterTable" selected="true" text="Real-time Updating">
                      <font>
                         <Font size="14.0" />
