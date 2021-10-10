@@ -199,7 +199,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <CheckBox fx:id="realTimeCheckBox" layoutX="23.0" layoutY="515.0" mnemonicParsing="false" onAction="#updateRecordDisplay" selected="true" text="Real-time Updating">
+            <CheckBox fx:id="realTimeCheckBox" layoutX="23.0" layoutY="515.0" mnemonicParsing="false" onAction="#filterTable" selected="true" text="Real-time Updating">
                <font>
                   <Font size="14.0" />
                </font>

@@ -9,6 +9,9 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.time.LocalTime;
 
+/**
+ * Tests methods in the CrimeRecord class.
+ */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CrimeRecordTest extends TestCase {
 

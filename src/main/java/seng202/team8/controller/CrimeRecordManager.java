@@ -65,6 +65,7 @@ public class CrimeRecordManager {
      * @param filename The name/filepath of the file to be imported
      * @throws FileNotFoundException If the filename cannot be found, this is thrown.
      * This should prompt the user to try again, so it will not be handled in this method
+     * @throws CsvValidationException If a line in the file is invalid
      * @return Returns an ArrayList of all lines that contain errors/could not be imported
      */
     public ArrayList<Integer> importFile(String filename) throws IOException, CsvValidationException {
@@ -331,15 +332,6 @@ public class CrimeRecordManager {
             localCopy.add(crime);
             incrementFreqs(crime);
         }
-    }
-
-    /**
-     * Method for checking if a duplicate case number exists
-     * @param crime The crime that may or may not be in the copy
-     * @return True if the crime/case number is in the copy, false otherwise
-     */
-    public boolean checkDuplicate(CrimeRecord crime) {
-        return containedRecords.contains(crime.getCaseNum());
     }
 
     /**
