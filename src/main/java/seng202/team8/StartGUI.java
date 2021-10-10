@@ -27,6 +27,7 @@ public class StartGUI extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			StartGUI.primaryStage = primaryStage;
+			primaryStage.setTitle("SafeHouse");
 			controller = new BasicController();
 			controller.start(primaryStage);
 		} catch(Exception e) {
