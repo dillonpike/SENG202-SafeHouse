@@ -133,10 +133,10 @@ public abstract class RecordController extends GUIController {
     protected CheckBox realTimeCheckBox;
 
     /**
-     * ChoiceBox for selecting a dataset to view.
+     * ComboBox for selecting a dataset to view.
      */
     @FXML
-    protected ChoiceBox<String> cbDataset;
+    protected ComboBox<String> cbDataset;
 
     /**
      * Label for displaying user feedback that's not associated with a GUI element.
