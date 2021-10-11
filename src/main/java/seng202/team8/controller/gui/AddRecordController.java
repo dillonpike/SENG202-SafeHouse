@@ -325,7 +325,8 @@ public class AddRecordController extends GUIController implements Initializable 
      * @return true if the value is accepted, false otherwise.
      */
 	private boolean checkFBI() {
-    	if (!ValidateCrime.validateFbiCD(fldFBI.getText())) {
+		String fbiCD = fldFBI.getText();
+    	if (fbiCD != null && !fbiCD.equals("") && !ValidateCrime.validateFbiCD(fbiCD)) {
     		fldFBI.setStyle("-fx-background-color: red, white; -fx-background-insets: 0, 1; -fx-background-radius: 1px, 0px");
     		lblFBIWarning.setText("Length not 3, only last char can be letter.");
     		lblFBIWarning.setStyle("-fx-text-fill: red");
