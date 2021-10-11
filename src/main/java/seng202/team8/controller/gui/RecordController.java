@@ -391,6 +391,7 @@ public abstract class RecordController extends GUIController {
             try {
                 lblFeedback.setText("");
                 DataManager.getCurrentDataset().exportFile(targetLocation + "/" + dtf.format(now) + ".csv");
+                lblFeedback.setText("Exported dataset");
             } catch (IOException e) {
                 // Bad directory
                 lblFeedback.setText("Invalid directory for export");
