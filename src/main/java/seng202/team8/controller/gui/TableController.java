@@ -190,6 +190,7 @@ public class TableController extends RecordController implements Initializable {
         lblFeedback.setText("");
         filterRecords();
         recordTable.setItems(FXCollections.observableArrayList(records));
+        recordTable.refresh();
     }
 
     /**

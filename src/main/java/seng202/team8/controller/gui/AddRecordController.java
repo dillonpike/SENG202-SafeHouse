@@ -210,6 +210,8 @@ public class AddRecordController extends GUIController implements Initializable 
     public void fillFields() {
     	fldCaseNum.setText(toEdit.getCaseNum());
     	fldDate.setValue(toEdit.getDate());
+    	fldHour.getValueFactory().setValue(toEdit.getTime().getHour());
+		fldMinute.getValueFactory().setValue(toEdit.getTime().getMinute());
     	fldBlock.setText(toEdit.getBlock());
     	fldIUCR.setText(toEdit.getIucr());
     	fldPrimaryDesc.setText(toEdit.getPrimary());
