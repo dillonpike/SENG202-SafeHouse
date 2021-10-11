@@ -72,7 +72,7 @@ Crime records can be viewed on a map by navigating to the map screen, filling in
 
 Crime records can be added by clicking the add button on the table or map screen, filling in the fields in the popup, then clicking confirm. The added record will be added to the bottom of the table or displayed on the map with a marker if visible with the current filtering settings.
 
-Crime records can be edited by navigating to the table screen, clicking a record, clicking the edit button, making some changes in the popup, then clicking confirm.
+Crime records can be edited by navigating to the table screen, clicking a record, clicking the edit button, making some changes in the popup, then clicking confirm. The changes made will instantly be shown in the table.
 
 Crime records can be deleted by navigating to the table screen, clicking a record, then clicking delete. The crime record will then disappear from the table.
 
