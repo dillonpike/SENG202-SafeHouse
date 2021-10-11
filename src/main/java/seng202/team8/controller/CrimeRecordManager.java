@@ -171,6 +171,8 @@ public class CrimeRecordManager {
      * used in importing as programs like excel
      * may chop off leading zeros
      * @param iucr The iucr to be padded
+     * @throws AbsentInformationException if iucr string is empty
+     * @return padded iucr string
      */
     private String padIUCR(String iucr) throws AbsentInformationException {
         // The stringbuilder is a mutable string
