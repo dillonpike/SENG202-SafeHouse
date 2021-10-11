@@ -552,8 +552,7 @@ public class CrimeRecord {
                 "<br>Primary Description: " + primary + "<br>Secondary Description: " + secondary + "<br>Location: " +
                 locDescription + "<br>Arrest Made: " + getWasArrest() + "<br>Domestic: " + getWasDomestic()
                 + "<br>Beat: " + beat + "<br>Ward: " + ward + "<br>FBI CD: " + fbiCD
-                + "<br>X Coord: " + xCoord + "<br>Y Coord: " + yCoord +
-                "<br>Latitude: " + String.format("%.4f", latitude)
+                + "<br>Latitude: " + String.format("%.4f", latitude)
                 + "<br>Longitude: " + String.format("%.4f", longitude));
     }
 
