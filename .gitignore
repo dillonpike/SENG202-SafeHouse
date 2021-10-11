@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 # Eclipse
 .classpath
 .project
@@ -16,6 +15,3 @@
 log/
 target/
 dependency-reduced-pom.xml
-=======
-/.metadata/
->>>>>>> Stashed changes
